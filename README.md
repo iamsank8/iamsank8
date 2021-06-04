@@ -1,0 +1,3 @@
+- 👋 Hi, I’m @iamsank8
+- 👀 I’m interested in Technology which benefits and reduces human efforts.
+- 🌱 I’m currently learning Azure
