@@ -1,4 +1,0 @@
-- 👋 Hi, I’m @iamsank8
-- 👀 I’m interested in Technology which benefits and reduces human efforts.
-- 🌱 I've worked with technologies like .NET, Angular, Azure.
-- ❤️ People should be a core for any product which anyone wants to build.
