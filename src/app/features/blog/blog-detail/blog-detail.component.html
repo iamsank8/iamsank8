@@ -1,0 +1,47 @@
+<section class="blog-detail-section">
+  <div class="container">
+    <!-- Loading spinner -->
+    <div *ngIf="loading" class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+    
+    <!-- Error message -->
+    <div *ngIf="error" class="error-container">
+      <mat-icon color="warn">error</mat-icon>
+      <h3>Blog post not found</h3>
+      <p>The blog post you're looking for doesn't exist or has been removed.</p>
+      <a routerLink="/blog" mat-raised-button color="primary">Back to Blog</a>
+    </div>
+    
+    <!-- Blog post content -->
+    <div *ngIf="!loading && !error && blogPost" class="blog-content">
+      <div class="blog-header">
+        <h1 class="blog-title">{{ blogPost.title }}</h1>
+        <div class="blog-meta">
+          <span class="blog-date">{{ getFormattedDate(blogPost.publishDate) }}</span> | 
+          <span class="blog-author">{{ blogPost.author }}</span>
+        </div>
+        
+        <div class="blog-tags">
+          <mat-chip-set>
+            <mat-chip *ngFor="let tag of blogPost.tags" color="primary">{{ tag }}</mat-chip>
+          </mat-chip-set>
+        </div>
+      </div>
+      
+      <div class="blog-image" *ngIf="blogPost.imageUrl">
+        <img [src]="blogPost.imageUrl" [alt]="blogPost.title">
+      </div>
+      
+      <div class="blog-body">
+        <div [innerHTML]="blogPost.content"></div>
+      </div>
+      
+      <div class="blog-actions">
+        <a routerLink="/blog" mat-button>
+          <mat-icon>arrow_back</mat-icon> Back to Blog
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

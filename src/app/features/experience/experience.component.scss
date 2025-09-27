@@ -67,16 +67,61 @@
   color: #666;
 }
 
-.domain {
-  margin: 16px 0;
+.position-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.employment-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.employment-type {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.location {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.summary {
+  margin: 16px 0 24px 0;
+  
+  p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+}
+
+.domains {
+  margin: 16px 0 24px 0;
   color: #555;
 }
 
-.responsibilities, .tasks, .technologies {
+.domain-chips, .skills-chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.achievements, .skills-gained {
   margin-top: 24px;
 }
 
-.responsibilities h3, .tasks h3, .technologies h3 {
+.achievements h3, .skills-gained h3 {
   font-size: 1.2rem;
   color: #3f51b5;
   margin-bottom: 12px;
@@ -90,12 +135,6 @@ li {
   margin-bottom: 8px;
   line-height: 1.5;
   color: #555;
-}
-
-.tech-chips {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 8px;
 }
 
 .mat-chip {
@@ -119,5 +158,76 @@ li {
   
   .experience-details {
     margin-left: 0;
+  }
+  
+  .timeline-connector {
+    left: -10px;
+  }
+  
+  .experience-header h1 {
+    font-size: 2rem;
+  }
+  
+  .experience-header p {
+    font-size: 1rem;
+  }
+  
+  .experience-container {
+    padding: 20px 12px;
+  }
+  
+  .mat-card-title {
+    font-size: 1.3rem;
+  }
+  
+  .mat-card-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-timeline {
+    padding-left: 15px;
+  }
+  
+  .timeline-connector {
+    left: -5px;
+  }
+  
+  .tech-chips {
+    justify-content: center;
+  }
+  
+  .achievements h3, .skills-gained h3 {
+    font-size: 1.1rem;
+  }
+  
+  .position-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .employment-info {
+    align-items: flex-start;
+    margin-top: 8px;
+  }
+  
+  .domain-chips, .skills-chips {
+    justify-content: flex-start;
+  }
+  
+  .mat-chip {
+    margin: 3px;
+    font-size: 0.9rem;
+    height: 28px;
+  }
+  
+  .experience-period {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+  
+  .experience-card {
+    margin-bottom: 40px;
   }
 }

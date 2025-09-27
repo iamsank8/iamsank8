@@ -1,7 +1,42 @@
 <div class="projects-container">
   <div class="projects-header">
-    <h1>Projects</h1>
-    <p>Key projects I've worked on throughout my career</p>
+    <h1>Technical Projects</h1>
+    <p>Showcase of technical solutions and project outcomes I've delivered</p>
+  </div>
+
+  <!-- Filter Section -->
+  <div class="filter-section" *ngIf="!loading">
+    <form [formGroup]="filterForm" class="filter-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Search Projects</mat-label>
+        <input matInput formControlName="search" placeholder="Search by name or description">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Domain</mat-label>
+        <mat-select formControlName="domain">
+          <mat-option value="">All Domains</mat-option>
+          <mat-option *ngFor="let domain of availableDomains" [value]="domain">
+            {{domain}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Technology</mat-label>
+        <mat-select formControlName="technology">
+          <mat-option value="">All Technologies</mat-option>
+          <mat-option *ngFor="let tech of availableTechnologies" [value]="tech">
+            {{tech}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <button mat-raised-button color="accent" (click)="resetFilters()">
+        <mat-icon>refresh</mat-icon> Reset Filters
+      </button>
+    </form>
   </div>
 
   <div *ngIf="loading" class="loading-container">
@@ -15,34 +50,58 @@
   </div>
 
   <div class="projects-grid" *ngIf="!loading">
-    <mat-card *ngFor="let project of projects" class="project-card">
+    <div *ngIf="filteredProjects.length === 0" class="no-results">
+      <mat-icon>search_off</mat-icon>
+      <p>No projects match your filter criteria</p>
+      <button mat-button color="primary" (click)="resetFilters()">Clear Filters</button>
+    </div>
+    <mat-card *ngFor="let project of filteredProjects" class="project-card">
+      <div class="project-image-placeholder">
+        <mat-icon class="project-icon">{{ getProjectIcon(project.domain || project.domains || '') }}</mat-icon>
+      </div>
+      
       <mat-card-header>
         <mat-card-title>{{ project.name }}</mat-card-title>
-        <mat-card-subtitle>{{ project.company }} | {{ project.period }}</mat-card-subtitle>
+        <mat-card-subtitle>
+          <span class="project-organization">{{ project.company }}</span>
+          <span class="project-period">{{ project.period }}</span>
+        </mat-card-subtitle>
       </mat-card-header>
       
       <mat-card-content>
-        <div class="project-domain">
-          <strong>Domain:</strong> {{ project.domain }}
+        <div class="project-domain-badge">
+          <mat-chip color="primary" selected>{{ project.domain || project.domains }}</mat-chip>
         </div>
         
         <div class="project-description">
           <p>{{ project.description }}</p>
         </div>
         
-        <div class="project-responsibilities">
-          <h3>Key Responsibilities</h3>
-          <ul>
-            <li *ngFor="let responsibility of project.responsibilities">{{ responsibility }}</li>
+        <div class="project-highlights" *ngIf="project.responsibilities && project.responsibilities.length > 0">
+          <h3>Technical Highlights</h3>
+          <ul class="highlights-list">
+            <li *ngFor="let highlight of getProjectHighlights(project.responsibilities)">
+              <mat-icon class="highlight-icon">check_circle</mat-icon>
+              {{ highlight }}
+            </li>
           </ul>
         </div>
         
         <div class="project-technologies">
-          <h3>Technologies Used</h3>
-          <div class="tech-chips">
+          <h3>Tech Stack</h3>
+          <div class="tech-stack">
             <mat-chip-set>
-              <mat-chip *ngFor="let tech of project.technologies" color="accent" selected>{{ tech }}</mat-chip>
+              <mat-chip *ngFor="let tech of project.technologies"
+                       [color]="getTechChipColor(tech)"
+                       selected>{{ tech }}</mat-chip>
             </mat-chip-set>
+          </div>
+        </div>
+        
+        <div class="project-impact" *ngIf="getProjectImpact(project)">
+          <div class="impact-badge">
+            <mat-icon>trending_up</mat-icon>
+            <span>{{ getProjectImpact(project) }}</span>
           </div>
         </div>
       </mat-card-content>

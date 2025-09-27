@@ -1,12 +1,16 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
-import { HeaderComponent } from './components/header/header.component';
-import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { ThemeService } from './services/theme.service';
+import { SecurityService } from './services/security.service';
+import { AnalyticsService } from './services/analytics.service';
 
+/**
+ * Core module providing application-wide services and components.
+ * This module is being migrated to standalone components.
+ */
 @NgModule({
   imports: [
     CommonModule,
@@ -14,15 +18,27 @@ import { ThemeService } from './services/theme.service';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [ThemeService],
-  declarations: [
-    HeaderComponent,
-    ThemeToggleComponent
+  providers: [
+    ThemeService,
+    SecurityService,
+    AnalyticsService
   ],
+  declarations: [],
   exports: [
-    HeaderComponent,
-    ThemeToggleComponent,
     MaterialModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CoreModule {}
+export class CoreModule {
+  // Static method to use in standalone component bootstrapping
+  static forRoot() {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        ThemeService,
+        SecurityService,
+        AnalyticsService
+      ]
+    };
+  }
+}

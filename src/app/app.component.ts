@@ -5,11 +5,18 @@ import { ThemeService } from './core/services/theme.service';
 import { AnalyticsService } from './core/services/analytics.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { CoreModule } from './core/core.module';
+import { FeaturesModule } from './features/features.module';
+import { HeaderComponent } from './core/components/header/header.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, CoreModule, FeaturesModule, HeaderComponent]
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Sanket Thotange - Portfolio';

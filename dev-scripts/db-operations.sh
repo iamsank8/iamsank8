@@ -172,76 +172,28 @@ EOF
 ]
 EOF
 
-  # Import data to Firestore
-  echo -e "${BLUE}Importing data to Firestore...${NC}"
+  # Import data to Firestore using new data manager
+  echo -e "${BLUE}Importing data to Firestore using service account...${NC}"
   
-  # Check if we're using emulator or production
-  if [ -z "$FIRESTORE_EMULATOR_HOST" ]; then
-    # Production mode
-    echo -e "${YELLOW}Using production Firestore...${NC}"
-    
-    # Import skills
-    node -e "
-      const admin = require('firebase-admin');
-      const fs = require('fs');
-      
-      // Initialize Firebase Admin
-      admin.initializeApp();
-      
-      const db = admin.firestore();
-      const skills = JSON.parse(fs.readFileSync('./data/skills.json', 'utf8'));
-      
-      // Import skills
-      const batch = db.batch();
-      skills.forEach((skill, index) => {
-        const ref = db.collection('skills').doc('skill-' + (index + 1));
-        batch.set(ref, skill);
-      });
-      
-      // Import projects
-      const projects = JSON.parse(fs.readFileSync('./data/projects.json', 'utf8'));
-      projects.forEach(project => {
-        const ref = db.collection('projects').doc(project.id);
-        batch.set(ref, project);
-      });
-      
-      batch.commit()
-        .then(() => console.log('Data imported successfully'))
-        .catch(err => console.error('Error importing data:', err))
-        .finally(() => process.exit());
-    "
-  else
-    # Emulator mode
-    echo -e "${YELLOW}Using Firestore emulator...${NC}"
-    firebase emulators:exec --only firestore "node -e \"
-      const admin = require('firebase-admin');
-      const fs = require('fs');
-      
-      // Initialize Firebase Admin
-      admin.initializeApp();
-      
-      const db = admin.firestore();
-      const skills = JSON.parse(fs.readFileSync('./data/skills.json', 'utf8'));
-      
-      // Import skills
-      const batch = db.batch();
-      skills.forEach((skill, index) => {
-        const ref = db.collection('skills').doc('skill-' + (index + 1));
-        batch.set(ref, skill);
-      });
-      
-      // Import projects
-      const projects = JSON.parse(fs.readFileSync('./data/projects.json', 'utf8'));
-      projects.forEach(project => {
-        const ref = db.collection('projects').doc(project.id);
-        batch.set(ref, project);
-      });
-      
-      batch.commit()
-        .then(() => console.log('Data imported successfully'))
-        .catch(err => console.error('Error importing data:', err));
-    \""
+  # Check if .env file exists
+  if [ ! -f ".env" ]; then
+    echo -e "${YELLOW}Creating .env file from template...${NC}"
+    cp .env.example .env
+    echo -e "${RED}Please update the .env file with your Firebase configuration and service account path.${NC}"
+    echo -e "${RED}Then place your service account key at: config/firebase/service-account-key.json${NC}"
+    exit 1
   fi
+  
+  # Check if service account key exists
+  if [ ! -f "config/firebase/service-account-key.json" ]; then
+    echo -e "${RED}Service account key not found at: config/firebase/service-account-key.json${NC}"
+    echo -e "${RED}Please download your Firebase service account key and place it in the config/firebase/ directory.${NC}"
+    echo -e "${RED}See config/firebase/README.md for detailed instructions.${NC}"
+    exit 1
+  fi
+  
+  # Use the new data manager script
+  node scripts/data-manager.js seed
   
   echo -e "${GREEN}Database seeding completed.${NC}"
 }
@@ -315,68 +267,22 @@ clear_database() {
     exit 0
   fi
   
-  echo -e "${YELLOW}Clearing Firestore database...${NC}"
+  echo -e "${YELLOW}Clearing Firestore database using service account...${NC}"
   
-  # Check if we're using emulator or production
-  if [ -z "$FIRESTORE_EMULATOR_HOST" ]; then
-    # Production mode
-    echo -e "${YELLOW}Clearing production Firestore...${NC}"
-    firebase firestore:delete --all-collections --yes
-  else
-    # Emulator mode
-    echo -e "${YELLOW}Clearing Firestore emulator...${NC}"
-    firebase emulators:exec --only firestore "node -e \"
-      const admin = require('firebase-admin');
-      
-      // Initialize Firebase Admin
-      admin.initializeApp();
-      
-      const db = admin.firestore();
-      
-      async function deleteCollection(collectionPath) {
-        const collectionRef = db.collection(collectionPath);
-        const query = collectionRef.limit(500);
-        
-        return new Promise((resolve, reject) => {
-          deleteQueryBatch(query, resolve).catch(reject);
-        });
-      }
-      
-      async function deleteQueryBatch(query, resolve) {
-        const snapshot = await query.get();
-        
-        const batchSize = snapshot.size;
-        if (batchSize === 0) {
-          // When there are no documents left, we are done
-          resolve();
-          return;
-        }
-        
-        // Delete documents in a batch
-        const batch = db.batch();
-        snapshot.docs.forEach((doc) => {
-          batch.delete(doc.ref);
-        });
-        await batch.commit();
-        
-        // Recurse on the next process tick, to avoid
-        // exploding the stack.
-        process.nextTick(() => {
-          deleteQueryBatch(query, resolve);
-        });
-      }
-      
-      // Delete collections
-      Promise.all([
-        deleteCollection('skills'),
-        deleteCollection('projects')
-      ])
-        .then(() => console.log('All collections deleted'))
-        .catch(err => console.error('Error deleting collections:', err));
-    \""
+  # Check if .env file exists
+  if [ ! -f ".env" ]; then
+    echo -e "${RED}Environment file not found. Please run 'npm run db:seed' first to set up configuration.${NC}"
+    exit 1
   fi
   
-  echo -e "${GREEN}Database clearing completed.${NC}"
+  # Check if service account key exists
+  if [ ! -f "config/firebase/service-account-key.json" ]; then
+    echo -e "${RED}Service account key not found. Please see config/firebase/README.md for setup instructions.${NC}"
+    exit 1
+  fi
+  
+  # Use the new data manager script
+  node scripts/data-manager.js clear
 }
 
 # Execute the specified command

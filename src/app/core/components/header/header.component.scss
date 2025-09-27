@@ -27,6 +27,16 @@
   display: none;
 }
 
+@media (max-width: 1024px) {
+  .nav-links a {
+    padding: 0 8px;
+  }
+  
+  .logo {
+    font-size: 1.3rem;
+  }
+}
+
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -34,5 +44,23 @@
   
   .mobile-menu-button {
     display: block;
+  }
+  
+  .mat-toolbar {
+    padding: 0 8px;
+  }
+  
+  .logo {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1rem;
+  }
+  
+  .mat-toolbar {
+    height: 56px;
   }
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../../core/material.module';
 
 interface Education {
   degree: string;
@@ -11,7 +13,10 @@ interface Education {
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
-  styleUrls: ['./education.component.scss']
+  styleUrls: ['./education.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MaterialModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EducationComponent implements OnInit {
   educations: Education[] = [

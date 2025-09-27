@@ -8,8 +8,14 @@ import { ExperienceComponent } from './features/experience/experience.component'
 import { EducationComponent } from './features/education/education.component';
 import { ProjectsComponent } from './features/projects/projects.component';
 import { ContactComponent } from './features/contact/contact.component';
+import { BlogComponent } from './features/blog/blog.component';
+import { BlogDetailComponent } from './features/blog/blog-detail/blog-detail.component';
 
-const routes: Routes = [
+/**
+ * Application routes configuration
+ * All components are now standalone components
+ */
+export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'skills', component: SkillsComponent },
@@ -17,6 +23,8 @@ const routes: Routes = [
   { path: 'education', component: EducationComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'blog', component: BlogComponent },
+  { path: 'blog/:id', component: BlogDetailComponent },
   { path: '**', redirectTo: '' }
 ];
 

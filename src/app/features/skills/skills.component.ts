@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SkillsService, SkillCategory, SkillItem } from '../../core/services/skills.service';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../../core/material.module';
 
 interface Skill {
   name: string;
@@ -10,7 +12,10 @@ interface Skill {
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
-  styleUrls: ['./skills.component.scss']
+  styleUrls: ['./skills.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MaterialModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SkillsComponent implements OnInit {
   skills: Skill[] = [];

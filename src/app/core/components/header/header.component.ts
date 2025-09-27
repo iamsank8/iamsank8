@@ -1,11 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MaterialModule } from '../../material.module';
+import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 
 @Component({
-  selector: 'header',
+  selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, MaterialModule, ThemeToggleComponent]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isDarkTheme = false;
