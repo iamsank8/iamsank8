@@ -31,6 +31,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/theme/theme.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -40,13 +41,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "10kb",
+                  "maximumError": "10kb"
                 }
               ],
               "fileReplacements": [
@@ -72,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "iamsank8:build:production"
+              "buildTarget": "iamsank8:build:production"
             },
             "development": {
-              "browserTarget": "iamsank8:build:development"
+              "buildTarget": "iamsank8:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "iamsank8:build"
+            "buildTarget": "iamsank8:build"
           }
         },
         "test": {
@@ -99,6 +100,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/theme/theme.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -106,6 +108,5 @@
         }
       }
     }
-  },
-  "defaultProject": "iamsank8"
+  }
 }

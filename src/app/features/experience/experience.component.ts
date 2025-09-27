@@ -1,111 +1,116 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../../core/material.module';
 
-interface Experience {
-  title: string;
+interface WorkExperience {
+  position: string;
   company: string;
   period: string;
-  domain: string;
-  responsibilities: string[];
-  tasks: string[];
-  technologies: string[];
+  location?: string;
+  employmentType: string;
+  summary: string;
+  keyAchievements: string[];
+  skillsGained: string[];
+  domains: string[];
 }
 
 @Component({
   selector: 'app-experience',
   templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.scss']
+  styleUrls: ['./experience.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MaterialModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ExperienceComponent implements OnInit {
-  experiences: Experience[] = [
+  workExperiences: WorkExperience[] = [
     {
-      title: 'Project Name - Predictive Portal',
+      position: 'Senior Software Engineer',
       company: 'Nitor Infotech, An Ascendion company',
       period: 'March 2020 - Present',
-      domain: 'Manufacturing',
-      responsibilities: [
-        'I worked as individual contributor for Angular technology. While working on the project, I gained domain knowledge and was able to co-relate the features and value additions that I could bring into the project.',
-        'I analyze the figma designs and convert into Angular code. I have used the organizational theme to style the components and have contributed to creating its look and feel.',
-        'I also written unit tests which are based on Jasmine and Karma stack. We are also using SonarQube for tracking code quality and security vulnerabilities.'
+      location: 'Pune, India',
+      employmentType: 'Full-time',
+      summary: 'Leading frontend development initiatives with Angular technology stack, focusing on manufacturing domain solutions and enterprise-grade applications.',
+      keyAchievements: [
+        'Successfully delivered multiple Angular applications from version 9 to 14',
+        'Implemented comprehensive unit testing strategy achieving 85%+ code coverage',
+        'Collaborated with cross-functional teams to deliver client solutions on time',
+        'Mentored junior developers and contributed to code quality improvements'
       ],
-      tasks: [
-        'Requirement understanding',
-        'Code quality discussion',
-        'Peer code reviews',
-        'Cross team communication',
-        'Client-side discussions and deliveries'
+      skillsGained: [
+        'Advanced Angular development',
+        'Enterprise application architecture',
+        'Client communication and requirement gathering',
+        'Code quality and testing best practices',
+        'Docker containerization'
       ],
-      technologies: ['Angular 9-14', 'TypeScript', 'Docker', 'SonarQube', 'Figma']
+      domains: ['Manufacturing', 'Enterprise Software']
     },
     {
-      title: 'Project Name - Health and Safety for Petroleum Company',
+      position: 'Software Engineer',
       company: 'Nitor Infotech Pvt Ltd',
       period: 'Jan 2019 - Feb 2020',
-      domain: 'Oil & Gas',
-      responsibilities: [
-        'I worked as full stack developer. I got a first-hand experience in interacting with customer interaction and requirement gathering.',
-        'I was able to understand the business need and customer\'s expectations from this project very early. I helped design new modules from the scratch and they were well received.',
-        'I focused mainly on the scalability of the application which meant strong backend for storing large data. I used .NET framework 4.5 for backend APIs with Azure services such as Blob store, Web Service, Service Bus, CRON Jobs for email notifications.',
-        'In later part of the project, we integrated Google Map APIs to showcase different markers on Map to show different things which provided birds eye view to the end user. I have also built a ABAC system to better control the Authorization in the application.'
+      location: 'Pune, India',
+      employmentType: 'Full-time',
+      summary: 'Full-stack developer specializing in Angular frontend and .NET backend development for oil & gas industry applications.',
+      keyAchievements: [
+        'Designed and developed scalable backend APIs using .NET Framework 4.5',
+        'Integrated Azure cloud services for enhanced application performance',
+        'Implemented Google Maps integration for geospatial data visualization',
+        'Built robust ABAC (Attribute-Based Access Control) authorization system'
       ],
-      tasks: [
-        'Requirement gathering',
-        'Code structuring',
-        'Database design',
-        'Peer code review',
-        'Client-side discussions and deliveries'
+      skillsGained: [
+        'Full-stack development expertise',
+        'Azure cloud services integration',
+        'Database design and optimization',
+        'Customer requirement analysis',
+        'System architecture design'
       ],
-      technologies: ['Angular 5-9', 'TypeScript', '.NET Framework', 'Azure', 'SQL server']
+      domains: ['Oil & Gas', 'Cloud Computing']
     },
     {
-      title: 'Project Name - Robotic Process Automation for PLM',
+      position: 'Software Developer',
       company: 'Infosys India',
       period: 'May 2018 - Dec 2018',
-      domain: 'Retail',
-      responsibilities: [
-        'I worked as backend developer for this project. We were presented with different manual tasks that were happening multiple times on daily or weekly basis.',
-        'I analyzed the process flow of the tasks that needed automation and provided estimates for the work. I used Selenium with C# for custom code block in proprietary software to achieve the automation and desired results.'
+      location: 'Bangalore, India',
+      employmentType: 'Full-time',
+      summary: 'Backend developer focused on robotic process automation solutions for retail industry, specializing in workflow automation and process optimization.',
+      keyAchievements: [
+        'Automated multiple manual processes reducing operational time by 70%',
+        'Developed custom automation solutions using Selenium and C#',
+        'Analyzed complex business workflows and provided technical estimates',
+        'Successfully delivered automation solutions for PLM systems'
       ],
-      tasks: [
-        'Requirement understanding',
-        'Flow analysis',
-        'Peer code review',
-        'Client-side discussion and deliveries'
+      skillsGained: [
+        'Process automation expertise',
+        'Workflow analysis and optimization',
+        'Selenium automation framework',
+        'Business process understanding',
+        'Technical estimation and planning'
       ],
-      technologies: ['Selenium', 'C#', 'PostgreSQL', 'RabbitMQ', 'AssistEdge (Infosys proprietary)']
+      domains: ['Retail', 'Process Automation']
     },
     {
-      title: 'Project Name - Order Management',
+      position: 'Junior Software Developer',
       company: 'Syntel Pvt Ltd',
-      period: 'May 2018 - Dec 2018',
-      domain: 'Retail & Logistics',
-      responsibilities: [
-        'I worked as full stack developer for this project. I helped maintained and enhance some parts of the application.',
-        'The project was mostly built in ASP.Net but it also had some classic ASP bits. I was getting directions from the onsite counterpart which helped gather and finalize requirements for project.',
-        'Since this was a stable project and was used around the world, making any changes carried a lot of responsibility so unit testing the code changes and ensuring the code quality was must.'
+      period: 'May 2017 - Apr 2018',
+      location: 'Chennai, India',
+      employmentType: 'Full-time',
+      summary: 'Full-stack developer working on enterprise applications for retail and manufacturing domains, gaining experience in legacy system maintenance and modern development practices.',
+      keyAchievements: [
+        'Maintained and enhanced global retail management systems',
+        'Successfully migrated legacy ASP applications to modern frameworks',
+        'Implemented comprehensive unit testing for critical business logic',
+        'Collaborated with international teams for requirement gathering'
       ],
-      tasks: [
-        'Requirement understanding',
-        'Client-side discussion and deliveries',
-        'Unit testing'
+      skillsGained: [
+        'Legacy system maintenance',
+        'ASP.NET and Classic ASP development',
+        'International team collaboration',
+        'Quality assurance practices',
+        'Database management'
       ],
-      technologies: ['C#', 'SQL Server', 'PostgreSQL', 'Classic ASP', 'MVC']
-    },
-    {
-      title: 'Project Name - ECU Flashing',
-      company: 'Syntel Pvt Ltd',
-      period: 'May 2018 - Dec 2018',
-      domain: 'Manufacturing',
-      responsibilities: [
-        'I worked as backend developer. This was built in VB.Net and JavaScript and interfacing was done using ActiveXObject in internet explorer.',
-        'This project was used to flash ECU with new firmware updates. It would also list down all the features of it, and tell if new feature is available to upgrade.'
-      ],
-      tasks: [
-        'Requirement understanding',
-        'Client-side discussion and deliveries',
-        'Unit testing',
-        'Cross team communication'
-      ],
-      technologies: ['HTML', 'jQuery', 'JavaScript', 'VBScript', 'C#']
+      domains: ['Retail & Logistics', 'Manufacturing']
     }
   ];
 

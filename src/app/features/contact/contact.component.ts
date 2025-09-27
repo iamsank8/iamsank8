@@ -1,20 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContactService } from '../../core/services/contact.service';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../../core/material.module';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  standalone: true,
+  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ContactComponent implements OnInit {
-  contactForm!: FormGroup;
+  contactForm!: UntypedFormGroup;
   submitted = false;
   loading = false;
   
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private contactService: ContactService,
     private snackBar: MatSnackBar
   ) { }

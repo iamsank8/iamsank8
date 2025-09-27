@@ -8,8 +8,10 @@
     <a mat-button routerLink="/experience" routerLinkActive="active">Experience</a>
     <a mat-button routerLink="/projects" routerLinkActive="active">Projects</a>
     <a mat-button routerLink="/education" routerLinkActive="active">Education</a>
+    <a mat-button routerLink="/blog" routerLinkActive="active">Blog</a>
     <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
   </div>
+  <app-theme-toggle></app-theme-toggle>
   <button mat-icon-button [matMenuTriggerFor]="menu" class="mobile-menu-button">
     <mat-icon>menu</mat-icon>
   </button>
@@ -20,6 +22,12 @@
     <a mat-menu-item routerLink="/experience">Experience</a>
     <a mat-menu-item routerLink="/projects">Projects</a>
     <a mat-menu-item routerLink="/education">Education</a>
+    <a mat-menu-item routerLink="/blog">Blog</a>
     <a mat-menu-item routerLink="/contact">Contact</a>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="toggleTheme()">
+      <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      <span>{{ isDarkTheme ? 'Light Theme' : 'Dark Theme' }}</span>
+    </button>
   </mat-menu>
 </mat-toolbar>

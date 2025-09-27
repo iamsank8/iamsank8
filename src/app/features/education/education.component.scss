@@ -17,16 +17,20 @@
 
 .education-header p {
   font-size: 1.2rem;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
 }
 
 .education-content {
-  background-color: #fff;
+  background-color: var(--card-background);
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 32px;
   margin-bottom: 40px;
   overflow-x: auto;
+  color: var(--text-color);
 }
 
 .education-table {
@@ -41,7 +45,8 @@
 
 .mat-cell {
   font-size: 0.95rem;
-  color: #555;
+  color: var(--text-color);
+  opacity: 0.9;
 }
 
 .education-cards {
@@ -54,6 +59,8 @@
 
 .education-avatar {
   background-color: #3f51b5;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,6 +93,8 @@
 
 .certification-avatar {
   background-color: #ff4081;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,7 +110,8 @@
 }
 
 .mat-card-subtitle {
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
 }
 
 .mat-card-content {
@@ -109,7 +119,8 @@
 }
 
 .mat-card-content p {
-  color: #555;
+  color: var(--text-color);
+  opacity: 0.9;
   line-height: 1.5;
 }
 
@@ -121,5 +132,17 @@
   .education-cards {
     display: block; /* Show cards on mobile */
     margin-bottom: 40px;
+  }
+}
+
+// Dark theme support
+:host-context(.dark-theme) {
+  .education-content {
+    background-color: var(--card-background);
+    color: var(--text-color);
+  }
+  
+  .mat-header-cell {
+    color: #7986cb;
   }
 }

@@ -135,18 +135,23 @@ app.get('/api/skills', (req, res) => {
         { name: 'JavaScript', level: 85 },
         { name: 'HTML5', level: 90 },
         { name: 'CSS3/SCSS', level: 85 },
-        { name: 'jQuery', level: 80 }
+        { name: 'RxJS', level: 85 },
+        { name: 'Angular Material', level: 90 },
+        { name: 'Responsive Design', level: 85 },
+        { name: 'PWA', level: 75 }
       ]
     },
     {
       category: 'Backend',
       items: [
         { name: 'C#', level: 85 },
-        { name: 'ASP.NET', level: 80 },
+        { name: 'ASP.NET Core', level: 80 },
         { name: 'MVC', level: 75 },
         { name: 'Entity Framework', level: 70 },
-        { name: 'Web Services', level: 75 },
-        { name: 'Node.js', level: 65 }
+        { name: 'RESTful APIs', level: 85 },
+        { name: 'Node.js', level: 75 },
+        { name: 'Express', level: 70 },
+        { name: 'Firebase Functions', level: 80 }
       ]
     },
     {
@@ -154,24 +159,48 @@ app.get('/api/skills', (req, res) => {
       items: [
         { name: 'SQL Server', level: 80 },
         { name: 'PostgreSQL', level: 75 },
-        { name: 'MongoDB', level: 60 }
+        { name: 'MongoDB', level: 65 },
+        { name: 'Firestore', level: 80 },
+        { name: 'Redis', level: 60 }
       ]
     },
     {
-      category: 'DevOps & Tools',
+      category: 'DevOps & Cloud',
       items: [
         { name: 'Git', level: 85 },
-        { name: 'Docker', level: 70 },
-        { name: 'Azure', level: 65 },
+        { name: 'GitHub Actions', level: 80 },
+        { name: 'Docker', level: 75 },
+        { name: 'Azure', level: 70 },
+        { name: 'Firebase', level: 85 },
         { name: 'SonarQube', level: 75 },
-        { name: 'Figma', level: 70 }
+        { name: 'CI/CD', level: 80 }
       ]
     },
     {
       category: 'AI & ML',
       items: [
-        { name: 'Prompt Engineering', level: 80 },
-        { name: 'Local LLM Integration', level: 70 }
+        { name: 'Prompt Engineering', level: 85 },
+        { name: 'LLM Integration', level: 80 },
+        { name: 'AI-powered UX', level: 75 },
+        { name: 'ChatGPT API', level: 80 }
+      ]
+    },
+    {
+      category: 'UI/UX',
+      items: [
+        { name: 'Figma', level: 75 },
+        { name: 'Responsive Design', level: 85 },
+        { name: 'Accessibility', level: 80 },
+        { name: 'User Testing', level: 70 }
+      ]
+    },
+    {
+      category: 'Security',
+      items: [
+        { name: 'OWASP', level: 75 },
+        { name: 'Authentication', level: 80 },
+        { name: 'Authorization', level: 80 },
+        { name: 'Content Security Policy', level: 85 }
       ]
     }
   ];

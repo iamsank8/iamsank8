@@ -15,10 +15,13 @@
 }
 
 .about-content {
-  background-color: #fff;
+  background-color: var(--card-background);
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 32px;
+  color: var(--text-color);
 }
 
 .profile-section {
@@ -36,6 +39,8 @@
   height: 150px;
   border-radius: 50%;
   background-color: #e0e0e0;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,12 +56,13 @@
 .profile-details h2 {
   font-size: 1.8rem;
   margin-bottom: 8px;
-  color: #333;
+  color: var(--text-color);
 }
 
 .profile-details h3 {
   font-size: 1.3rem;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
   margin-bottom: 16px;
 }
 
@@ -90,7 +96,8 @@ mat-divider {
 
 .career-objective p {
   line-height: 1.6;
-  color: #555;
+  color: var(--text-color);
+  opacity: 0.9;
 }
 
 .summary-section ul {
@@ -100,7 +107,8 @@ mat-divider {
 .summary-section li {
   margin-bottom: 8px;
   line-height: 1.6;
-  color: #555;
+  color: var(--text-color);
+  opacity: 0.9;
 }
 
 .info-grid {
@@ -116,12 +124,13 @@ mat-divider {
 
 .info-label {
   font-weight: 500;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
   margin-bottom: 4px;
 }
 
 .info-value {
-  color: #333;
+  color: var(--text-color);
 }
 
 @media (max-width: 768px) {
