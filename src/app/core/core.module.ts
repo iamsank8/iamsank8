@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './components/header/header.component';
+import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
+import { ThemeService } from './services/theme.service';
 
 @NgModule({
   imports: [
@@ -12,8 +14,15 @@ import { HeaderComponent } from './components/header/header.component';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [],
-  declarations: [HeaderComponent],
-  exports: [HeaderComponent, MaterialModule],
+  providers: [ThemeService],
+  declarations: [
+    HeaderComponent,
+    ThemeToggleComponent
+  ],
+  exports: [
+    HeaderComponent,
+    ThemeToggleComponent,
+    MaterialModule
+  ],
 })
 export class CoreModule {}

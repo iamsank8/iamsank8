@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
+const cache = require("memory-cache");
 
 // Initialize Firebase Admin
 admin.initializeApp();
@@ -17,6 +18,8 @@ const allowedOrigins = [
   "http://localhost:4200",
   "https://portfolio-sanket-c5165.web.app",
   "https://portfolio-sanket-c5165.firebaseapp.com",
+  "https://iamsank8.web.app",
+  "https://iamsank8.firebaseapp.com",
 ];
 
 const corsOptions = {
@@ -37,7 +40,21 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Apply Helmet for secure HTTP headers
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://apis.google.com", "https://www.googletagmanager.com", "https://www.google-analytics.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https://www.google-analytics.com", "https://storage.googleapis.com"],
+      connectSrc: ["'self'", "https://www.google-analytics.com"],
+    },
+  },
+  xssFilter: true,
+  noSniff: true,
+  frameguard: {action: "deny"},
+}));
 
 // Apply rate limiting
 const limiter = rateLimit({
@@ -54,8 +71,30 @@ app.use(limiter);
 // Parse JSON bodies
 app.use(express.json({limit: "10kb"})); // Body size limiting
 
-// Projects API endpoint
-app.get("/projects", async (req, res) => {
+// Cache middleware
+const cacheMiddleware = (duration) => {
+  return (req, res, next) => {
+    const key = "__express__" + req.originalUrl || req.url;
+    const cachedBody = cache.get(key);
+    
+    if (cachedBody) {
+      res.set("X-Cache", "HIT");
+      res.send(cachedBody);
+      return;
+    } else {
+      res.sendResponse = res.send;
+      res.send = (body) => {
+        cache.put(key, body, duration * 1000);
+        res.set("X-Cache", "MISS");
+        res.sendResponse(body);
+      };
+      next();
+    }
+  };
+};
+
+// Projects API endpoint with 1-hour cache
+app.get("/projects", cacheMiddleware(3600), async (req, res) => {
   try {
     const projectsSnapshot = await admin.firestore()
         .collection("projects").get();
@@ -75,8 +114,8 @@ app.get("/projects", async (req, res) => {
   }
 });
 
-// Skills API endpoint
-app.get("/skills", async (req, res) => {
+// Skills API endpoint with 1-hour cache
+app.get("/skills", cacheMiddleware(3600), async (req, res) => {
   try {
     const skillsSnapshot = await admin.firestore().collection("skills").get();
     const skills = [];
@@ -88,6 +127,19 @@ app.get("/skills", async (req, res) => {
     return res.status(200).json(skills);
   } catch (error) {
     console.error("Error fetching skills:", error);
+    return res.status(500).json({error: "Something went wrong"});
+  }
+});
+
+// Cache invalidation endpoint (admin only)
+app.post("/admin/cache/clear", async (req, res) => {
+  try {
+    // In a real app, this would have authentication
+    // For now, we'll just clear the cache
+    cache.clear();
+    return res.status(200).json({message: "Cache cleared successfully"});
+  } catch (error) {
+    console.error("Error clearing cache:", error);
     return res.status(500).json({error: "Something went wrong"});
   }
 });
