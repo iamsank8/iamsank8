@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "iamsank8:build:production"
+              "buildTarget": "iamsank8:build:production"
             },
             "development": {
-              "browserTarget": "iamsank8:build:development"
+              "buildTarget": "iamsank8:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "iamsank8:build"
+            "buildTarget": "iamsank8:build"
           }
         },
         "test": {
