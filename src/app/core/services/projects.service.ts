@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 export interface Project {
@@ -30,6 +30,8 @@ export interface ProjectFilter {
 })
 export class ProjectsService {
   private apiUrl = environment.apiUrl;
+  private projectsCache$: Observable<Project[]> | null = null;
+  private projectsSubject = new BehaviorSubject<Project[]>([]);
   
   // Mock data for fallback
   private mockProjects: Project[] = [
@@ -86,16 +88,31 @@ export class ProjectsService {
   constructor(private http: HttpClient) { }
 
   /**
+   * Get all projects from cache or API
+   */
+  private getAllProjects(): Observable<Project[]> {
+    if (!this.projectsCache$) {
+      this.projectsCache$ = this.http.get<Project[]>(`${this.apiUrl}/projects`).pipe(
+        tap(projects => this.projectsSubject.next(projects)),
+        catchError(error => {
+          console.error('Error fetching projects:', error);
+          // Return mock data if API fails
+          const mockData = this.mockProjects;
+          this.projectsSubject.next(mockData);
+          return of(mockData);
+        }),
+        shareReplay(1) // Cache the result
+      );
+    }
+    return this.projectsCache$;
+  }
+
+  /**
    * Get all projects or filtered projects
    */
   getProjects(filter?: ProjectFilter): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.apiUrl}/projects`).pipe(
-      map(projects => this.filterProjects(projects, filter)),
-      catchError(error => {
-        console.error('Error fetching projects:', error);
-        // Return mock data if API fails
-        return of(this.filterProjects(this.mockProjects, filter));
-      })
+    return this.getAllProjects().pipe(
+      map(projects => this.filterProjects(projects, filter))
     );
   }
   
@@ -103,7 +120,7 @@ export class ProjectsService {
    * Get available domains for filtering
    */
   getAvailableDomains(): Observable<string[]> {
-    return this.getProjects().pipe(
+    return this.getAllProjects().pipe(
       map(projects => {
         const domains = projects.map(project => project.domain || project.domains);
         return [...new Set(domains)]; // Remove duplicates
@@ -115,7 +132,7 @@ export class ProjectsService {
    * Get available technologies for filtering
    */
   getAvailableTechnologies(): Observable<string[]> {
-    return this.getProjects().pipe(
+    return this.getAllProjects().pipe(
       map(projects => {
         // Flatten all technology arrays and remove duplicates
         const technologies = projects.flatMap(project => project.technologies);
