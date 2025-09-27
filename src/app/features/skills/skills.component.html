@@ -1,0 +1,55 @@
+<div class="skills-container">
+  <div class="skills-header">
+    <h1>Skills & Expertise</h1>
+    <p>Here's an overview of my technical skills and proficiency levels</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading skills...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>Failed to load skills from API. Showing fallback data.</p>
+  </div>
+
+  <div class="skills-content" *ngIf="!loading">
+    <div *ngFor="let category of categories" class="skill-category">
+      <h2>{{ category.name }}</h2>
+      
+      <div class="skills-list">
+        <div *ngFor="let skill of getSkillsByCategory(category.id)" class="skill-item">
+          <div class="skill-info">
+            <span class="skill-name">{{ skill.name }}</span>
+            <span class="skill-level">{{ skill.level }}%</span>
+          </div>
+          <mat-progress-bar 
+            mode="determinate" 
+            [value]="skill.level"
+            [color]="skill.level >= 80 ? 'primary' : 'accent'">
+          </mat-progress-bar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="additional-skills">
+    <h2>Additional Skills</h2>
+    
+    <div class="skill-chips">
+      <mat-chip-list>
+        <mat-chip color="primary" selected>Team Leadership</mat-chip>
+        <mat-chip color="primary" selected>Project Management</mat-chip>
+        <mat-chip color="primary" selected>Code Reviews</mat-chip>
+        <mat-chip color="primary" selected>Requirement Analysis</mat-chip>
+        <mat-chip color="primary" selected>Problem Solving</mat-chip>
+        <mat-chip color="primary" selected>Debugging</mat-chip>
+        <mat-chip color="primary" selected>Root Cause Analysis</mat-chip>
+        <mat-chip color="primary" selected>Agile Methodologies</mat-chip>
+        <mat-chip color="primary" selected>Cross-team Communication</mat-chip>
+        <mat-chip color="primary" selected>Client Interaction</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,167 @@
+.projects-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 16px;
+}
+
+.projects-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.projects-header h1 {
+  font-size: 2.5rem;
+  color: #3f51b5;
+  margin-bottom: 16px;
+}
+
+.projects-header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  min-height: 200px;
+}
+
+.error-container {
+  color: #f44336;
+  
+  mat-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    margin-bottom: 1rem;
+  }
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.project-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-card-title {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.mat-card-subtitle {
+  color: #666;
+}
+
+.project-domain {
+  margin: 16px 0;
+  color: #555;
+}
+
+.project-description {
+  margin-bottom: 16px;
+}
+
+.project-description p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.project-responsibilities {
+  margin-bottom: 16px;
+}
+
+.project-responsibilities h3,
+.project-technologies h3 {
+  font-size: 1.1rem;
+  color: #3f51b5;
+  margin-bottom: 12px;
+}
+
+.project-responsibilities ul {
+  padding-left: 20px;
+}
+
+.project-responsibilities li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.tech-chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.mat-chip {
+  margin: 4px;
+}
+
+.additional-projects {
+  margin-top: 60px;
+}
+
+.additional-projects h2 {
+  font-size: 1.8rem;
+  color: #3f51b5;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.section-description {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.personal-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.personal-project-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-avatar {
+  background-color: #3f51b5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-avatar mat-icon {
+  color: white;
+}
+
+.mat-card-actions {
+  margin-top: auto;
+  padding: 16px;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .personal-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://us-central1-portfolio-sanket-c5165.cloudfunctions.net/api'
 };

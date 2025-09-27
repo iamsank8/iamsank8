@@ -1,0 +1,102 @@
+<div class="projects-container">
+  <div class="projects-header">
+    <h1>Projects</h1>
+    <p>Key projects I've worked on throughout my career</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading projects...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>Failed to load projects from API. Showing fallback data.</p>
+  </div>
+
+  <div class="projects-grid" *ngIf="!loading">
+    <mat-card *ngFor="let project of projects" class="project-card">
+      <mat-card-header>
+        <mat-card-title>{{ project.name }}</mat-card-title>
+        <mat-card-subtitle>{{ project.company }} | {{ project.period }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="project-domain">
+          <strong>Domain:</strong> {{ project.domain }}
+        </div>
+        
+        <div class="project-description">
+          <p>{{ project.description }}</p>
+        </div>
+        
+        <div class="project-responsibilities">
+          <h3>Key Responsibilities</h3>
+          <ul>
+            <li *ngFor="let responsibility of project.responsibilities">{{ responsibility }}</li>
+          </ul>
+        </div>
+        
+        <div class="project-technologies">
+          <h3>Technologies Used</h3>
+          <div class="tech-chips">
+            <mat-chip-list>
+              <mat-chip *ngFor="let tech of project.technologies" color="accent" selected>{{ tech }}</mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="additional-projects">
+    <h2>Personal Projects</h2>
+    <p class="section-description">
+      In addition to my professional work, I enjoy working on personal projects to explore new technologies and enhance my skills.
+    </p>
+    
+    <div class="personal-projects-grid">
+      <mat-card class="personal-project-card">
+        <mat-card-header>
+          <div mat-card-avatar class="project-avatar">
+            <mat-icon>code</mat-icon>
+          </div>
+          <mat-card-title>Portfolio Website</mat-card-title>
+          <mat-card-subtitle>2023</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            A responsive portfolio website built with Angular and Material Design to showcase my skills, 
+            experience, and projects.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a mat-button color="primary" href="https://github.com/iamsank8" target="_blank">
+            <mat-icon>code</mat-icon> View Code
+          </a>
+        </mat-card-actions>
+      </mat-card>
+
+      <mat-card class="personal-project-card">
+        <mat-card-header>
+          <div mat-card-avatar class="project-avatar">
+            <mat-icon>smart_toy</mat-icon>
+          </div>
+          <mat-card-title>AI Integration Experiments</mat-card-title>
+          <mat-card-subtitle>2022</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Experiments with integrating AI/ML models into web applications, focusing on local 
+            language models and IDE integrations.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a mat-button color="primary" href="https://github.com/iamsank8" target="_blank">
+            <mat-icon>code</mat-icon> View Code
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

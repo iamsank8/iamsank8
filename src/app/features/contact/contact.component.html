@@ -1,0 +1,93 @@
+<div class="contact-container">
+  <div class="contact-header">
+    <h1>Contact Me</h1>
+    <p>Feel free to reach out to me for any inquiries or opportunities</p>
+  </div>
+
+  <div class="contact-content">
+    <div class="contact-info">
+      <h2>Contact Information</h2>
+      
+      <div class="info-item">
+        <mat-icon>email</mat-icon>
+        <div class="info-details">
+          <h3>Email</h3>
+          <p><a href="mailto:sanketat@gmail.com">sanketat@gmail.com</a></p>
+        </div>
+      </div>
+      
+      
+      <div class="info-item">
+        <mat-icon>location_on</mat-icon>
+        <div class="info-details">
+          <h3>Location</h3>
+          <p>Pune, Maharashtra, India</p>
+        </div>
+      </div>
+      
+      <div class="social-links">
+        <h3>Connect with me</h3>
+        <div class="social-icons">
+          <a href="https://github.com/iamsank8" target="_blank" class="social-icon">
+            <mat-icon>code</mat-icon>
+          </a>
+          <a href="https://www.linkedin.com/in/sanket-thotange/" target="_blank" class="social-icon">
+            <mat-icon>work</mat-icon>
+          </a>
+          <a href="https://twitter.com/" target="_blank" class="social-icon">
+            <mat-icon>chat</mat-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h2>Send me a message</h2>
+      
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="Your name">
+          <mat-error *ngIf="submitted && f['name'].errors">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Your email">
+          <mat-error *ngIf="submitted && f['email'].errors?.['required']">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="submitted && f['email'].errors?.['email']">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Subject</mat-label>
+          <input matInput formControlName="subject" placeholder="Subject">
+          <mat-error *ngIf="submitted && f['subject'].errors">
+            Subject is required
+          </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Message</mat-label>
+          <textarea matInput formControlName="message" rows="5" placeholder="Your message"></textarea>
+          <mat-error *ngIf="submitted && f['message'].errors?.['required']">
+            Message is required
+          </mat-error>
+          <mat-error *ngIf="submitted && f['message'].errors?.['minlength']">
+            Message must be at least 10 characters
+          </mat-error>
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+          <mat-spinner *ngIf="loading" diameter="20" class="button-spinner"></mat-spinner>
+          <span *ngIf="!loading">Send Message</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

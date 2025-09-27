@@ -1,11 +1,25 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button aria-label="Example icon-button with menu icon">
+  <span class="logo">Sanket Thotange</span>
+  <span class="spacer"></span>
+  <div class="nav-links">
+    <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a mat-button routerLink="/about" routerLinkActive="active">About</a>
+    <a mat-button routerLink="/skills" routerLinkActive="active">Skills</a>
+    <a mat-button routerLink="/experience" routerLinkActive="active">Experience</a>
+    <a mat-button routerLink="/projects" routerLinkActive="active">Projects</a>
+    <a mat-button routerLink="/education" routerLinkActive="active">Education</a>
+    <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
+  </div>
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="mobile-menu-button">
     <mat-icon>menu</mat-icon>
   </button>
-  <button mat-icon-button aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
+  <mat-menu #menu="matMenu">
+    <a mat-menu-item routerLink="/">Home</a>
+    <a mat-menu-item routerLink="/about">About</a>
+    <a mat-menu-item routerLink="/skills">Skills</a>
+    <a mat-menu-item routerLink="/experience">Experience</a>
+    <a mat-menu-item routerLink="/projects">Projects</a>
+    <a mat-menu-item routerLink="/education">Education</a>
+    <a mat-menu-item routerLink="/contact">Contact</a>
+  </mat-menu>
 </mat-toolbar>

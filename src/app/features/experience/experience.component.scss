@@ -1,0 +1,123 @@
+.experience-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 16px;
+}
+
+.experience-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.experience-header h1 {
+  font-size: 2.5rem;
+  color: #3f51b5;
+  margin-bottom: 16px;
+}
+
+.experience-header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.experience-timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.experience-card {
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.experience-period {
+  position: absolute;
+  left: -40px;
+  background-color: #3f51b5;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  transform: translateX(-100%) translateY(20px);
+  width: 180px;
+  text-align: right;
+}
+
+.experience-details {
+  margin-left: 20px;
+}
+
+.timeline-connector {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  bottom: -40px;
+  width: 4px;
+  background-color: #3f51b5;
+}
+
+.mat-card-title {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.mat-card-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.domain {
+  margin: 16px 0;
+  color: #555;
+}
+
+.responsibilities, .tasks, .technologies {
+  margin-top: 24px;
+}
+
+.responsibilities h3, .tasks h3, .technologies h3 {
+  font-size: 1.2rem;
+  color: #3f51b5;
+  margin-bottom: 12px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.tech-chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.mat-chip {
+  margin: 4px;
+}
+
+@media (max-width: 768px) {
+  .experience-timeline {
+    padding-left: 20px;
+  }
+  
+  .experience-period {
+    position: relative;
+    left: 0;
+    transform: none;
+    margin-bottom: 16px;
+    width: auto;
+    text-align: left;
+    display: inline-block;
+  }
+  
+  .experience-details {
+    margin-left: 0;
+  }
+}
