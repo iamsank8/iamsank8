@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContactService } from '../../core/services/contact.service';
 
@@ -9,12 +9,12 @@ import { ContactService } from '../../core/services/contact.service';
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
-  contactForm!: FormGroup;
+  contactForm!: UntypedFormGroup;
   submitted = false;
   loading = false;
   
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private contactService: ContactService,
     private snackBar: MatSnackBar
   ) { }
