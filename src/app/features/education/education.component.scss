@@ -37,13 +37,13 @@
   width: 100%;
 }
 
-.mat-header-cell {
+.mat-mdc-header-cell {
   font-size: 1rem;
   font-weight: 500;
   color: #3f51b5;
 }
 
-.mat-cell {
+.mat-mdc-cell {
   font-size: 0.95rem;
   color: var(--text-color);
   opacity: 0.9;
@@ -104,21 +104,21 @@
   color: white;
 }
 
-.mat-card-title {
+.mat-mdc-card-title {
   font-size: 1.2rem;
   margin-bottom: 8px;
 }
 
-.mat-card-subtitle {
+.mat-mdc-card-subtitle {
   color: var(--text-color);
   opacity: 0.8;
 }
 
-.mat-card-content {
+.mat-mdc-card-content {
   padding-top: 16px;
 }
 
-.mat-card-content p {
+.mat-mdc-card-content p {
   color: var(--text-color);
   opacity: 0.9;
   line-height: 1.5;
@@ -142,7 +142,7 @@
     color: var(--text-color);
   }
   
-  .mat-header-cell {
+  .mat-mdc-header-cell {
     color: #7986cb;
   }
 }

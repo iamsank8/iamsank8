@@ -24,7 +24,7 @@
         
         <div class="blog-tags">
           <mat-chip-set>
-            <mat-chip *ngFor="let tag of blogPost.tags" color="primary">{{ tag }}</mat-chip>
+            <mat-chip-option *ngFor="let tag of blogPost.tags" color="primary">{{ tag }}</mat-chip-option>
           </mat-chip-set>
         </div>
       </div>

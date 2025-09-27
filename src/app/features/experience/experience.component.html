@@ -8,7 +8,7 @@
     <div *ngFor="let exp of workExperiences; let i = index" class="experience-card">
       <div class="experience-period">{{ exp.period }}</div>
       
-      <mat-card class="experience-details">
+      <mat-card appearance="outlined" class="experience-details">
         <mat-card-header>
           <div class="position-header">
             <mat-card-title>{{ exp.position }}</mat-card-title>
@@ -29,7 +29,7 @@
             <strong>Industry Domains:</strong>
             <div class="domain-chips">
               <mat-chip-set>
-                <mat-chip *ngFor="let domain of exp.domains" color="primary" selected>{{ domain }}</mat-chip>
+                <mat-chip-option *ngFor="let domain of exp.domains" color="primary" selected>{{ domain }}</mat-chip-option>
               </mat-chip-set>
             </div>
           </div>
@@ -45,7 +45,7 @@
             <h3>Skills & Expertise Gained</h3>
             <div class="skills-chips">
               <mat-chip-set>
-                <mat-chip *ngFor="let skill of exp.skillsGained" color="accent" selected>{{ skill }}</mat-chip>
+                <mat-chip-option *ngFor="let skill of exp.skillsGained" color="accent" selected>{{ skill }}</mat-chip-option>
               </mat-chip-set>
             </div>
           </div>
