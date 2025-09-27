@@ -127,18 +127,18 @@
   color: white;
 }
 
-.mat-card-header {
+.mat-mdc-card-header {
   padding-bottom: 8px;
 }
 
-.mat-card-title {
+.mat-mdc-card-title {
   font-size: 1.4rem;
   margin-bottom: 4px;
   color: #333;
   font-weight: 600;
 }
 
-.mat-card-subtitle {
+.mat-mdc-card-subtitle {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -235,7 +235,7 @@
   }
 }
 
-.mat-chip {
+.mat-mdc-chip {
   margin: 4px;
 }
 
@@ -281,7 +281,7 @@
   color: white;
 }
 
-.mat-card-actions {
+.mat-mdc-card-actions {
   margin-top: auto;
   padding: 16px;
 }

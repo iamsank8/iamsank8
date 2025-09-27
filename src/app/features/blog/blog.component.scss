@@ -70,22 +70,29 @@
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
-    
-    mat-card-header {
+    // Updated for MDC: Use proper MDC card selectors
+    mat-card-header,
+    .mat-mdc-card-header {
       padding-bottom: 1rem;
     }
     
-    mat-card-title {
+    // Updated for MDC: Use proper MDC card title selectors
+    mat-card-title,
+    .mat-mdc-card-title {
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
     }
     
-    mat-card-subtitle {
+    // Updated for MDC: Use proper MDC card subtitle selectors
+    mat-card-subtitle,
+    .mat-mdc-card-subtitle {
       font-size: 0.9rem;
       opacity: 0.8;
     }
     
-    mat-card-content {
+    // Updated for MDC: Use proper MDC card content selectors
+    mat-card-content,
+    .mat-mdc-card-content {
       flex-grow: 1;
     }
     
@@ -96,13 +103,16 @@
     
     .blog-tags {
       margin-top: 1rem;
-      
-      mat-chip {
+      // Updated for MDC: Use proper MDC chip selectors
+      mat-chip,
+      .mat-mdc-chip {
         font-size: 0.8rem;
       }
     }
     
-    mat-card-actions {
+    // Updated for MDC: Use proper MDC card actions selectors
+    mat-card-actions,
+    .mat-mdc-card-actions {
       padding: 1rem;
       display: flex;
       justify-content: flex-end;

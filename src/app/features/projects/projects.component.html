@@ -55,7 +55,7 @@
       <p>No projects match your filter criteria</p>
       <button mat-button color="primary" (click)="resetFilters()">Clear Filters</button>
     </div>
-    <mat-card *ngFor="let project of filteredProjects" class="project-card">
+    <mat-card appearance="outlined" *ngFor="let project of filteredProjects" class="project-card">
       <div class="project-image-placeholder">
         <mat-icon class="project-icon">{{ getProjectIcon(project.domain || project.domains || '') }}</mat-icon>
       </div>
@@ -70,7 +70,7 @@
       
       <mat-card-content>
         <div class="project-domain-badge">
-          <mat-chip color="primary" selected>{{ project.domain || project.domains }}</mat-chip>
+          <mat-chip-option color="primary" selected>{{ project.domain || project.domains }}</mat-chip-option>
         </div>
         
         <div class="project-description">
@@ -91,9 +91,9 @@
           <h3>Tech Stack</h3>
           <div class="tech-stack">
             <mat-chip-set>
-              <mat-chip *ngFor="let tech of project.technologies"
+              <mat-chip-option *ngFor="let tech of project.technologies"
                        [color]="getTechChipColor(tech)"
-                       selected>{{ tech }}</mat-chip>
+                       selected>{{ tech }}</mat-chip-option>
             </mat-chip-set>
           </div>
         </div>
@@ -115,7 +115,7 @@
     </p>
     
     <div class="personal-projects-grid">
-      <mat-card class="personal-project-card">
+      <mat-card appearance="outlined" class="personal-project-card">
         <mat-card-header>
           <div mat-card-avatar class="project-avatar">
             <mat-icon>code</mat-icon>
@@ -136,7 +136,7 @@
         </mat-card-actions>
       </mat-card>
 
-      <mat-card class="personal-project-card">
+      <mat-card appearance="outlined" class="personal-project-card">
         <mat-card-header>
           <div mat-card-avatar class="project-avatar">
             <mat-icon>smart_toy</mat-icon>

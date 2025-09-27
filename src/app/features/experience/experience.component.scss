@@ -56,13 +56,13 @@
   background-color: #3f51b5;
 }
 
-.mat-card-title {
+.mat-mdc-card-title {
   font-size: 1.5rem;
   margin-bottom: 8px;
   color: #333;
 }
 
-.mat-card-subtitle {
+.mat-mdc-card-subtitle {
   font-size: 1.1rem;
   color: #666;
 }
@@ -137,7 +137,7 @@ li {
   color: #555;
 }
 
-.mat-chip {
+.mat-mdc-chip {
   margin: 4px;
 }
 
@@ -176,11 +176,11 @@ li {
     padding: 20px 12px;
   }
   
-  .mat-card-title {
+  .mat-mdc-card-title {
     font-size: 1.3rem;
   }
   
-  .mat-card-subtitle {
+  .mat-mdc-card-subtitle {
     font-size: 1rem;
   }
 }
@@ -216,7 +216,7 @@ li {
     justify-content: flex-start;
   }
   
-  .mat-chip {
+  .mat-mdc-chip {
     margin: 3px;
     font-size: 0.9rem;
     height: 28px;

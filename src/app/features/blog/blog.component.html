@@ -17,7 +17,7 @@
 
     <!-- Blog posts -->
     <div *ngIf="!loading && !error" class="blog-posts">
-      <mat-card *ngFor="let post of blogPosts" class="blog-card">
+      <mat-card appearance="outlined" *ngFor="let post of blogPosts" class="blog-card">
         <mat-card-header>
           <mat-card-title>{{ post.title }}</mat-card-title>
           <mat-card-subtitle>
@@ -33,7 +33,7 @@
           
           <div class="blog-tags">
             <mat-chip-set>
-              <mat-chip *ngFor="let tag of post.tags" color="primary">{{ tag }}</mat-chip>
+              <mat-chip-option *ngFor="let tag of post.tags" color="primary">{{ tag }}</mat-chip-option>
             </mat-chip-set>
           </div>
         </mat-card-content>
