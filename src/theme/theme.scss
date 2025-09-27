@@ -1,17 +1,10 @@
 @use '@angular/material' as mat;
-@import '@angular/material/theming';
 
 // Include the common styles for Angular Material
-// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
-//  The following line adds:
-//    1. Default typography styles for all components
-//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
-//  If you specify typography styles for the components you use elsewhere, you should delete this line.
-//  If you don't need the default component typographies but still want the hierarchy styles,
-//  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+@include mat.core();
+
+// Include typography styles
+@include mat.typography-hierarchy();
 
 // Define the light theme
 $light-primary: mat.define-palette(mat.$indigo-palette);
@@ -24,7 +17,7 @@ $light-theme: mat.define-light-theme((
     accent: $light-accent,
     warn: $light-warn,
   ),
-  typography: mat.define-legacy-typography-config(),
+  typography: mat.define-typography-config(),
   density: 0,
 ));
 
@@ -39,17 +32,17 @@ $dark-theme: mat.define-dark-theme((
     accent: $dark-accent,
     warn: $dark-warn,
   ),
-  typography: mat.define-legacy-typography-config(),
+  typography: mat.define-typography-config(),
   density: 0,
 ));
 
 // Apply the light theme by default
-@include mat.all-legacy-component-themes($light-theme);
+@include mat.all-component-themes($light-theme);
 
 // Apply the dark theme only when the `.dark-theme` CSS class is applied
 // to an ancestor element of the components (such as `body`)
 .dark-theme {
-  @include mat.all-legacy-component-colors($dark-theme);
+  @include mat.all-component-colors($dark-theme);
 
   // Custom dark theme styles
   --background-color: #121212;
@@ -61,11 +54,11 @@ $dark-theme: mat.define-dark-theme((
   background-color: var(--background-color);
   color: var(--text-color);
   
-  .mat-card {
+  .mat-mdc-card {
     background-color: var(--card-background);
   }
   
-  a:not(.mat-button):not(.mat-raised-button):not(.mat-fab):not(.mat-mini-fab):not([mat-list-item]) {
+  a:not(.mat-mdc-button):not(.mat-mdc-raised-button):not(.mat-mdc-fab):not(.mat-mdc-mini-fab):not([mat-list-item]) {
     color: mat.get-color-from-palette($dark-primary, 300);
     
     &:hover {
@@ -93,14 +86,14 @@ body {
 }
 
 // Add smooth transitions for theme switching
-.mat-card,
+.mat-mdc-card,
 .mat-toolbar,
-.mat-button,
+.mat-mdc-button,
 .mat-icon-button,
-.mat-raised-button,
-.mat-form-field,
-.mat-input-element,
-.mat-select,
-.mat-option {
+.mat-mdc-raised-button,
+.mat-mdc-form-field,
+.mat-mdc-input-element,
+.mat-mdc-select,
+.mat-mdc-option {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
