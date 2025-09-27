@@ -15,22 +15,53 @@ echo -e "${BLUE}This script will upgrade Angular from v13 to v17 following the r
 echo -e "${YELLOW}Make sure you have committed all your changes before proceeding.${NC}"
 echo -e "${YELLOW}The upgrade process will be done in steps: 13 -> 14 -> 15 -> 16 -> 17${NC}"
 
-# Check if Node.js is installed
-if ! command -v node &> /dev/null; then
-  echo -e "${RED}Node.js is not installed. Please install Node.js first.${NC}"
-  exit 1
+# Check if nvm is installed
+if ! command -v nvm &> /dev/null; then
+  echo -e "${YELLOW}nvm (Node Version Manager) is not installed. Checking Node.js version directly...${NC}"
+  
+  # Check if Node.js is installed
+  if ! command -v node &> /dev/null; then
+    echo -e "${RED}Node.js is not installed. Please install Node.js first.${NC}"
+    exit 1
+  fi
+
+  # Check Node.js version
+  NODE_VERSION=$(node -v | cut -d 'v' -f 2)
+  NODE_MAJOR=$(echo $NODE_VERSION | cut -d '.' -f 1)
+  
+  if [ $NODE_MAJOR -gt 20 ]; then
+    echo -e "${RED}Node.js version 20 is recommended for Angular 17. Current version: $NODE_VERSION${NC}"
+    echo -e "${YELLOW}This version may not be fully compatible. Consider using nvm to install Node.js 20.${NC}"
+    
+    # Ask if user wants to continue
+    echo -e "${YELLOW}Do you want to continue with the current Node.js version? (y/n)${NC}"
+    read -r response
+    if [[ ! "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+      echo -e "${BLUE}Exiting. Please install nvm and run this script again.${NC}"
+      echo -e "${BLUE}nvm installation instructions: https://github.com/nvm-sh/nvm#installing-and-updating${NC}"
+      exit 1
+    fi
+  fi
+else
+  # Use nvm to switch to Node.js 20
+  echo -e "${BLUE}Using nvm to switch to Node.js 20...${NC}"
+  nvm use 20 || nvm install 20
+  
+  # Verify Node.js version after switch
+  NODE_VERSION=$(node -v | cut -d 'v' -f 2)
+  NODE_MAJOR=$(echo $NODE_VERSION | cut -d '.' -f 1)
+  
+  if [ $NODE_MAJOR -ne 20 ]; then
+    echo -e "${RED}Failed to switch to Node.js 20. Current version: $NODE_VERSION${NC}"
+    echo -e "${YELLOW}Do you want to continue with the current Node.js version? (y/n)${NC}"
+    read -r response
+    if [[ ! "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+      exit 1
+    fi
+  fi
 fi
 
-# Check Node.js version
-NODE_VERSION=$(node -v | cut -d 'v' -f 2)
-NODE_MAJOR=$(echo $NODE_VERSION | cut -d '.' -f 1)
-if [ $NODE_MAJOR -lt 18 ]; then
-  echo -e "${RED}Node.js version 18 or higher is required for Angular 17. Current version: $NODE_VERSION${NC}"
-  echo -e "${YELLOW}Please upgrade Node.js and try again.${NC}"
-  exit 1
-fi
-
-echo -e "${GREEN}Node.js version $NODE_VERSION detected.${NC}"
+echo -e "${GREEN}Node.js version $(node -v) detected.${NC}"
 
 # Function to check if the upgrade was successful
 check_upgrade() {
@@ -89,7 +120,28 @@ check_upgrade "Material 17"
 # Update other dependencies
 echo -e "${BLUE}Updating other dependencies...${NC}"
 npm update
-npm audit fix
+
+# Handle potential dependency conflicts
+echo -e "${BLUE}Checking for dependency conflicts...${NC}"
+npm ls 2>/dev/null | grep -i "peer dep missing\|invalid\|conflict"
+
+if [ $? -eq 0 ]; then
+  echo -e "${YELLOW}Dependency conflicts detected. Attempting to resolve...${NC}"
+  npm install --legacy-peer-deps
+  
+  if [ $? -ne 0 ]; then
+    echo -e "${RED}Could not automatically resolve all dependency conflicts.${NC}"
+    echo -e "${YELLOW}You may need to manually update some dependencies.${NC}"
+  else
+    echo -e "${GREEN}Dependencies resolved successfully.${NC}"
+  fi
+else
+  echo -e "${GREEN}No dependency conflicts detected.${NC}"
+fi
+
+# Fix security vulnerabilities if possible
+echo -e "${BLUE}Fixing security vulnerabilities...${NC}"
+npm audit fix --force || echo -e "${YELLOW}Some vulnerabilities could not be fixed automatically.${NC}"
 
 # Run build to verify everything works
 echo -e "${BLUE}Building the application to verify the upgrade...${NC}"
@@ -108,21 +160,50 @@ fi
 echo -e "${BLUE}Performing post-upgrade tasks...${NC}"
 
 # Update to standalone components (optional)
+echo -e "${YELLOW}Converting to standalone components is recommended for Angular 17.${NC}"
 echo -e "${YELLOW}Would you like to convert to standalone components? (y/n)${NC}"
 read -r response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
   echo -e "${BLUE}Converting to standalone components...${NC}"
-  npx @angular/cli@17 generate @angular/core:standalone
+  # Use --defaults to avoid interactive prompts
+  npx @angular/cli@17 generate @angular/core:standalone --defaults
+  
+  if [ $? -ne 0 ]; then
+    echo -e "${YELLOW}Standalone conversion encountered issues. This is not critical and can be done manually later.${NC}"
+  else
+    echo -e "${GREEN}Successfully converted to standalone components.${NC}"
+  fi
+else
+  echo -e "${BLUE}Skipping standalone components conversion. You can do this manually later.${NC}"
 fi
 
 # Update Angular config
 echo -e "${BLUE}Updating Angular configuration...${NC}"
 npx @angular/cli@17 config
 
+# Handle TypeScript compatibility
+echo -e "${BLUE}Checking TypeScript compatibility...${NC}"
+TS_VERSION=$(npm list typescript | grep typescript | head -1 | awk -F@ '{print $2}' | awk '{print $1}')
+echo -e "${BLUE}Current TypeScript version: $TS_VERSION${NC}"
+
+# Angular 17 requires TypeScript 5.2 or higher
+if [[ $(echo "$TS_VERSION" | cut -d. -f1) -lt 5 || ($(echo "$TS_VERSION" | cut -d. -f1) -eq 5 && $(echo "$TS_VERSION" | cut -d. -f2) -lt 2) ]]; then
+  echo -e "${YELLOW}Updating TypeScript to version compatible with Angular 17...${NC}"
+  npm install typescript@~5.2.0 --save-dev
+  
+  if [ $? -ne 0 ]; then
+    echo -e "${RED}Failed to update TypeScript. You may need to update it manually.${NC}"
+  else
+    echo -e "${GREEN}TypeScript updated successfully.${NC}"
+  fi
+fi
+
 # Clean up
 echo -e "${BLUE}Cleaning up...${NC}"
 npm cache clean --force
+echo -e "${BLUE}Removing node_modules...${NC}"
 rm -rf node_modules
+echo -e "${BLUE}Reinstalling dependencies...${NC}"
 npm install
 
 echo -e "${GREEN}Angular upgrade from v13 to v17 completed successfully!${NC}"
