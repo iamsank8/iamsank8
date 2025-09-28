@@ -12,6 +12,9 @@ admin.initializeApp();
 // Initialize Express app
 const app = express();
 
+// Trust proxy for Firebase Functions (required for rate limiting)
+app.set("trust proxy", true);
+
 // Security middleware
 // Configure CORS with specific origins
 const allowedOrigins = [
@@ -22,18 +25,40 @@ const allowedOrigins = [
   "https://iamsank8.firebaseapp.com",
 ];
 
+// Function to check if origin is a Firebase preview URL
+const isFirebasePreviewUrl = (origin) => {
+  return origin && (
+    origin.includes("portfolio-sanket-c5165--") ||
+    origin.includes("iamsank8--")
+  ) && origin.includes(".web.app");
+};
+
 const corsOptions = {
   origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
+    // Allow requests with no origin (like mobile apps, curl requests,
+    // server-to-server)
+    if (!origin || origin === undefined) {
+      return callback(null, true);
+    }
+    if (allowedOrigins.indexOf(origin) !== -1 || isFirebasePreviewUrl(origin)) {
+      return callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+      return callback(new Error("Not allowed by CORS"));
     }
   },
-  methods: ["GET"],
-  optionsSuccessStatus: 200,
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: [
+    "Content-Type", "Authorization", "Accept", "X-Requested-With",
+    "Cache-Control", "Pragma", "Priority", "Sec-CH-UA", "Sec-CH-UA-Mobile",
+    "Sec-CH-UA-Platform", "Sec-Fetch-Dest", "Sec-Fetch-Mode",
+    "Sec-Fetch-Site", "User-Agent", "Accept-Language",
+  ],
+  exposedHeaders: [
+    "X-Cache", "X-RateLimit-Limit", "X-RateLimit-Remaining",
+  ],
+  optionsSuccessStatus: 204,
+  credentials: false,
+  preflightContinue: false,
 };
 
 // Apply CORS middleware
