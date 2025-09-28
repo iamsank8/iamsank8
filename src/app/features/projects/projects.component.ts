@@ -1,7 +1,7 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ProjectsService, Project, ProjectFilter } from '../../core/services/projects.service';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../../core/material.module';
+import { PrimeNGModule } from '../../core/primeng.module';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
@@ -10,7 +10,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
   standalone: true,
-  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, PrimeNGModule, ReactiveFormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProjectsComponent implements OnInit {
@@ -22,6 +22,8 @@ export class ProjectsComponent implements OnInit {
   // Filter options
   availableDomains: string[] = [];
   availableTechnologies: string[] = [];
+  domainOptions: any[] = [];
+  technologyOptions: any[] = [];
   
   // Filter form
   filterForm = new FormGroup({
@@ -43,11 +45,16 @@ export class ProjectsComponent implements OnInit {
     this.projectsService.getProjects(filter).subscribe({
       next: (data) => {
         this.projects = data.map(project => {
+          // Handle domains array to string conversion for backward compatibility
+          const primaryDomain = Array.isArray(project.domains)
+            ? project.domains[0]
+            : project.domains || project.domain || '';
+          
           return {
             ...project,
             company: project.organization || project.company,
-            domain: project.domains || project.domain,
-            description: project.description || `${project.name} project for ${project.domains || project.domain} domain.`
+            domain: primaryDomain,
+            description: project.description || `${project.name} project for ${primaryDomain} domain.`
           };
         });
         this.filteredProjects = [...this.projects];
@@ -65,11 +72,19 @@ export class ProjectsComponent implements OnInit {
     // Load domains
     this.projectsService.getAvailableDomains().subscribe(domains => {
       this.availableDomains = domains;
+      this.domainOptions = [
+        { label: 'All Industries', value: '' },
+        ...domains.map(domain => ({ label: domain, value: domain }))
+      ];
     });
     
     // Load technologies
     this.projectsService.getAvailableTechnologies().subscribe(technologies => {
       this.availableTechnologies = technologies;
+      this.technologyOptions = [
+        { label: 'All Technologies', value: '' },
+        ...technologies.map(tech => ({ label: tech, value: tech }))
+      ];
     });
   }
   
@@ -114,16 +129,16 @@ export class ProjectsComponent implements OnInit {
    */
   getProjectIcon(domain: string): string {
     const iconMap: { [key: string]: string } = {
-      'Manufacturing': 'precision_manufacturing',
-      'Oil & Gas': 'local_gas_station',
-      'Retail': 'shopping_cart',
-      'Retail & Logistics': 'local_shipping',
-      'Healthcare': 'local_hospital',
-      'Finance': 'account_balance',
-      'Technology': 'computer',
-      'Education': 'school'
+      'Manufacturing': 'pi-cog',
+      'Oil & Gas': 'pi-circle-fill',
+      'Retail': 'pi-shopping-cart',
+      'Retail & Logistics': 'pi-truck',
+      'Healthcare': 'pi-heart',
+      'Finance': 'pi-dollar',
+      'Technology': 'pi-desktop',
+      'Education': 'pi-book'
     };
-    return iconMap[domain] || 'work';
+    return iconMap[domain] || 'pi-briefcase';
   }
   
   /**
@@ -191,5 +206,140 @@ export class ProjectsComponent implements OnInit {
     };
     
     return impactMap[project.name] || '';
+  }
+
+  /**
+   * Get total number of projects
+   */
+  getTotalProjects(): number {
+    return this.projects.length;
+  }
+
+  /**
+   * Get unique domains from all projects
+   */
+  getUniqueDomains(): string[] {
+    const domains: string[] = [];
+    this.projects.forEach(project => {
+      if (Array.isArray(project.domains)) {
+        domains.push(...project.domains);
+      } else if (typeof project.domains === 'string') {
+        domains.push(project.domains);
+      }
+      if (project.domain) {
+        domains.push(project.domain);
+      }
+    });
+    return [...new Set(domains.filter(Boolean))];
+  }
+
+  /**
+   * Get unique technologies from all projects
+   */
+  getUniqueTechnologies(): string[] {
+    const allTechs = this.projects.flatMap(p => p.technologies || []);
+    return [...new Set(allTechs)];
+  }
+
+  /**
+   * Get primary domain string from project domains
+   */
+  getPrimaryDomain(project: Project): string {
+    if (Array.isArray(project.domains)) {
+      return project.domains[0] || '';
+    }
+    return project.domains || project.domain || '';
+  }
+
+  /**
+   * Get showcase icon for hero animation
+   */
+  getShowcaseIcon(index: number): string {
+    const icons = ['pi-code', 'pi-cloud', 'pi-database', 'pi-shield', 'pi-chart-bar', 'pi-sitemap'];
+    return icons[index] || 'pi-briefcase';
+  }
+
+  /**
+   * Track by function for ngFor performance
+   */
+  trackByProject(index: number, project: Project): string {
+    return project.name + project.period;
+  }
+
+  /**
+   * Get domain slug for CSS classes
+   */
+  getDomainSlug(domain: string): string {
+    return domain ? domain.toLowerCase().replace(/[^a-z0-9]/g, '-') : '';
+  }
+
+  /**
+   * Get technology type for styling
+   */
+  getTechType(tech: string): string {
+    const frontendTechs = ['Angular', 'TypeScript', 'HTML', 'CSS', 'JavaScript', 'jQuery'];
+    const backendTechs = ['.NET', 'C#', 'VB.Net', 'ASP.Net', 'MVC'];
+    const cloudTechs = ['Azure', 'Docker'];
+    const databaseTechs = ['SQL Server', 'PostgreSQL'];
+    
+    if (frontendTechs.some(t => tech.includes(t))) return 'frontend';
+    if (backendTechs.some(t => tech.includes(t))) return 'backend';
+    if (cloudTechs.some(t => tech.includes(t))) return 'cloud';
+    if (databaseTechs.some(t => tech.includes(t))) return 'database';
+    
+    return 'other';
+  }
+
+  /**
+   * Get frontend technology count
+   */
+  getFrontendTechCount(): number {
+    const frontendTechs = ['Angular', 'TypeScript', 'HTML', 'CSS', 'JavaScript', 'jQuery'];
+    const uniqueFrontend = new Set(
+      this.getUniqueTechnologies().filter(tech =>
+        frontendTechs.some(ft => tech.includes(ft))
+      )
+    );
+    return uniqueFrontend.size;
+  }
+
+  /**
+   * Get backend technology count
+   */
+  getBackendTechCount(): number {
+    const backendTechs = ['.NET', 'C#', 'VB.Net', 'ASP.Net', 'MVC'];
+    const uniqueBackend = new Set(
+      this.getUniqueTechnologies().filter(tech =>
+        backendTechs.some(bt => tech.includes(bt))
+      )
+    );
+    return uniqueBackend.size;
+  }
+
+  /**
+   * Get cloud technology count
+   */
+  getCloudTechCount(): number {
+    const cloudTechs = ['Azure', 'Docker'];
+    const uniqueCloud = new Set(
+      this.getUniqueTechnologies().filter(tech =>
+        cloudTechs.some(ct => tech.includes(ct))
+      )
+    );
+    return uniqueCloud.size;
+  }
+
+  /**
+   * Open external URL
+   */
+  openUrl(url: string): void {
+    window.open(url, '_blank');
+  }
+
+  /**
+   * Get current origin for live demo
+   */
+  getCurrentOrigin(): string {
+    return window.location.origin;
   }
 }

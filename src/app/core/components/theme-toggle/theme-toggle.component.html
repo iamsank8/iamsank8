@@ -1,9 +1,10 @@
-<button 
-  mat-icon-button 
-  aria-label="Toggle theme" 
-  class="theme-toggle-button" 
+<p-button
+  [text]="true"
+  [rounded]="true"
+  aria-label="Toggle theme"
+  class="theme-toggle-button"
   (click)="toggleTheme()"
-  [matTooltip]="(isDarkTheme$ | async) ? 'Switch to light theme' : 'Switch to dark theme'">
-  <mat-icon *ngIf="!(isDarkTheme$ | async)">dark_mode</mat-icon>
-  <mat-icon *ngIf="isDarkTheme$ | async">light_mode</mat-icon>
-</button>
+  [pTooltip]="(isDarkTheme$ | async) ? 'Switch to light theme' : 'Switch to dark theme'">
+  <i class="pi pi-moon" *ngIf="!(isDarkTheme$ | async)"></i>
+  <i class="pi pi-sun" *ngIf="isDarkTheme$ | async"></i>
+</p-button>

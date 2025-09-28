@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 export interface SkillItem {
   name: string;
   level: number;
+  yearsOfExperience?: number;
 }
 
 export interface SkillCategory {

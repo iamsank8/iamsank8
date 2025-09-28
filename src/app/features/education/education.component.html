@@ -4,88 +4,89 @@
     <p>My academic background and achievements</p>
   </div>
 
-  <div class="education-content">
-    <table mat-table [dataSource]="educations" class="education-table">
-      <!-- Degree Column -->
-      <ng-container matColumnDef="degree">
-        <th mat-header-cell *matHeaderCellDef>Degree</th>
-        <td mat-cell *matCellDef="let education">{{ education.degree }}</td>
-      </ng-container>
-
-      <!-- Year Column -->
-      <ng-container matColumnDef="year">
-        <th mat-header-cell *matHeaderCellDef>Year</th>
-        <td mat-cell *matCellDef="let education">{{ education.year }}</td>
-      </ng-container>
-
-      <!-- Institution Column -->
-      <ng-container matColumnDef="institution">
-        <th mat-header-cell *matHeaderCellDef>Institution/Board</th>
-        <td mat-cell *matCellDef="let education">{{ education.institution }}</td>
-      </ng-container>
-
-      <!-- Board Column -->
-      <ng-container matColumnDef="board">
-        <th mat-header-cell *matHeaderCellDef>Board</th>
-        <td mat-cell *matCellDef="let education">{{ education.board }}</td>
-      </ng-container>
-
-      <!-- Percentage Column -->
-      <ng-container matColumnDef="percentage">
-        <th mat-header-cell *matHeaderCellDef>Percentage</th>
-        <td mat-cell *matCellDef="let education">{{ education.percentage }}%</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-content">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+      <p>Loading education data...</p>
+    </div>
   </div>
 
-  <div class="education-cards">
-    <mat-card appearance="outlined" *ngFor="let education of educations" class="education-card">
-      <mat-card-header>
-        <div mat-card-avatar class="education-avatar">
-          <mat-icon>school</mat-icon>
-        </div>
-        <mat-card-title>{{ education.degree }}</mat-card-title>
-        <mat-card-subtitle>{{ education.year }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p><strong>Institution:</strong> {{ education.institution }}</p>
-        <p><strong>Board:</strong> {{ education.board }}</p>
-        <p><strong>Percentage:</strong> {{ education.percentage }}%</p>
-      </mat-card-content>
-    </mat-card>
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-container">
+    <div class="error-content">
+      <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: var(--error);"></i>
+      <p>Failed to load education data. Please try again later.</p>
+    </div>
   </div>
 
-  <div class="additional-education">
-    <h2>Additional Certifications</h2>
-    <div class="certification-cards">
-      <mat-card appearance="outlined" class="certification-card">
-        <mat-card-header>
-          <div mat-card-avatar class="certification-avatar">
-            <mat-icon>verified</mat-icon>
-          </div>
-          <mat-card-title>Prompt Engineering</mat-card-title>
-          <mat-card-subtitle>2023</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Completed courses on Prompt engineering and context providing for AI tools.</p>
-        </mat-card-content>
-      </mat-card>
+  <!-- Content -->
+  <div *ngIf="!loading && !error">
+    <div class="education-content">
+      <p-table [value]="educations" class="education-table">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Degree</th>
+            <th>Year</th>
+            <th>Institution/Board</th>
+            <th>Board</th>
+            <th>Percentage</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-education>
+          <tr>
+            <td>{{ education.degree }}</td>
+            <td>{{ education.year }}</td>
+            <td>{{ education.institution }}</td>
+            <td>{{ education.board }}</td>
+            <td>{{ education.percentage }}%</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
 
-      <mat-card appearance="outlined" class="certification-card">
-        <mat-card-header>
-          <div mat-card-avatar class="certification-avatar">
-            <mat-icon>verified</mat-icon>
+    <div class="education-cards">
+      <p-card *ngFor="let education of educations" class="education-card">
+        <ng-template pTemplate="header">
+          <div class="education-card-header">
+            <div class="education-avatar">
+              <i class="pi pi-graduation-cap"></i>
+            </div>
+            <div class="education-info">
+              <h3>{{ education.degree }}</h3>
+              <span class="education-year">{{ education.year }}</span>
+            </div>
           </div>
-          <mat-card-title>AI/ML Integration</mat-card-title>
-          <mat-card-subtitle>2022</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Worked with AI ML (small language models) on local machine and experimented with different IDEs which support local integration.</p>
-        </mat-card-content>
-      </mat-card>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <p><strong>Institution:</strong> {{ education.institution }}</p>
+          <p><strong>Board:</strong> {{ education.board }}</p>
+          <p><strong>Percentage:</strong> {{ education.percentage }}%</p>
+          <p *ngIf="education.description" class="education-description">{{ education.description }}</p>
+        </ng-template>
+      </p-card>
+    </div>
+
+    <div class="additional-education" *ngIf="certifications.length > 0">
+      <h2>Additional Certifications</h2>
+      <div class="certification-cards">
+        <p-card *ngFor="let certification of certifications" class="certification-card">
+          <ng-template pTemplate="header">
+            <div class="certification-card-header">
+              <div class="certification-avatar">
+                <i class="pi {{ certification.icon }}"></i>
+              </div>
+              <div class="certification-info">
+                <h3>{{ certification.title }}</h3>
+                <span class="certification-year">{{ certification.year }}</span>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <p>{{ certification.description }}</p>
+          </ng-template>
+        </p-card>
+      </div>
     </div>
   </div>
 </div>

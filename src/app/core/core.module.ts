@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { MaterialModule } from './material.module';
+import { PrimeNGModule } from './primeng.module';
 import { ThemeService } from './services/theme.service';
 import { SecurityService } from './services/security.service';
 import { AnalyticsService } from './services/analytics.service';
@@ -16,7 +16,7 @@ import { AnalyticsService } from './services/analytics.service';
     CommonModule,
     RouterModule,
     HttpClientModule,
-    MaterialModule
+    PrimeNGModule
   ],
   providers: [
     ThemeService,
@@ -25,7 +25,7 @@ import { AnalyticsService } from './services/analytics.service';
   ],
   declarations: [],
   exports: [
-    MaterialModule
+    PrimeNGModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

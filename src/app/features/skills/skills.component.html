@@ -1,55 +1,194 @@
-<div class="skills-container">
-  <div class="skills-header">
-    <h1>Skills & Expertise</h1>
-    <p>Here's an overview of my technical skills and proficiency levels</p>
-  </div>
-
-  <div *ngIf="loading" class="loading-container">
-    <mat-spinner></mat-spinner>
-    <p>Loading skills...</p>
-  </div>
-
-  <div *ngIf="error" class="error-container">
-    <mat-icon color="warn">error</mat-icon>
-    <p>Failed to load skills from API. Showing fallback data.</p>
-  </div>
-
-  <div class="skills-content" *ngIf="!loading">
-    <div *ngFor="let category of categories" class="skill-category">
-      <h2>{{ category.name }}</h2>
-      
-      <div class="skills-list">
-        <div *ngFor="let skill of getSkillsByCategory(category.id)" class="skill-item">
-          <div class="skill-info">
-            <span class="skill-name">{{ skill.name }}</span>
-            <span class="skill-level">{{ skill.level }}%</span>
+<div class="skills-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          Technical <span class="gradient-text">Expertise</span>
+        </h1>
+        <p class="hero-subtitle">
+          A comprehensive overview of my technical skills, proficiency levels, and professional capabilities
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">{{ getTotalSkills() }}</span>
+            <span class="stat-label">Technical Skills</span>
           </div>
-          <mat-progress-bar 
-            mode="determinate" 
-            [value]="skill.level"
-            [color]="skill.level >= 80 ? 'primary' : 'accent'">
-          </mat-progress-bar>
+          <div class="stat-item">
+            <span class="stat-number">{{ getExpertSkills() }}</span>
+            <span class="stat-label">Expert Level</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ categories.length }}</span>
+            <span class="stat-label">Categories</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="skills-chart">
+          <div class="chart-center">
+            <span class="chart-title">Skills</span>
+            <span class="chart-subtitle">Overview</span>
+          </div>
+          <div class="chart-rings">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+          </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="loading-content">
+      <p-progressSpinner [style]="{'width': '40px', 'height': '40px'}"></p-progressSpinner>
+      <p>Loading technical skills...</p>
+    </div>
   </div>
 
-  <div class="additional-skills">
-    <h2>Additional Skills</h2>
-    
-    <div class="skill-chips">
-      <mat-chip-set>
-        <mat-chip-option color="primary" selected>Team Leadership</mat-chip-option>
-        <mat-chip-option color="primary" selected>Project Management</mat-chip-option>
-        <mat-chip-option color="primary" selected>Code Reviews</mat-chip-option>
-        <mat-chip-option color="primary" selected>Requirement Analysis</mat-chip-option>
-        <mat-chip-option color="primary" selected>Problem Solving</mat-chip-option>
-        <mat-chip-option color="primary" selected>Debugging</mat-chip-option>
-        <mat-chip-option color="primary" selected>Root Cause Analysis</mat-chip-option>
-        <mat-chip-option color="primary" selected>Agile Methodologies</mat-chip-option>
-        <mat-chip-option color="primary" selected>Cross-team Communication</mat-chip-option>
-        <mat-chip-option color="primary" selected>Client Interaction</mat-chip-option>
-      </mat-chip-set>
+  <!-- Error State -->
+  <div *ngIf="error" class="error-state">
+    <div class="error-content">
+      <i class="pi pi-exclamation-triangle"></i>
+      <h3>Unable to load skills</h3>
+      <p>Displaying cached skill data. Some information may be outdated.</p>
     </div>
+  </div>
+
+  <!-- Skills Content -->
+  <div class="skills-content" *ngIf="!loading">
+    <!-- Technical Skills Categories -->
+    <section class="technical-skills">
+      <div class="section-header">
+        <h2 class="section-title">Technical Proficiency</h2>
+        <p class="section-subtitle">Detailed breakdown of technical skills across different domains</p>
+      </div>
+
+      <div class="skills-grid">
+        <div *ngFor="let category of categories; trackBy: trackByCategory"
+             class="skill-category-card"
+             [attr.data-category]="category.id">
+          <div class="category-header">
+            <div class="category-icon">
+              <i class="pi {{ getCategoryIcon(category.id) }}"></i>
+            </div>
+            <div class="category-info">
+              <h3 class="category-title">{{ category.name }}</h3>
+              <span class="category-count">{{ getSkillsByCategory(category.id).length }} skills</span>
+            </div>
+            <div class="category-average">
+              <span class="average-score">{{ getCategoryAverage(category.id) }}%</span>
+              <span class="average-label">avg</span>
+            </div>
+          </div>
+
+          <div class="skills-list">
+            <div *ngFor="let skill of getSkillsByCategory(category.id); trackBy: trackBySkill"
+                 class="skill-item"
+                 [class.expert]="skill.level >= 85"
+                 [class.advanced]="skill.level >= 70 && skill.level < 85"
+                 [class.intermediate]="skill.level >= 50 && skill.level < 70">
+              
+              <div class="skill-header">
+                <span class="skill-name">{{ skill.name }}</span>
+                <div class="skill-level-badge" [attr.data-level]="getSkillLevelText(skill.level)">
+                  <span class="level-text">{{ getSkillLevelText(skill.level) }}</span>
+                  <span class="level-percentage">{{ skill.level }}%</span>
+                </div>
+              </div>
+
+              <div class="skill-progress">
+                <div class="progress-track">
+                  <div class="progress-fill"
+                       [style.width.%]="skill.level"
+                       [attr.data-level]="getSkillLevelText(skill.level)">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Professional Skills -->
+    <section class="professional-skills">
+      <div class="section-header">
+        <h2 class="section-title">Professional Capabilities</h2>
+        <p class="section-subtitle">Soft skills and professional competencies that drive project success</p>
+      </div>
+
+      <div class="professional-grid">
+        <div class="professional-category">
+          <h3 class="professional-title">
+            <i class="pi pi-users"></i>
+            Leadership &amp; Management
+          </h3>
+          <div class="professional-skills-list">
+            <span class="professional-skill">Team Leadership</span>
+            <span class="professional-skill">Project Management</span>
+            <span class="professional-skill">Cross-team Communication</span>
+            <span class="professional-skill">Client Interaction</span>
+          </div>
+        </div>
+
+        <div class="professional-category">
+          <h3 class="professional-title">
+            <i class="pi pi-lightbulb"></i>
+            Problem Solving
+          </h3>
+          <div class="professional-skills-list">
+            <span class="professional-skill">Debugging</span>
+            <span class="professional-skill">Root Cause Analysis</span>
+            <span class="professional-skill">Critical Thinking</span>
+            <span class="professional-skill">Solution Architecture</span>
+          </div>
+        </div>
+
+        <div class="professional-category">
+          <h3 class="professional-title">
+            <i class="pi pi-chart-line"></i>
+            Process &amp; Quality
+          </h3>
+          <div class="professional-skills-list">
+            <span class="professional-skill">Code Reviews</span>
+            <span class="professional-skill">Requirement Analysis</span>
+            <span class="professional-skill">Agile Methodologies</span>
+            <span class="professional-skill">Quality Assurance</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Summary -->
+    <section class="skills-summary">
+      <div class="summary-card">
+        <div class="summary-header">
+          <h3>Skills Overview</h3>
+          <i class="pi pi-chart-bar"></i>
+        </div>
+        <div class="summary-content">
+          <div class="summary-stats">
+            <div class="summary-stat">
+              <span class="stat-value">{{ getSkillsByLevel('expert').length }}</span>
+              <span class="stat-label">Expert Skills (85%+)</span>
+              <div class="stat-bar expert"></div>
+            </div>
+            <div class="summary-stat">
+              <span class="stat-value">{{ getSkillsByLevel('advanced').length }}</span>
+              <span class="stat-label">Advanced Skills (70-84%)</span>
+              <div class="stat-bar advanced"></div>
+            </div>
+            <div class="summary-stat">
+              <span class="stat-value">{{ getSkillsByLevel('intermediate').length }}</span>
+              <span class="stat-label">Intermediate Skills (50-69%)</span>
+              <div class="stat-bar intermediate"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>

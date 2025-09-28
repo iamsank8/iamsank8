@@ -1,7 +1,7 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SkillsService, SkillCategory, SkillItem } from '../../core/services/skills.service';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../../core/material.module';
+import { PrimeNGModule } from '../../core/primeng.module';
 
 interface Skill {
   name: string;
@@ -14,7 +14,7 @@ interface Skill {
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
   standalone: true,
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, PrimeNGModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SkillsComponent implements OnInit {
@@ -80,40 +80,75 @@ export class SkillsComponent implements OnInit {
   }
 
   loadLocalSkills(): void {
-    // Fallback data if API fails
+    // Minimal fallback data if API fails - encourage using API
+    console.warn('Skills API failed, using minimal fallback data. Please check API connection.');
     this.skills = [
-      // Frontend
-      { name: 'Angular 2+', level: 90, category: 'frontend' },
+      { name: 'Angular', level: 90, category: 'frontend' },
       { name: 'TypeScript', level: 85, category: 'frontend' },
-      { name: 'HTML5', level: 90, category: 'frontend' },
-      { name: 'CSS3', level: 85, category: 'frontend' },
-      { name: 'jQuery', level: 80, category: 'frontend' },
-      
-      // Backend
       { name: 'C#', level: 85, category: 'backend' },
-      { name: 'ASP.NET', level: 80, category: 'backend' },
-      { name: 'Entity Framework', level: 75, category: 'backend' },
-      { name: 'Web Services', level: 80, category: 'backend' },
-      { name: '.NET Framework', level: 80, category: 'backend' },
-      
-      // Database
       { name: 'SQL Server', level: 85, category: 'database' },
-      { name: 'PostgreSQL', level: 75, category: 'database' },
-      { name: 'Database Design', level: 80, category: 'database' },
-      
-      // Cloud & DevOps
-      { name: 'Azure', level: 70, category: 'cloud' },
-      { name: 'Docker', level: 65, category: 'cloud' },
-      { name: 'SonarQube', level: 75, category: 'cloud' },
-      
-      // Other
-      { name: 'Debugging', level: 85, category: 'other' },
-      { name: 'AI/ML Integration', level: 70, category: 'other' },
-      { name: 'Prompt Engineering', level: 75, category: 'other' }
+      { name: 'Azure', level: 75, category: 'cloud' }
     ];
   }
 
   getSkillsByCategory(category: string): Skill[] {
     return this.skills.filter(skill => skill.category === category);
+  }
+
+  // New methods for enhanced UI
+  getTotalSkills(): number {
+    return this.skills.length;
+  }
+
+  getExpertSkills(): number {
+    return this.skills.filter(skill => skill.level >= 85).length;
+  }
+
+  getCategoryIcon(categoryId: string): string {
+    const icons: { [key: string]: string } = {
+      'frontend': 'pi-desktop',
+      'backend': 'pi-server',
+      'database': 'pi-database',
+      'cloud': 'pi-cloud',
+      'other': 'pi-cog'
+    };
+    return icons[categoryId] || 'pi-code';
+  }
+
+  getCategoryAverage(categoryId: string): number {
+    const categorySkills = this.getSkillsByCategory(categoryId);
+    if (categorySkills.length === 0) return 0;
+    
+    const total = categorySkills.reduce((sum, skill) => sum + skill.level, 0);
+    return Math.round(total / categorySkills.length);
+  }
+
+  getSkillLevelText(level: number): string {
+    if (level >= 85) return 'Expert';
+    if (level >= 70) return 'Advanced';
+    if (level >= 50) return 'Intermediate';
+    return 'Beginner';
+  }
+
+  getSkillsByLevel(levelType: string): Skill[] {
+    switch (levelType) {
+      case 'expert':
+        return this.skills.filter(skill => skill.level >= 85);
+      case 'advanced':
+        return this.skills.filter(skill => skill.level >= 70 && skill.level < 85);
+      case 'intermediate':
+        return this.skills.filter(skill => skill.level >= 50 && skill.level < 70);
+      default:
+        return [];
+    }
+  }
+
+  // TrackBy functions for performance
+  trackByCategory(index: number, category: any): string {
+    return category.id;
+  }
+
+  trackBySkill(index: number, skill: Skill): string {
+    return skill.name;
   }
 }

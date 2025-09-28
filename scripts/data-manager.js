@@ -69,6 +69,9 @@ async function seedDatabase() {
     // Load sample data
     const skillsData = require('../data/skills.json');
     const projectsData = require('../data/projects.json');
+    const experienceData = require('../data/experience.json');
+    const aboutData = require('../data/about.json');
+    const educationData = require('../data/education.json');
 
     // Use batch operations for better performance
     const batch = db.batch();
@@ -95,12 +98,46 @@ async function seedDatabase() {
       });
     });
 
+    // Add experience
+    log('💼 Adding experience data...', 'blue');
+    experienceData.forEach((experience) => {
+      const docRef = db.collection('experience').doc(experience.id);
+      batch.set(docRef, {
+        ...experience,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      });
+    });
+
+    // Add about data
+    log('ℹ️  Adding about data...', 'blue');
+    const aboutDocRef = db.collection('about').doc('profile');
+    batch.set(aboutDocRef, {
+      ...aboutData,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+
+    // Add education data
+    log('🎓 Adding education data...', 'blue');
+    educationData.forEach((education) => {
+      const docRef = db.collection('education').doc(education.id);
+      batch.set(docRef, {
+        ...education,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      });
+    });
+
     // Commit batch
     await batch.commit();
     
     log('✅ Database seeded successfully!', 'green');
     log(`   - Added ${skillsData.length} skill categories`, 'green');
     log(`   - Added ${projectsData.length} projects`, 'green');
+    log(`   - Added ${experienceData.length} work experiences`, 'green');
+    log(`   - Added 1 about profile`, 'green');
+    log(`   - Added ${educationData.length} education records`, 'green');
 
   } catch (error) {
     log(`❌ Error seeding database: ${error.message}`, 'red');
@@ -123,7 +160,7 @@ async function backupDatabase() {
     fs.mkdirSync(backupDir, { recursive: true });
 
     // Get all collections
-    const collections = ['skills', 'projects', 'contacts']; // Add more as needed
+    const collections = ['skills', 'projects', 'experience', 'about', 'education', 'contacts']; // Add more as needed
     
     for (const collectionName of collections) {
       log(`📁 Backing up ${collectionName} collection...`, 'blue');
@@ -237,7 +274,7 @@ async function clearDatabase() {
     // For now, we'll proceed with the operation
     
     const db = getFirestore();
-    const collections = ['skills', 'projects', 'contacts'];
+    const collections = ['skills', 'projects', 'experience', 'about', 'education', 'contacts'];
 
     for (const collectionName of collections) {
       log(`🗑️  Clearing ${collectionName} collection...`, 'blue');

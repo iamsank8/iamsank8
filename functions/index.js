@@ -156,6 +156,68 @@ app.get("/skills", cacheMiddleware(3600), async (req, res) => {
   }
 });
 
+// About API endpoint with 1-hour cache
+app.get("/about", cacheMiddleware(3600), async (req, res) => {
+  try {
+    const aboutSnapshot = await admin.firestore().collection("about").get();
+    const about = [];
+
+    aboutSnapshot.forEach((doc) => {
+      about.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+
+    return res.status(200).json(about);
+  } catch (error) {
+    console.error("Error fetching about:", error);
+    return res.status(500).json({error: "Something went wrong"});
+  }
+});
+
+// Education API endpoint with 1-hour cache
+app.get("/education", cacheMiddleware(3600), async (req, res) => {
+  try {
+    const educationSnapshot = await admin.firestore()
+        .collection("education").get();
+    const education = [];
+
+    educationSnapshot.forEach((doc) => {
+      education.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+
+    return res.status(200).json(education);
+  } catch (error) {
+    console.error("Error fetching education:", error);
+    return res.status(500).json({error: "Something went wrong"});
+  }
+});
+
+// Experience API endpoint with 1-hour cache
+app.get("/experience", cacheMiddleware(3600), async (req, res) => {
+  try {
+    const experienceSnapshot = await admin.firestore()
+        .collection("experience").get();
+    const experience = [];
+
+    experienceSnapshot.forEach((doc) => {
+      experience.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+
+    return res.status(200).json(experience);
+  } catch (error) {
+    console.error("Error fetching experience:", error);
+    return res.status(500).json({error: "Something went wrong"});
+  }
+});
+
 // Cache invalidation endpoint (admin only)
 app.post("/admin/cache/clear", async (req, res) => {
   try {

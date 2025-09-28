@@ -1,93 +1,292 @@
-<div class="contact-container">
-  <div class="contact-header">
-    <h1>Contact Me</h1>
-    <p>Feel free to reach out to me for any inquiries or opportunities</p>
-  </div>
+<div class="contact-page">
+  <p-toast></p-toast>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content flex grid-nogutter align-items-center">
+      <div class="hero-text col-12 md:col-6">
+        <h1 class="hero-title">
+          Let's <span class="gradient-text">Connect</span>
+        </h1>
+        <p class="hero-subtitle">
+          Ready to collaborate on your next project? I'm always excited to discuss new opportunities, innovative ideas, and potential partnerships.
+        </p>
+        <div class="hero-stats flex flex-column gap-3 mt-4">
+          <div class="stat-item flex align-items-center gap-2 p-3 border-round-md shadow-1">
+            <i class="pi pi-clock"></i>
+            <div class="stat-content flex flex-column">
+              <span class="stat-label">Response Time</span>
+              <span class="stat-value">Within 24 hours</span>
+            </div>
+          </div>
+          <div class="stat-item flex align-items-center gap-2 p-3 border-round-md shadow-1">
+            <i class="pi pi-check-circle"></i>
+            <div class="stat-content flex flex-column">
+              <span class="stat-label">Availability</span>
+              <span class="stat-value">Open to opportunities</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual col-12 md:col-6 flex justify-content-center align-items-center">
+        <div class="contact-showcase">
+          <div class="showcase-rings">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+          </div>
+          <div class="showcase-center">
+            <i class="pi pi-users"></i>
+          </div>
+          <div class="floating-icons">
+            <div class="floating-icon" style="--delay: 0s; --x: 60px; --y: -40px;">
+              <i class="pi pi-envelope"></i>
+            </div>
+            <div class="floating-icon" style="--delay: 1s; --x: -50px; --y: -60px;">
+              <i class="pi pi-phone"></i>
+            </div>
+            <div class="floating-icon" style="--delay: 2s; --x: 70px; --y: 50px;">
+              <i class="pi pi-map-marker"></i>
+            </div>
+            <div class="floating-icon" style="--delay: 3s; --x: -60px; --y: 40px;">
+              <i class="pi pi-comments"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Contact Content -->
   <div class="contact-content">
-    <div class="contact-info">
-      <h2>Contact Information</h2>
-      
-      <div class="info-item">
-        <mat-icon>email</mat-icon>
-        <div class="info-details">
-          <h3>Email</h3>
-          <p><a href="mailto:sanketat@gmail.com">sanketat&#64;gmail.com</a></p>
-        </div>
+    <!-- Contact Methods -->
+    <section class="contact-methods">
+      <div class="section-header">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Choose your preferred way to connect with me</p>
       </div>
-      
-      
-      <div class="info-item">
-        <mat-icon>location_on</mat-icon>
-        <div class="info-details">
-          <h3>Location</h3>
-          <p>Pune, Maharashtra, India</p>
-        </div>
-      </div>
-      
-      <div class="social-links">
-        <h3>Connect with me</h3>
-        <div class="social-icons">
-          <a href="https://github.com/iamsank8" target="_blank" class="social-icon">
-            <mat-icon>code</mat-icon>
-          </a>
-          <a href="https://www.linkedin.com/in/sanket-thotange/" target="_blank" class="social-icon">
-            <mat-icon>work</mat-icon>
-          </a>
-          <a href="https://twitter.com/" target="_blank" class="social-icon">
-            <mat-icon>chat</mat-icon>
-          </a>
-        </div>
-      </div>
-    </div>
 
-    <div class="contact-form">
-      <h2>Send me a message</h2>
-      
-      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name" placeholder="Your name">
-          <mat-error *ngIf="submitted && f['name'].errors">
-            Name is required
-          </mat-error>
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="Your email">
-          <mat-error *ngIf="submitted && f['email'].errors?.['required']">
-            Email is required
-          </mat-error>
-          <mat-error *ngIf="submitted && f['email'].errors?.['email']">
-            Please enter a valid email address
-          </mat-error>
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Subject</mat-label>
-          <input matInput formControlName="subject" placeholder="Subject">
-          <mat-error *ngIf="submitted && f['subject'].errors">
-            Subject is required
-          </mat-error>
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Message</mat-label>
-          <textarea matInput formControlName="message" rows="5" placeholder="Your message"></textarea>
-          <mat-error *ngIf="submitted && f['message'].errors?.['required']">
-            Message is required
-          </mat-error>
-          <mat-error *ngIf="submitted && f['message'].errors?.['minlength']">
-            Message must be at least 10 characters
-          </mat-error>
-        </mat-form-field>
-        
-        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
-          <mat-spinner *ngIf="loading" diameter="20" class="button-spinner"></mat-spinner>
-          <span *ngIf="!loading">Send Message</span>
-        </button>
-      </form>
-    </div>
+      <div class="grid">
+        <div class="method-card primary-method col-12 md:col-6 lg:col-3">
+          <div class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3">
+            <i class="pi pi-envelope"></i>
+          </div>
+          <div class="method-content">
+            <h3>Email</h3>
+            <p class="mb-3">Best for detailed discussions and project inquiries</p>
+            <a href="mailto:sanketat@gmail.com" class="method-link inline-flex align-items-center gap-1">
+              sanketat&#64;gmail.com
+              <i class="pi pi-external-link"></i>
+            </a>
+          </div>
+          <div class="method-badge absolute">
+            <span>Preferred</span>
+          </div>
+        </div>
+
+        <div class="method-card col-12 md:col-6 lg:col-3">
+          <div class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3">
+            <i class="pi pi-briefcase"></i>
+          </div>
+          <div class="method-content">
+            <h3>LinkedIn</h3>
+            <p class="mb-3">Professional networking and career opportunities</p>
+            <a href="https://www.linkedin.com/in/sanket-thotange/" target="_blank" class="method-link inline-flex align-items-center gap-1">
+              Connect on LinkedIn
+              <i class="pi pi-external-link"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="method-card col-12 md:col-6 lg:col-3">
+          <div class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3">
+            <i class="pi pi-code"></i>
+          </div>
+          <div class="method-content">
+            <h3>GitHub</h3>
+            <p class="mb-3">Collaborate on open source projects and code reviews</p>
+            <a href="https://github.com/iamsank8" target="_blank" class="method-link inline-flex align-items-center gap-1">
+              View GitHub Profile
+              <i class="pi pi-external-link"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="method-card col-12 md:col-6 lg:col-3">
+          <div class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3">
+            <i class="pi pi-map-marker"></i>
+          </div>
+          <div class="method-content">
+            <h3>Location</h3>
+            <p class="mb-3">Based in Pune, Maharashtra, India</p>
+            <div class="location-info flex flex-column gap-1">
+              <span class="timezone">IST (UTC+5:30)</span>
+              <span class="availability">Available for remote work</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-form-section">
+      <div class="form-container">
+        <div class="form-header">
+          <h2 class="form-title">Send a Message</h2>
+          <p class="form-subtitle">Have a specific project in mind? Let's discuss the details</p>
+        </div>
+
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+          <div class="grid">
+            <div class="form-field col-12 md:col-6">
+              <label for="name">Full Name</label>
+              <span class="p-input-icon-right">
+                <i class="pi pi-user"></i>
+                <input pInputText id="name" formControlName="name" placeholder="Enter your full name" />
+              </span>
+              <small class="p-error" *ngIf="submitted && f['name'].errors">
+                Name is required
+              </small>
+            </div>
+
+            <div class="form-field col-12 md:col-6">
+              <label for="email">Email Address</label>
+              <span class="p-input-icon-right">
+                <i class="pi pi-envelope"></i>
+                <input pInputText id="email" formControlName="email" placeholder="Enter your email address" />
+              </span>
+              <small class="p-error" *ngIf="submitted && f['email'].errors?.['required']">
+                Email is required
+              </small>
+              <small class="p-error" *ngIf="submitted && f['email'].errors?.['email']">
+                Please enter a valid email address
+              </small>
+            </div>
+          </div>
+
+          <div class="form-field col-12">
+            <label for="subject">Subject</label>
+            <span class="p-input-icon-right">
+              <i class="pi pi-tag"></i>
+              <input pInputText id="subject" formControlName="subject" placeholder="What's this about?" />
+            </span>
+            <small class="p-error" *ngIf="submitted && f['subject'].errors">
+              Subject is required
+            </small>
+          </div>
+
+          <div class="form-field col-12">
+            <label for="message">Message</label>
+            <textarea pInputTextarea id="message" formControlName="message" rows="6"
+                      placeholder="Tell me about your project, timeline, and any specific requirements..."></textarea>
+            <small class="p-error" *ngIf="submitted && f['message'].errors?.['required']">
+              Message is required
+            </small>
+            <small class="p-error" *ngIf="submitted && f['message'].errors?.['minlength']">
+              Message must be at least 10 characters
+            </small>
+          </div>
+
+          <div class="form-actions flex flex-column align-items-center gap-3 mt-4">
+            <p-button type="submit" [disabled]="loading" class="submit-btn flex align-items-center gap-2 px-4 py-3" [loading]="loading">
+              <i class="pi pi-send" *ngIf="!loading"></i>
+              <span *ngIf="!loading">Send Message</span>
+              <span *ngIf="loading">Sending...</span>
+            </p-button>
+            <p class="form-note flex align-items-center gap-1 m-0">
+              <i class="pi pi-info-circle"></i>
+              I'll get back to you within 24 hours
+            </p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Additional Information -->
+    <section class="additional-info">
+      <div class="info-container">
+        <div class="grid">
+          <div class="info-card col-12 md:col-4">
+            <div class="info-header flex align-items-center gap-2 mb-3">
+              <i class="pi pi-clock"></i>
+              <h3>Working Hours</h3>
+            </div>
+            <div class="info-content">
+              <div class="time-slot flex justify-content-between mb-2">
+                <span class="day">Monday - Friday</span>
+                <span class="time">9:00 AM - 6:00 PM IST</span>
+              </div>
+              <div class="time-slot flex justify-content-between">
+                <span class="day">Weekend</span>
+                <span class="time">Available for urgent matters</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card col-12 md:col-4">
+            <div class="info-header flex align-items-center gap-2 mb-3">
+              <i class="pi pi-briefcase"></i>
+              <h3>Project Types</h3>
+            </div>
+            <div class="info-content">
+              <div class="project-types flex flex-wrap gap-2">
+                <span class="project-type">Web Applications</span>
+                <span class="project-type">API Development</span>
+                <span class="project-type">System Integration</span>
+                <span class="project-type">Technical Consulting</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card col-12 md:col-4">
+            <div class="info-header flex align-items-center gap-2 mb-3">
+              <i class="pi pi-globe"></i>
+              <h3>Languages</h3>
+            </div>
+            <div class="info-content">
+              <div class="languages flex flex-column gap-2">
+                <div class="language flex justify-content-between">
+                  <span class="lang-name">English</span>
+                  <span class="lang-level">Fluent</span>
+                </div>
+                <div class="language flex justify-content-between">
+                  <span class="lang-name">Hindi</span>
+                  <span class="lang-level">Native</span>
+                </div>
+                <div class="language flex justify-content-between">
+                  <span class="lang-name">Marathi</span>
+                  <span class="lang-level">Native</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="cta-container">
+        <div class="cta-content">
+          <h2>Ready to Start Your Project?</h2>
+          <p>Let's discuss how I can help bring your ideas to life with modern web technologies and best practices.</p>
+          <div class="cta-actions">
+            <a href="mailto:sanketat@gmail.com" class="cta-btn">
+              <p-button>
+                <div class="gap-1">
+                <i class="pi pi-envelope"></i>
+                <span>Start a Conversation</span>
+                </div>
+              </p-button>
+            </a>
+            <a href="https://www.linkedin.com/in/sanket-thotange/" target="_blank" class="cta-btn-secondary">
+              <p-button severity="secondary">
+                <i class="pi pi-briefcase"></i>
+                View LinkedIn Profile
+              </p-button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>

@@ -1,75 +1,187 @@
-<div class="about-container">
-  <div class="about-header">
-    <h1>About Me</h1>
+<div class="about-page">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-content">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+      <p>Loading about data...</p>
+    </div>
   </div>
 
-  <div class="about-content">
-    <div class="profile-section">
-      <div class="profile-image">
-        <!-- Placeholder for profile image -->
-        <div class="image-placeholder">
-          <mat-icon>person</mat-icon>
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-container">
+    <div class="error-content">
+      <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: var(--error);"></i>
+      <p>Failed to load about data. Please try again later.</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!loading && !error && personalInfo">
+    <!-- Hero Section -->
+    <section class="about-hero">
+      <div class="hero-background">
+        <div class="hero-gradient"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="page-title">About Me</h1>
+          <p class="page-subtitle">Get to know the person behind the code</p>
         </div>
       </div>
-      
-      <div class="profile-details">
-        <h2>Sanket Ashokrao Thotange</h2>
-        <h3>Senior Team Lead at Nitor Infotech</h3>
-        <div class="contact-info">
-          <div class="contact-item">
-            <mat-icon>email</mat-icon>
-            <span>sanketat&#64;gmail.com</span>
+    </section>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+      <div class="container">
+        <div class="profile-card">
+          <div class="profile-visual">
+            <div class="profile-avatar">
+              <div class="avatar-placeholder">
+                <i class="pi pi-user"></i>
+              </div>
+              <div class="avatar-decoration"></div>
+            </div>
+          </div>
+          
+          <div class="profile-info">
+            <h2 class="profile-name">{{ personalInfo.fullName }}</h2>
+            <h3 class="profile-title">{{ personalInfo.title }}</h3>
+            <p class="profile-tagline">{{ personalInfo.tagline }}</p>
+            
+            <div class="profile-stats" *ngIf="stats">
+              <div class="stat-item">
+                <span class="stat-number">{{ stats.yearsExperience }}</span>
+                <span class="stat-label">Years Experience</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">{{ stats.projectsCompleted }}</span>
+                <span class="stat-label">Projects Completed</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">{{ stats.technologies }}</span>
+                <span class="stat-label">Technologies</span>
+              </div>
+            </div>
+            
+            <div class="contact-info">
+              <a class="contact-item" [href]="'mailto:' + personalInfo.email">
+                <i class="pi pi-envelope"></i>
+                <span>{{ personalInfo.email }}</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <mat-divider></mat-divider>
-
-    <div class="career-objective">
-      <h3>Career Objective</h3>
-      <p>
-        To enhance my working capacities, professional skills, business efficiencies and to serve my organization in the 
-        best possible way with sheer determination and commitment. I am keen to learn and implement new tools & 
-        techniques to minimize workload and obtain maximum efficiency, overcome different problems and challenges 
-        in competitive environment for seeking knowledge and job satisfaction as well.
-      </p>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="summary-section">
-      <h3>Summary</h3>
-      <ul>
-        <li>9+ years of experience in Analysis, Design and Development of Full stack applications.</li>
-        <li>Working as Senior Team Lead at Nitor Infotech, an Ascendion company.</li>
-        <li>Strong Skills with Angular 2+, TypeScript, HTML5, CSS3, jQuery, C#, MVC, ASP.Net, Web Services, Entity Framework.</li>
-        <li>Good experience in Debugging, root cause analysis & defect resolution.</li>
-        <li>Strong analytical and conceptual skills in database design and heavily involved in designing and developing database schemas and database objects.</li>
-        <li>Ability to adapt to fast changing skills & work.</li>
-        <li>As AI enthusiast worked with AI ML(small language models) on local machine and experimented with different IDEs which support local integration.</li>
-        <li>Completed courses on Prompt engineering and context providing for AI tools.</li>
-      </ul>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="personal-info">
-      <h3>Personal Information</h3>
-      <div class="info-grid">
-        <div class="info-item">
-          <span class="info-label">Full Name:</span>
-          <span class="info-value">Sanket Ashokrao Thotange</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Nationality:</span>
-          <span class="info-value">Indian</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Languages Known:</span>
-          <span class="info-value">English, Hindi and Marathi</span>
+    <!-- Mission Statement -->
+    <section class="mission-section" *ngIf="mission">
+      <div class="container">
+        <div class="mission-card">
+          <div class="section-header">
+            <i class="pi pi-flag section-icon"></i>
+            <h3 class="section-title">My Mission</h3>
+          </div>
+          <p class="mission-text">{{ mission }}</p>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Professional Summary -->
+    <section class="summary-section" *ngIf="professionalSummary.length > 0">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">Professional Summary</h3>
+          <p class="section-subtitle">Key highlights of my professional journey</p>
+        </div>
+        
+        <div class="summary-grid">
+          <div class="summary-card" *ngFor="let item of professionalSummary">
+            <div class="card-icon">
+              <i class="pi {{ item.icon }}"></i>
+            </div>
+            <h4 class="card-title">{{ item.title }}</h4>
+            <p class="card-description">{{ item.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Personal Information -->
+    <section class="personal-section" *ngIf="personalInfo">
+      <div class="container">
+        <div class="personal-card">
+          <div class="section-header">
+            <i class="pi pi-user section-icon"></i>
+            <h3 class="section-title">Personal Information</h3>
+          </div>
+          
+          <div class="personal-grid">
+            <div class="personal-item">
+              <div class="item-icon">
+                <i class="pi pi-id-card"></i>
+              </div>
+              <div class="item-content">
+                <span class="item-label">Full Name</span>
+                <span class="item-value">{{ personalInfo.fullName }}</span>
+              </div>
+            </div>
+            
+            <div class="personal-item">
+              <div class="item-icon">
+                <i class="pi pi-flag"></i>
+              </div>
+              <div class="item-content">
+                <span class="item-label">Nationality</span>
+                <span class="item-value">{{ personalInfo.nationality }}</span>
+              </div>
+            </div>
+            
+            <div class="personal-item">
+              <div class="item-icon">
+                <i class="pi pi-globe"></i>
+              </div>
+              <div class="item-content">
+                <span class="item-label">Languages</span>
+                <span class="item-value">{{ personalInfo.languages.join(', ') }}</span>
+              </div>
+            </div>
+            
+            <div class="personal-item">
+              <div class="item-icon">
+                <i class="pi pi-chart-line"></i>
+              </div>
+              <div class="item-content">
+                <span class="item-label">Adaptability</span>
+                <span class="item-value">{{ personalInfo.adaptability }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-card">
+          <h3 class="cta-title">Let's Work Together</h3>
+          <p class="cta-description">
+            Ready to bring your ideas to life? Let's discuss how we can collaborate
+            to create something amazing together.
+          </p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" routerLink="/contact">
+              <i class="pi pi-envelope"></i>
+              <span>Get In Touch</span>
+            </a>
+            <a class="btn btn-outline" routerLink="/projects">
+              <i class="pi pi-briefcase"></i>
+              <span>View My Work</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>

@@ -8,8 +8,6 @@ import { ExperienceComponent } from './features/experience/experience.component'
 import { EducationComponent } from './features/education/education.component';
 import { ProjectsComponent } from './features/projects/projects.component';
 import { ContactComponent } from './features/contact/contact.component';
-import { BlogComponent } from './features/blog/blog.component';
-import { BlogDetailComponent } from './features/blog/blog-detail/blog-detail.component';
 
 /**
  * Application routes configuration
@@ -23,8 +21,6 @@ export const routes: Routes = [
   { path: 'education', component: EducationComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'blog', component: BlogComponent },
-  { path: 'blog/:id', component: BlogDetailComponent },
   { path: '**', redirectTo: '' }
 ];
 
