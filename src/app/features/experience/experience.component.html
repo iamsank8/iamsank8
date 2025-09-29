@@ -1,58 +1,183 @@
-<div class="experience-container">
-  <div class="experience-header">
-    <h1>Professional Experience</h1>
-    <p>My career journey and professional growth</p>
+<div class="experience-page">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+      <p>Loading experience data...</p>
+    </div>
   </div>
 
-  <div class="experience-timeline">
-    <div *ngFor="let exp of workExperiences; let i = index" class="experience-card">
-      <div class="experience-period">{{ exp.period }}</div>
-      
-      <mat-card appearance="outlined" class="experience-details">
-        <mat-card-header>
-          <div class="position-header">
-            <mat-card-title>{{ exp.position }}</mat-card-title>
-            <div class="employment-info">
-              <span class="employment-type">{{ exp.employmentType }}</span>
-              <span *ngIf="exp.location" class="location">{{ exp.location }}</span>
-            </div>
-          </div>
-          <mat-card-subtitle>{{ exp.company }}</mat-card-subtitle>
-        </mat-card-header>
-        
-        <mat-card-content>
-          <div class="summary">
-            <p>{{ exp.summary }}</p>
-          </div>
-          
-          <div class="domains" *ngIf="exp.domains.length > 0">
-            <strong>Industry Domains:</strong>
-            <div class="domain-chips">
-              <mat-chip-set>
-                <mat-chip-option *ngFor="let domain of exp.domains" color="primary" selected>{{ domain }}</mat-chip-option>
-              </mat-chip-set>
-            </div>
-          </div>
-          
-          <div class="achievements">
-            <h3>Key Achievements</h3>
-            <ul>
-              <li *ngFor="let achievement of exp.keyAchievements">{{ achievement }}</li>
-            </ul>
-          </div>
-          
-          <div class="skills-gained">
-            <h3>Skills & Expertise Gained</h3>
-            <div class="skills-chips">
-              <mat-chip-set>
-                <mat-chip-option *ngFor="let skill of exp.skillsGained" color="accent" selected>{{ skill }}</mat-chip-option>
-              </mat-chip-set>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      
-      <div *ngIf="i < workExperiences.length - 1" class="timeline-connector"></div>
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-container">
+    <div class="error-message">
+      <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: var(--error);"></i>
+      <p>Failed to load experience data. Please try again later.</p>
     </div>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!loading && !error">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            Professional <span class="gradient-text">Journey</span>
+          </h1>
+          <p class="hero-subtitle">
+            {{ totalExperience }} years of professional growth, innovation, and technical excellence across diverse industries
+          </p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">{{ workExperiences.length }}</span>
+              <span class="stat-label">Positions</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">{{ uniqueCompanies }}</span>
+              <span class="stat-label">Companies</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">{{ uniqueDomains.length }}</span>
+              <span class="stat-label">Industries</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="career-progression" *ngIf="workExperiences.length > 0">
+            <div class="progression-line"></div>
+            <div *ngFor="let exp of workExperiences; let i = index; trackBy: trackByExperience"
+                 class="progression-point"
+                 [class.current]="i === 0"
+                 [style.animation-delay.ms]="i * 200">
+              <div class="point-marker"></div>
+              <div class="point-label">{{ getYearFromPeriod(exp.period) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="experience-content">
+      <div class="section-header">
+        <h2 class="section-title">Career Timeline</h2>
+        <p class="section-subtitle">A detailed journey through my professional experience and growth</p>
+      </div>
+
+      <div class="timeline-wrapper" *ngIf="workExperiences.length > 0">
+        <p-timeline [value]="workExperiences" layout="vertical" styleClass="custom-timeline" align="alternate">
+          <ng-template pTemplate="marker" let-experience>
+            <div class="timeline-marker">
+              <i class="pi pi-briefcase"></i>
+            </div>
+          </ng-template>
+          
+          <ng-template pTemplate="content" let-experience let-i="index">
+            <div class="experience-card">
+              <div class="card-header">
+                <div class="period-badge">{{ experience.period }}</div>
+                <div class="employment-badge" [attr.data-type]="experience.employmentType.toLowerCase()">
+                  {{ experience.employmentType }}
+                </div>
+              </div>
+
+              <div class="card-content">
+                <div class="position-info">
+                  <h3 class="position-title">{{ experience.position }}</h3>
+                  <div class="company-info">
+                    <span class="company-name">{{ experience.company }}</span>
+                    <span *ngIf="experience.location" class="location">
+                      <i class="pi pi-map-marker"></i>
+                      {{ experience.location }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="summary-section">
+                  <p class="summary-text">{{ experience.summary }}</p>
+                </div>
+
+                <div class="domains-section" *ngIf="experience.domains && experience.domains.length > 0">
+                  <h4 class="section-label">
+                    <i class="pi pi-building"></i>
+                    Industry Domains
+                  </h4>
+                  <div class="domains-list">
+                    <span *ngFor="let domain of experience.domains" class="domain-tag">{{ domain }}</span>
+                  </div>
+                </div>
+
+                <div class="achievements-section" *ngIf="experience.keyAchievements && experience.keyAchievements.length > 0">
+                  <h4 class="section-label">
+                    <i class="pi pi-star"></i>
+                    Key Achievements
+                  </h4>
+                  <ul class="achievements-list">
+                    <li *ngFor="let achievement of experience.keyAchievements" class="achievement-item">
+                      <i class="pi pi-check-circle achievement-icon"></i>
+                      <span>{{ achievement }}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="skills-section" *ngIf="experience.skillsGained && experience.skillsGained.length > 0">
+                  <h4 class="section-label">
+                    <i class="pi pi-cog"></i>
+                    Skills &amp; Expertise Gained
+                  </h4>
+                  <div class="skills-list">
+                    <span *ngFor="let skill of experience.skillsGained" class="skill-tag">{{ skill }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-timeline>
+      </div>
+    </section>
+
+    <!-- Experience Summary -->
+    <section class="experience-summary">
+      <div class="summary-container">
+        <div class="summary-header">
+          <h2>Experience Overview</h2>
+          <i class="pi pi-chart-bar"></i>
+        </div>
+        
+        <div class="summary-grid">
+          <div class="summary-card">
+            <h3>Industries Worked In</h3>
+            <div class="industry-list">
+              <span *ngFor="let domain of uniqueDomains" class="industry-item">{{ domain }}</span>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <h3>Core Competencies</h3>
+            <div class="competency-list">
+              <span *ngFor="let skill of topSkills" class="competency-item">{{ skill }}</span>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <h3>Career Progression</h3>
+            <div class="progression-stats">
+              <div class="stat-row">
+                <span class="stat-label">Total Experience:</span>
+                <span class="stat-value">{{ totalExperience }} years</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Companies:</span>
+                <span class="stat-value">{{ uniqueCompanies }} organizations</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Domains:</span>
+                <span class="stat-value">{{ uniqueDomains.length }} industries</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>

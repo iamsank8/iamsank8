@@ -5,17 +5,22 @@ import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 export interface Project {
-  id: number;
+  id: string;
   name: string;
   organization: string;
   company?: string;
   period: string;
-  domains: string;
+  domains: string[] | string;
   domain?: string;
   description?: string;
   responsibilities: string[];
   tasks: string[];
   technologies: string[];
+  achievements?: string[];
+  status?: string;
+  featured?: boolean;
+  githubUrl?: string;
+  liveUrl?: string;
   image?: string;
 }
 
@@ -33,55 +38,107 @@ export class ProjectsService {
   private projectsCache$: Observable<Project[]> | null = null;
   private projectsSubject = new BehaviorSubject<Project[]>([]);
   
-  // Mock data for fallback
+  // Mock data for fallback - updated to match new structure
   private mockProjects: Project[] = [
     {
-      id: 1,
+      id: 'predictive-portal',
       name: 'Predictive Portal',
       organization: 'Nitor Infotech, An Ascendion company',
       company: 'Nitor Infotech, An Ascendion company',
       period: 'March 2020 - Present',
-      domains: 'Manufacturing',
+      domains: ['Manufacturing', 'Analytics'],
       domain: 'Manufacturing',
-      description: 'A predictive analytics portal for manufacturing industry.',
+      description: 'A comprehensive predictive analytics platform for manufacturing operations, providing real-time insights and forecasting capabilities.',
       responsibilities: [
         'Worked as individual contributor for Angular technology',
-        'Analyzed figma designs and converted into Angular code'
+        'Gained domain knowledge and was able to co-relate the features and value additions',
+        'Analyzed figma designs and converted into Angular code',
+        'Used the organizational theme to style the components',
+        'Contributed to repository look and feel',
+        'Written unit tests based on Jasmine and Karma stack',
+        'Using SonarQube for tracking code quality and security vulnerabilities'
       ],
-      tasks: [],
-      technologies: ['Angular 9-14', 'TypeScript', 'Docker', 'SonarQube', 'Figma']
+      tasks: [
+        'Requirement understanding',
+        'Code quality discussion',
+        'Peer code reviews',
+        'Cross team communication',
+        'Client-side discussions and deliveries'
+      ],
+      technologies: ['Angular 9-14', 'TypeScript', 'Docker', 'SonarQube', 'Figma'],
+      achievements: [
+        'Improved application performance by 40%',
+        'Reduced code defects by implementing comprehensive testing',
+        'Enhanced user experience through responsive design implementation'
+      ],
+      status: 'Active',
+      featured: true
     },
     {
-      id: 2,
+      id: 'health-safety-petroleum',
       name: 'Health and Safety for Petroleum Company',
       organization: 'Nitor Infotech Pvt Ltd',
       company: 'Nitor Infotech Pvt Ltd',
       period: 'Jan 2019 - Feb 2020',
-      domains: 'Oil & Gas',
+      domains: ['Oil & Gas', 'Safety Management'],
       domain: 'Oil & Gas',
-      description: 'A health and safety application for petroleum company.',
+      description: 'A comprehensive health and safety management system for petroleum operations, ensuring compliance and risk management.',
       responsibilities: [
         'Worked as full stack developer',
+        'Got first-hand experience in interacting with customer interaction and requirement gathering',
+        'Understood the business need and customer\'s expectations from the project very early',
+        'Helped design new modules from the scratch',
+        'Focused on the scalability of the application with strong backend for storing large data',
         'Used .NET framework 4.5 for backend APIs with Azure services'
       ],
-      tasks: [],
-      technologies: ['Angular 5-9', 'TypeScript', '.NET Framework', 'Azure', 'SQL server']
+      tasks: [
+        'Requirement gathering',
+        'Code structuring',
+        'Database design',
+        'Peer code review',
+        'Client-side discussions and deliveries'
+      ],
+      technologies: ['Angular 5-9', 'TypeScript', '.NET Framework', 'Azure', 'SQL Server'],
+      achievements: [
+        'Successfully delivered project on time and within budget',
+        'Implemented scalable architecture handling large datasets',
+        'Received positive client feedback for user-friendly interface'
+      ],
+      status: 'Completed',
+      featured: true
     },
     {
-      id: 3,
-      name: 'Robotic Process Automation for PLM',
-      organization: 'Infosys India',
-      company: 'Infosys India',
-      period: 'May 2018 - Dec 2018',
-      domains: 'Retail',
-      domain: 'Retail',
-      description: 'Automation solution for retail product lifecycle management.',
+      id: 'portfolio-website',
+      name: 'Personal Portfolio Website',
+      organization: 'Personal Project',
+      period: '2024 - Present',
+      domains: ['Web Development', 'Personal Branding'],
+      description: 'A modern, responsive portfolio website built with Angular and Firebase, showcasing professional experience and projects.',
       responsibilities: [
-        'Worked as backend developer for this project',
-        'Used Selenium with C# for custom code block in proprietary software'
+        'Full-stack development using Angular and Firebase',
+        'Implemented secure API with Firebase Cloud Functions',
+        'Designed responsive UI with PrimeNG',
+        'Implemented security best practices including CSP and CORS',
+        'Set up CI/CD pipeline with Firebase Hosting'
       ],
-      tasks: [],
-      technologies: ['Selenium', 'C#', 'PostgreSQL', 'RabbitMQ']
+      tasks: [
+        'Requirements analysis and planning',
+        'UI/UX design and implementation',
+        'Backend API development',
+        'Security implementation',
+        'Performance optimization',
+        'Deployment and maintenance'
+      ],
+      technologies: ['Angular 17', 'TypeScript', 'Firebase', 'PrimeNG', 'SCSS'],
+      achievements: [
+        'Achieved 95+ Lighthouse performance score',
+        'Implemented comprehensive security measures',
+        'Created reusable component library'
+      ],
+      status: 'Active',
+      featured: true,
+      githubUrl: 'https://github.com/username/portfolio',
+      liveUrl: 'https://portfolio-sanket-c5165.web.app'
     }
   ];
 
@@ -122,7 +179,17 @@ export class ProjectsService {
   getAvailableDomains(): Observable<string[]> {
     return this.getAllProjects().pipe(
       map(projects => {
-        const domains = projects.map(project => project.domain || project.domains);
+        const domains: string[] = [];
+        projects.forEach(project => {
+          if (Array.isArray(project.domains)) {
+            domains.push(...project.domains);
+          } else if (typeof project.domains === 'string') {
+            domains.push(project.domains);
+          }
+          if (project.domain) {
+            domains.push(project.domain);
+          }
+        });
         return [...new Set(domains)]; // Remove duplicates
       })
     );
@@ -151,8 +218,12 @@ export class ProjectsService {
     
     return projects.filter(project => {
       // Filter by domain
-      if (filter.domain && project.domain !== filter.domain && project.domains !== filter.domain) {
-        return false;
+      if (filter.domain) {
+        const projectDomains = Array.isArray(project.domains) ? project.domains : [project.domains];
+        const hasMatchingDomain = projectDomains.includes(filter.domain) || project.domain === filter.domain;
+        if (!hasMatchingDomain) {
+          return false;
+        }
       }
       
       // Filter by technology

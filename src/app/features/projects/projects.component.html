@@ -1,161 +1,312 @@
-<div class="projects-container">
-  <div class="projects-header">
-    <h1>Technical Projects</h1>
-    <p>Showcase of technical solutions and project outcomes I've delivered</p>
-  </div>
-
-  <!-- Filter Section -->
-  <div class="filter-section" *ngIf="!loading">
-    <form [formGroup]="filterForm" class="filter-form">
-      <mat-form-field appearance="outline">
-        <mat-label>Search Projects</mat-label>
-        <input matInput formControlName="search" placeholder="Search by name or description">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-      
-      <mat-form-field appearance="outline">
-        <mat-label>Filter by Domain</mat-label>
-        <mat-select formControlName="domain">
-          <mat-option value="">All Domains</mat-option>
-          <mat-option *ngFor="let domain of availableDomains" [value]="domain">
-            {{domain}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-      <mat-form-field appearance="outline">
-        <mat-label>Filter by Technology</mat-label>
-        <mat-select formControlName="technology">
-          <mat-option value="">All Technologies</mat-option>
-          <mat-option *ngFor="let tech of availableTechnologies" [value]="tech">
-            {{tech}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-      <button mat-raised-button color="accent" (click)="resetFilters()">
-        <mat-icon>refresh</mat-icon> Reset Filters
-      </button>
-    </form>
-  </div>
-
-  <div *ngIf="loading" class="loading-container">
-    <mat-spinner></mat-spinner>
-    <p>Loading projects...</p>
-  </div>
-
-  <div *ngIf="error" class="error-container">
-    <mat-icon color="warn">error</mat-icon>
-    <p>Failed to load projects from API. Showing fallback data.</p>
-  </div>
-
-  <div class="projects-grid" *ngIf="!loading">
-    <div *ngIf="filteredProjects.length === 0" class="no-results">
-      <mat-icon>search_off</mat-icon>
-      <p>No projects match your filter criteria</p>
-      <button mat-button color="primary" (click)="resetFilters()">Clear Filters</button>
+<div class="projects-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          Technical <span class="gradient-text">Projects</span>
+        </h1>
+        <p class="hero-subtitle">
+          Comprehensive showcase of professional projects, technical solutions, and innovative implementations across diverse industries
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">{{ getTotalProjects() }}</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ getUniqueDomains().length }}</span>
+            <span class="stat-label">Industries</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ getUniqueTechnologies().length }}</span>
+            <span class="stat-label">Technologies</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="projects-showcase">
+          <div class="showcase-grid">
+            <div class="showcase-item" *ngFor="let i of [1,2,3,4,5,6]; let idx = index"
+                 [style.animation-delay.ms]="idx * 200">
+              <div class="item-icon">
+                <i class="pi {{ getShowcaseIcon(idx) }}"></i>
+              </div>
+            </div>
+          </div>
+          <div class="showcase-center">
+            <i class="pi pi-briefcase"></i>
+            <span>Portfolio</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <mat-card appearance="outlined" *ngFor="let project of filteredProjects" class="project-card">
-      <div class="project-image-placeholder">
-        <mat-icon class="project-icon">{{ getProjectIcon(project.domain || project.domains || '') }}</mat-icon>
+  </section>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="loading-content">
+      <p-progressSpinner [style]="{'width': '40px', 'height': '40px'}"></p-progressSpinner>
+      <p>Loading project portfolio...</p>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-state">
+    <div class="error-content">
+      <i class="pi pi-exclamation-triangle"></i>
+      <h3>Unable to load projects</h3>
+      <p>Displaying cached project data. Some information may be outdated.</p>
+    </div>
+  </div>
+
+  <!-- Projects Content -->
+  <div class="projects-content" *ngIf="!loading">
+    <!-- Filter Section -->
+    <section class="filter-section">
+      <div class="filter-header">
+        <h2>Explore Projects</h2>
+        <p>Filter and search through my professional project portfolio</p>
       </div>
       
-      <mat-card-header>
-        <mat-card-title>{{ project.name }}</mat-card-title>
-        <mat-card-subtitle>
-          <span class="project-organization">{{ project.company }}</span>
-          <span class="project-period">{{ project.period }}</span>
-        </mat-card-subtitle>
-      </mat-card-header>
-      
-      <mat-card-content>
-        <div class="project-domain-badge">
-          <mat-chip-option color="primary" selected>{{ project.domain || project.domains }}</mat-chip-option>
-        </div>
-        
-        <div class="project-description">
-          <p>{{ project.description }}</p>
-        </div>
-        
-        <div class="project-highlights" *ngIf="project.responsibilities && project.responsibilities.length > 0">
-          <h3>Technical Highlights</h3>
-          <ul class="highlights-list">
-            <li *ngFor="let highlight of getProjectHighlights(project.responsibilities)">
-              <mat-icon class="highlight-icon">check_circle</mat-icon>
-              {{ highlight }}
-            </li>
-          </ul>
-        </div>
-        
-        <div class="project-technologies">
-          <h3>Tech Stack</h3>
-          <div class="tech-stack">
-            <mat-chip-set>
-              <mat-chip-option *ngFor="let tech of project.technologies"
-                       [color]="getTechChipColor(tech)"
-                       selected>{{ tech }}</mat-chip-option>
-            </mat-chip-set>
+      <form [formGroup]="filterForm" class="filter-controls">
+        <div class="search-field">
+          <div class="p-field search-input">
+            <label for="search">Search Projects</label>
+            <span class="p-input-icon-right">
+              <i class="pi pi-search"></i>
+              <input id="search" type="text" pInputText formControlName="search" placeholder="Search by name, description, or technology">
+            </span>
           </div>
         </div>
         
-        <div class="project-impact" *ngIf="getProjectImpact(project)">
-          <div class="impact-badge">
-            <mat-icon>trending_up</mat-icon>
-            <span>{{ getProjectImpact(project) }}</span>
+        <div class="filter-fields">
+          <div class="p-field">
+            <label for="domain">Industry Domain</label>
+            <p-dropdown id="domain" formControlName="domain" [options]="domainOptions" placeholder="All Industries" optionLabel="label" optionValue="value"></p-dropdown>
           </div>
+          
+          <div class="p-field">
+            <label for="technology">Technology Stack</label>
+            <p-dropdown id="technology" formControlName="technology" [options]="technologyOptions" placeholder="All Technologies" optionLabel="label" optionValue="value"></p-dropdown>
+          </div>
+          
+          <p-button label="Reset" icon="pi pi-refresh" (onClick)="resetFilters()" class="reset-btn"></p-button>
         </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+      </form>
+    </section>
 
-  <div class="additional-projects">
-    <h2>Personal Projects</h2>
-    <p class="section-description">
-      In addition to my professional work, I enjoy working on personal projects to explore new technologies and enhance my skills.
-    </p>
-    
-    <div class="personal-projects-grid">
-      <mat-card appearance="outlined" class="personal-project-card">
-        <mat-card-header>
-          <div mat-card-avatar class="project-avatar">
-            <mat-icon>code</mat-icon>
-          </div>
-          <mat-card-title>Portfolio Website</mat-card-title>
-          <mat-card-subtitle>2023</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            A responsive portfolio website built with Angular and Material Design to showcase my skills, 
-            experience, and projects.
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <a mat-button color="primary" href="https://github.com/iamsank8" target="_blank">
-            <mat-icon>code</mat-icon> View Code
-          </a>
-        </mat-card-actions>
-      </mat-card>
+    <!-- Projects Grid -->
+    <section class="projects-showcase">
+      <div class="section-header" *ngIf="filteredProjects.length > 0">
+        <h2 class="section-title">Professional Projects</h2>
+        <p class="section-subtitle">{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }} found</p>
+      </div>
 
-      <mat-card appearance="outlined" class="personal-project-card">
-        <mat-card-header>
-          <div mat-card-avatar class="project-avatar">
-            <mat-icon>smart_toy</mat-icon>
+      <!-- No Results -->
+      <div *ngIf="filteredProjects.length === 0" class="no-results">
+        <div class="no-results-content">
+          <i class="pi pi-search-minus"></i>
+          <h3>No projects found</h3>
+          <p>Try adjusting your search criteria or clearing the filters</p>
+          <p-button label="Clear All Filters" icon="pi pi-refresh" (onClick)="resetFilters()"></p-button>
+        </div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid" *ngIf="filteredProjects.length > 0">
+        <div *ngFor="let project of filteredProjects; trackBy: trackByProject"
+             class="project-card"
+             [attr.data-domain]="getDomainSlug(getPrimaryDomain(project))">
+          
+          <div class="card-header">
+            <div class="project-icon-wrapper">
+              <div class="project-icon-bg">
+                <i class="pi {{ getProjectIcon(getPrimaryDomain(project)) }} project-icon"></i>
+              </div>
+            </div>
+            <div class="project-meta">
+              <div class="project-period">{{ project.period }}</div>
+              <div class="project-company">{{ project.company }}</div>
+            </div>
           </div>
-          <mat-card-title>AI Integration Experiments</mat-card-title>
-          <mat-card-subtitle>2022</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            Experiments with integrating AI/ML models into web applications, focusing on local 
-            language models and IDE integrations.
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <a mat-button color="primary" href="https://github.com/iamsank8" target="_blank">
-            <mat-icon>code</mat-icon> View Code
-          </a>
-        </mat-card-actions>
-      </mat-card>
-    </div>
+
+          <div class="card-content">
+            <h3 class="project-title">{{ project.name }}</h3>
+            
+            <div class="project-domain">
+              <i class="pi pi-building"></i>
+              <span>{{ project.domain || project.domains }}</span>
+            </div>
+
+            <p class="project-description">{{ project.description }}</p>
+
+            <div class="project-highlights" *ngIf="project.responsibilities && project.responsibilities.length > 0">
+              <h4 class="highlights-title">
+                <i class="pi pi-star"></i>
+                Key Achievements
+              </h4>
+              <ul class="highlights-list">
+                <li *ngFor="let highlight of getProjectHighlights(project.responsibilities)" class="highlight-item">
+                  <i class="pi pi-check-circle highlight-icon"></i>
+                  <span>{{ highlight }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="project-technologies" *ngIf="project.technologies && project.technologies.length > 0">
+              <h4 class="tech-title">
+                <i class="pi pi-code"></i>
+                Technology Stack
+              </h4>
+              <div class="tech-stack">
+                <span *ngFor="let tech of project.technologies"
+                      class="tech-tag"
+                      [attr.data-type]="getTechType(tech)">
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
+
+            <div class="project-impact" *ngIf="getProjectImpact(project)">
+              <div class="impact-badge">
+                <i class="pi pi-chart-line"></i>
+                <span>{{ getProjectImpact(project) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Personal Projects -->
+    <section class="personal-projects">
+      <div class="section-header">
+        <h2 class="section-title">Personal Projects</h2>
+        <p class="section-subtitle">Side projects and experiments exploring new technologies</p>
+      </div>
+
+      <div class="personal-grid">
+        <div class="personal-project-card">
+          <div class="personal-header">
+            <div class="personal-icon">
+              <i class="pi pi-globe"></i>
+            </div>
+            <div class="personal-info">
+              <h3>Portfolio Website</h3>
+              <span class="personal-year">2023 - Present</span>
+            </div>
+            <div class="personal-status">
+              <span class="status-badge active">Active</span>
+            </div>
+          </div>
+          
+          <div class="personal-content">
+            <p>A modern, responsive portfolio website built with Angular and Material Design. Features include dynamic content loading, responsive design, and comprehensive project showcase.</p>
+            
+            <div class="personal-tech">
+              <span class="tech-tag" data-type="frontend">Angular</span>
+              <span class="tech-tag" data-type="frontend">TypeScript</span>
+              <span class="tech-tag" data-type="frontend">Material Design</span>
+              <span class="tech-tag" data-type="cloud">Firebase</span>
+            </div>
+          </div>
+          
+          <div class="personal-actions">
+            <p-button label="View Source" icon="pi pi-code" styleClass="p-button-outlined action-btn" (onClick)="openUrl('https://github.com/iamsank8')"></p-button>
+            <p-button label="Live Demo" icon="pi pi-external-link" styleClass="p-button-outlined action-btn" (onClick)="openUrl(getCurrentOrigin())"></p-button>
+          </div>
+        </div>
+
+        <div class="personal-project-card">
+          <div class="personal-header">
+            <div class="personal-icon">
+              <i class="pi pi-lightbulb"></i>
+            </div>
+            <div class="personal-info">
+              <h3>AI Integration Experiments</h3>
+              <span class="personal-year">2022 - 2023</span>
+            </div>
+            <div class="personal-status">
+              <span class="status-badge experimental">Experimental</span>
+            </div>
+          </div>
+          
+          <div class="personal-content">
+            <p>Research and development projects exploring AI/ML integration in web applications. Includes local language model implementations and IDE productivity enhancements.</p>
+            
+            <div class="personal-tech">
+              <span class="tech-tag" data-type="ai">Machine Learning</span>
+              <span class="tech-tag" data-type="ai">Local LLMs</span>
+              <span class="tech-tag" data-type="frontend">JavaScript</span>
+              <span class="tech-tag" data-type="backend">Python</span>
+            </div>
+          </div>
+          
+          <div class="personal-actions">
+            <p-button label="View Source" icon="pi pi-code" styleClass="p-button-outlined action-btn" (onClick)="openUrl('https://github.com/iamsank8')"></p-button>
+            <p-button label="Research Phase" icon="pi pi-search" [disabled]="true" styleClass="p-button-outlined action-btn"></p-button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Summary -->
+    <section class="project-summary">
+      <div class="summary-container">
+        <div class="summary-header">
+          <h2>Project Portfolio Overview</h2>
+          <i class="pi pi-chart-bar"></i>
+        </div>
+        
+        <div class="summary-grid">
+          <div class="summary-card">
+            <h3>Industries Served</h3>
+            <div class="industry-tags">
+              <span *ngFor="let domain of getUniqueDomains()" class="industry-tag">
+                <i class="pi {{ getProjectIcon(domain) }}"></i>
+                {{ domain }}
+              </span>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <h3>Technology Expertise</h3>
+            <div class="tech-categories">
+              <div class="tech-category">
+                <h4>Frontend</h4>
+                <span class="tech-count">{{ getFrontendTechCount() }} technologies</span>
+              </div>
+              <div class="tech-category">
+                <h4>Backend</h4>
+                <span class="tech-count">{{ getBackendTechCount() }} technologies</span>
+              </div>
+              <div class="tech-category">
+                <h4>Cloud & DevOps</h4>
+                <span class="tech-count">{{ getCloudTechCount() }} technologies</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <h3>Project Impact</h3>
+            <div class="impact-stats">
+              <div class="impact-item">
+                <i class="pi pi-chart-line"></i>
+                <span>Process automation reducing manual work by 70%</span>
+              </div>
+              <div class="impact-item">
+                <i class="pi pi-bolt"></i>
+                <span>Enhanced manufacturing efficiency through predictive analytics</span>
+              </div>
+              <div class="impact-item">
+                <i class="pi pi-shield"></i>
+                <span>Improved workplace safety compliance systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>

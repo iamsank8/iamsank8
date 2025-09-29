@@ -1,16 +1,17 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MessageService } from 'primeng/api';
 import { ContactService } from '../../core/services/contact.service';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../../core/material.module';
+import { PrimeNGModule } from '../../core/primeng.module';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
   standalone: true,
-  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, PrimeNGModule, ReactiveFormsModule],
+  providers: [MessageService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ContactComponent implements OnInit {
@@ -21,7 +22,7 @@ export class ContactComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private contactService: ContactService,
-    private snackBar: MatSnackBar
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -49,11 +50,11 @@ export class ContactComponent implements OnInit {
     this.contactService.sendContactForm(this.contactForm.value)
       .subscribe({
         next: () => {
-          this.snackBar.open('Message sent successfully!', 'Close', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-            panelClass: ['success-snackbar']
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Message sent successfully!',
+            life: 3000
           });
           this.contactForm.reset();
           this.submitted = false;
@@ -61,11 +62,11 @@ export class ContactComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error sending message:', error);
-          this.snackBar.open('Failed to send message. Please try again later.', 'Close', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-            panelClass: ['error-snackbar']
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to send message. Please try again later.',
+            life: 3000
           });
           this.loading = false;
         }

@@ -1,0 +1,16 @@
+// Main app layout styles
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+// Main content wrapper with top padding to account for fixed header
+.main-content {
+  padding-top: 72px; // Desktop header height
+  min-height: calc(100vh - 72px); // Ensure full height minus header
+  
+  @media (max-width: 768px) {
+    padding-top: 64px; // Mobile header height
+    min-height: calc(100vh - 64px); // Ensure full height minus header
+  }
+}

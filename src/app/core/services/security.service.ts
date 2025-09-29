@@ -76,7 +76,7 @@ export class SecurityService {
       // Script sources
       "script-src 'self' https://apis.google.com https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://tagmanager.google.com",
       
-      // Style sources - unsafe-inline needed for Angular Material
+      // Style sources - unsafe-inline needed for PrimeNG
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tagmanager.google.com",
       
       // Font sources

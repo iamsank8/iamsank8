@@ -1,81 +1,285 @@
 <div class="home-container">
-  <div class="hero-section">
-    <div class="hero-content">
-      <h1 class="name">Sanket Thotange</h1>
-      <h2 class="title">Senior Team Lead | Full Stack Developer</h2>
-      <p class="intro">
-        9+ years of experience in Analysis, Design and Development of Full stack applications.
-        Passionate about creating efficient, scalable, and user-friendly web applications.
-      </p>
-      <div class="cta-buttons">
-        <a mat-raised-button color="primary" routerLink="/about">About Me</a>
-        <a mat-raised-button color="accent" routerLink="/contact">Contact Me</a>
+  <!-- Enhanced Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background">
+      <div class="hero-gradient"></div>
+      <div class="hero-pattern"></div>
+    </div>
+    
+    <div class="hero-content grid grid-nogutter align-items-center">
+      <div class="hero-text col-12 lg:col-6">
+        <div class="hero-greeting mb-3">
+          <span class="greeting-text">Hello, I'm</span>
+        </div>
+        <h1 class="hero-name">
+          <span class="name-highlight">Sanket</span>
+          <span class="name-primary">Thotange</span>
+        </h1>
+        <h2 class="hero-title">
+          <span class="title-primary">Senior Team Lead</span>
+          <span class="title-separator">|</span>
+          <span class="title-secondary">Full Stack Developer</span>
+        </h2>
+        <p class="hero-description">
+          Transforming ideas into scalable digital solutions with
+          <strong>9+ years</strong> of expertise in full-stack development.
+          Passionate about creating efficient, user-centric applications that make a difference.
+        </p>
+        
+        <div class="hero-stats flex gap-4 mb-6">
+          <div class="stat-item text-center">
+            <span class="stat-number block">9+</span>
+            <span class="stat-label block">Years Experience</span>
+          </div>
+          <div class="stat-item text-center">
+            <span class="stat-number block">50+</span>
+            <span class="stat-label block">Projects Delivered</span>
+          </div>
+          <div class="stat-item text-center">
+            <span class="stat-number block">15+</span>
+            <span class="stat-label block">Technologies</span>
+          </div>
+        </div>
+        
+        <div class="hero-actions flex flex-wrap gap-3">
+          <a class="btn btn-primary flex align-items-center gap-2" routerLink="/projects">
+            <i class="pi pi-briefcase"></i>
+            <span>View My Work</span>
+          </a>
+          <a class="btn btn-secondary flex align-items-center gap-2" routerLink="/contact">
+            <i class="pi pi-envelope"></i>
+            <span>Get In Touch</span>
+          </a>
+          <a class="btn btn-outline flex align-items-center gap-2" href="#tech-stack">
+            <i class="pi pi-arrow-down"></i>
+            <span>Learn More</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="visual-container">
+          <div class="code-window">
+            <div class="window-header">
+              <div class="window-controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+              </div>
+              <span class="window-title">portfolio.ts</span>
+            </div>
+            <div class="window-content">
+              <div class="code-line">
+                <span class="line-number">1</span>
+                <span class="code-text">
+                  <span class="keyword">const</span> 
+                  <span class="variable">developer</span> = &#123;
+                </span>
+              </div>
+              <div class="code-line">
+                <span class="line-number">2</span>
+                <span class="code-text">
+                  &nbsp;&nbsp;<span class="property">name</span>: 
+                  <span class="string">'Sanket Thotange'</span>,
+                </span>
+              </div>
+              <div class="code-line">
+                <span class="line-number">3</span>
+                <span class="code-text">
+                  &nbsp;&nbsp;<span class="property">role</span>: 
+                  <span class="string">'Full Stack Developer'</span>,
+                </span>
+              </div>
+              <div class="code-line">
+                <span class="line-number">4</span>
+                <span class="code-text">
+                  &nbsp;&nbsp;<span class="property">experience</span>: 
+                  <span class="number">9</span>,
+                </span>
+              </div>
+              <div class="code-line">
+                <span class="line-number">5</span>
+                <span class="code-text">
+                  &nbsp;&nbsp;<span class="property">passion</span>: 
+                  <span class="string">'Creating Solutions'</span>
+                </span>
+              </div>
+              <div class="code-line">
+                <span class="line-number">6</span>
+                <span class="code-text">&#125;;</span>
+              </div>
+            </div>
+          </div>
+          <div class="floating-elements">
+            <div class="floating-icon" style="--delay: 0s">
+              <i class="pi pi-code"></i>
+            </div>
+            <div class="floating-icon" style="--delay: 1s">
+              <i class="pi pi-cloud"></i>
+            </div>
+            <div class="floating-icon" style="--delay: 2s">
+              <i class="pi pi-storage"></i>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="tech-stack">
-    <h3>Tech Stack</h3>
-    <div class="tech-icons">
-      <div class="tech-icon">
-        <mat-icon>code</mat-icon>
-        <span>Angular</span>
-      </div>
-      <div class="tech-icon">
-        <mat-icon>code</mat-icon>
-        <span>TypeScript</span>
-      </div>
-      <div class="tech-icon">
-        <mat-icon>code</mat-icon>
-        <span>HTML5/CSS3</span>
-      </div>
-      <div class="tech-icon">
-        <mat-icon>code</mat-icon>
-        <span>jQuery</span>
-      </div>
-      <div class="tech-icon">
-        <mat-icon>storage</mat-icon>
-        <span>SQL</span>
-      </div>
-      <div class="tech-icon">
-        <mat-icon>cloud</mat-icon>
-        <span>Azure</span>
+    
+    <div class="scroll-indicator">
+      <div class="scroll-arrow">
+        <i class="pi pi-chevron-down"></i>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="featured-projects">
-    <h3>Featured Projects</h3>
-    <div class="project-cards">
-      <mat-card appearance="outlined" class="project-card">
-        <mat-card-header>
-          <mat-card-title>Predictive Portal</mat-card-title>
-          <mat-card-subtitle>Angular, TypeScript, Docker, SonarQube</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            Worked as individual contributor for Angular technology. Analyzed figma designs and converted into Angular code.
+  <!-- Enhanced Tech Stack Section -->
+  <section id="tech-stack" class="tech-stack-section">
+    <div class="section-header">
+      <h3 class="section-title">Technology Stack</h3>
+      <p class="section-subtitle">Tools and technologies I work with</p>
+    </div>
+    
+    <div class="tech-categories flex">
+      <div class="tech-category col-12 md:col-6">
+        <h4 class="category-title">Frontend</h4>
+        <div class="tech-grid grid">
+          <div class="tech-card col-12 sm:col-6 lg:col-4">
+            <div class="tech-icon flex align-items-center justify-content-center mb-2">
+              <i class="pi pi-code"></i>
+            </div>
+            <span class="tech-name block text-center">Angular</span>
+            <div class="tech-level">
+              <div class="level-bar" style="width: 95%"></div>
+            </div>
+          </div>
+          <div class="tech-card col-12 sm:col-6 lg:col-4">
+            <div class="tech-icon flex align-items-center justify-content-center mb-2">
+              <i class="pi pi-code"></i>
+            </div>
+            <span class="tech-name block text-center">TypeScript</span>
+            <div class="tech-level">
+              <div class="level-bar" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="tech-card col-12 sm:col-6 lg:col-4">
+            <div class="tech-icon flex align-items-center justify-content-center mb-2">
+              <i class="pi pi-web"></i>
+            </div>
+            <span class="tech-name block text-center">HTML5/CSS3</span>
+            <div class="tech-level">
+              <div class="level-bar" style="width: 95%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-category col-12 md:col-6">
+        <h4 class="category-title">Backend & Cloud</h4>
+        <div class="tech-grid grid">
+          <div class="tech-card col-12 sm:col-6 lg:col-4">
+            <div class="tech-icon flex align-items-center justify-content-center mb-2">
+              <i class="pi pi-cloud"></i>
+            </div>
+            <span class="tech-name block text-center">Azure</span>
+            <div class="tech-level">
+              <div class="level-bar" style="width: 85%"></div>
+            </div>
+          </div>
+          <div class="tech-card col-12 sm:col-6 lg:col-4">
+            <div class="tech-icon flex align-items-center justify-content-center mb-2">
+              <i class="pi pi-storage"></i>
+            </div>
+            <span class="tech-name block text-center">SQL Server</span>
+            <div class="tech-level">
+              <div class="level-bar" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="tech-card col-12 sm:col-6 lg:col-4">
+            <div class="tech-icon flex align-items-center justify-content-center mb-2">
+              <i class="pi pi-server"></i>
+            </div>
+            <span class="tech-name block text-center">.NET</span>
+            <div class="tech-level">
+              <div class="level-bar" style="width: 88%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Featured Projects Preview -->
+  <section class="featured-projects-section">
+    <div class="section-header">
+      <h3 class="section-title">Featured Projects</h3>
+      <p class="section-subtitle">A showcase of my recent work and achievements</p>
+    </div>
+    
+    <div class="projects-grid flex gap-4">
+      <div class="project-card-modern col-12 md:col-6">
+        <div class="project-image">
+          <div class="project-overlay">
+            <div class="project-tech flex align-items-center justify-content-center gap-1 h-full">
+              <span class="tech-tag">Angular</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Docker</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-content">
+          <h4 class="project-title">Predictive Portal</h4>
+          <p class="project-description">
+            Advanced analytics platform built with Angular. Converted Figma designs into responsive,
+            interactive components with focus on user experience and performance.
           </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <a mat-button color="primary" routerLink="/projects">Learn More</a>
-        </mat-card-actions>
-      </mat-card>
-
-      <mat-card appearance="outlined" class="project-card">
-        <mat-card-header>
-          <mat-card-title>Health and Safety</mat-card-title>
-          <mat-card-subtitle>.NET Framework, Azure, SQL Server</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            Full stack developer focusing on scalability for storing large data using .NET framework and Azure services.
+          <div class="project-actions flex gap-2">
+            <a class="btn btn-sm btn-primary flex align-items-center gap-1" routerLink="/projects">
+              <i class="pi pi-external-link"></i>
+              <span>View Details</span>
+            </a>
+            <button class="btn btn-sm btn-outline flex align-items-center gap-1">
+              <i class="pi pi-cloud"></i>
+              <span>Source Code</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-card-modern col-12 md:col-6">
+        <div class="project-image">
+          <div class="project-overlay">
+            <div class="project-tech flex align-items-center justify-content-center gap-1 h-full">
+              <span class="tech-tag">.NET</span>
+              <span class="tech-tag">Azure</span>
+              <span class="tech-tag">SQL Server</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-content">
+          <h4 class="project-title">Health and Safety Platform</h4>
+          <p class="project-description">
+            Scalable enterprise solution for health and safety management. Built with .NET framework
+            and Azure services to handle large-scale data processing and storage.
           </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <a mat-button color="primary" routerLink="/projects">Learn More</a>
-        </mat-card-actions>
-      </mat-card>
+          <div class="project-actions flex gap-2">
+            <a class="btn btn-sm btn-primary flex align-items-center gap-1" routerLink="/projects">
+              <i class="pi pi-launch"></i>
+              <span>View Details</span>
+            </a>
+            <button class="btn btn-sm btn-outline flex align-items-center gap-1">
+              <i class="pi pi-info"></i>
+              <span>Case Study</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+    
+    <div class="section-footer">
+      <a class="btn btn-outline" routerLink="/projects">
+        <span>View All Projects</span>
+        <i class="pi pi-arrow-right"></i>
+      </a>
+    </div>
+  </section>
 </div>

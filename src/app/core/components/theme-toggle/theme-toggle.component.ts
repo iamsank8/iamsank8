@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../../material.module';
+import { PrimeNGModule } from '../../primeng.module';
 
 @Component({
   selector: 'app-theme-toggle',
   templateUrl: './theme-toggle.component.html',
   styleUrls: ['./theme-toggle.component.scss'],
   standalone: true,
-  imports: [CommonModule, MaterialModule]
+  imports: [CommonModule, PrimeNGModule]
 })
 export class ThemeToggleComponent implements OnInit {
   isDarkTheme$: Observable<boolean>;

@@ -1,33 +1,125 @@
-<mat-toolbar color="primary">
-  <span class="logo">Sanket Thotange</span>
-  <span class="spacer"></span>
-  <div class="nav-links">
-    <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-    <a mat-button routerLink="/about" routerLinkActive="active">About</a>
-    <a mat-button routerLink="/skills" routerLinkActive="active">Skills</a>
-    <a mat-button routerLink="/experience" routerLinkActive="active">Experience</a>
-    <a mat-button routerLink="/projects" routerLinkActive="active">Projects</a>
-    <a mat-button routerLink="/education" routerLinkActive="active">Education</a>
-    <a mat-button routerLink="/blog" routerLinkActive="active">Blog</a>
-    <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
+<header class="modern-header">
+  <div class="header-container">
+    <!-- Logo/Brand -->
+    <div class="brand">
+      <a routerLink="/" class="brand-link">
+        <span class="brand-name">Sanket Thotange</span>
+        <span class="brand-title">Full Stack Developer</span>
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <span class="nav-text">Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">
+            <span class="nav-text">About</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/skills" routerLinkActive="active">
+            <span class="nav-text">Skills</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/experience" routerLinkActive="active">
+            <span class="nav-text">Experience</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/education" routerLinkActive="active">
+            <span class="nav-text">Education</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/projects" routerLinkActive="active">
+            <span class="nav-text">Projects</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="active">
+            <span class="nav-text">Contact</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <app-theme-toggle class="theme-toggle"></app-theme-toggle>
+      <button class="mobile-menu-toggle" [class.active]="isMobileMenuOpen" (click)="toggleMobileMenu()" aria-label="Toggle mobile menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
   </div>
-  <app-theme-toggle></app-theme-toggle>
-  <button mat-icon-button [matMenuTriggerFor]="menu" class="mobile-menu-button">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <a mat-menu-item routerLink="/">Home</a>
-    <a mat-menu-item routerLink="/about">About</a>
-    <a mat-menu-item routerLink="/skills">Skills</a>
-    <a mat-menu-item routerLink="/experience">Experience</a>
-    <a mat-menu-item routerLink="/projects">Projects</a>
-    <a mat-menu-item routerLink="/education">Education</a>
-    <a mat-menu-item routerLink="/blog">Blog</a>
-    <a mat-menu-item routerLink="/contact">Contact</a>
-    <mat-divider></mat-divider>
-    <button mat-menu-item (click)="toggleTheme()">
-      <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
-      <span>{{ isDarkTheme ? 'Light Theme' : 'Dark Theme' }}</span>
-    </button>
-  </mat-menu>
-</mat-toolbar>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" [class.open]="isMobileMenuOpen">
+    <div class="mobile-nav-overlay" (click)="closeMobileMenu()"></div>
+    <div class="mobile-nav-content">
+      <div class="mobile-nav-header">
+        <span class="mobile-brand">Sanket Thotange</span>
+        <button class="mobile-close" (click)="closeMobileMenu()" aria-label="Close mobile menu">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+      <ul class="mobile-nav-list">
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMobileMenu()">
+            <i class="pi pi-home nav-icon"></i>
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" routerLink="/about" routerLinkActive="active" (click)="closeMobileMenu()">
+            <i class="pi pi-user nav-icon"></i>
+            <span>About</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" routerLink="/skills" routerLinkActive="active" (click)="closeMobileMenu()">
+            <i class="pi pi-cog nav-icon"></i>
+            <span>Skills</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" routerLink="/experience" routerLinkActive="active" (click)="closeMobileMenu()">
+            <i class="pi pi-briefcase nav-icon"></i>
+            <span>Experience</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" routerLink="/education" routerLinkActive="active" (click)="closeMobileMenu()">
+            <i class="pi pi-graduation-cap nav-icon"></i>
+            <span>Education</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" routerLink="/projects" routerLinkActive="active" (click)="closeMobileMenu()">
+            <i class="pi pi-folder nav-icon"></i>
+            <span>Projects</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" routerLink="/contact" routerLinkActive="active" (click)="closeMobileMenu()">
+            <i class="pi pi-envelope nav-icon"></i>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <button class="theme-toggle-mobile" (click)="toggleTheme()">
+          <i class="pi" [class.pi-sun]="isDarkTheme" [class.pi-moon]="!isDarkTheme"></i>
+          <span>{{ isDarkTheme ? 'Light Theme' : 'Dark Theme' }}</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
