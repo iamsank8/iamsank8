@@ -129,6 +129,7 @@ export class AboutService {
    */
   getAboutData(): Observable<AboutData> {
     return this.http.get<AboutData>(`${this.apiUrl}/about`).pipe(
+      map((response: any) => response[0] as AboutData),
       catchError(error => {
         console.error('Error fetching about data:', error);
         // Return mock data if API fails

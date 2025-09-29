@@ -443,5 +443,105 @@ app.get("/experience", async (req, res) => {
   }
 });
 
+// About API endpoints
+app.get("/about", async (req, res) => {
+  try {
+    // Try to fetch from Firestore first, fallback to hardcoded data
+    const db = admin.firestore();
+    const aboutSnapshot = await db.collection("about").get();
+    
+    let aboutData = null;
+    
+    if (!aboutSnapshot.empty) {
+      // Use Firestore data if available
+      aboutSnapshot.forEach(doc => {
+        aboutData = {
+          id: doc.id,
+          ...doc.data()
+        };
+      });
+    } else {
+      // Fallback to hardcoded data matching the structure from about.json
+      aboutData = {
+        personalInfo: {
+          fullName: "Sanket Ashokrao Thotange",
+          title: "Senior Team Lead at Nitor Infotech",
+          tagline: "Passionate Full Stack Developer & AI Enthusiast",
+          email: "sanketat@gmail.com",
+          nationality: "Indian",
+          languages: ["English", "Hindi", "Marathi"],
+          adaptability: "Fast-changing skills & work environments"
+        },
+        stats: {
+          yearsExperience: "9+",
+          projectsCompleted: "50+",
+          technologies: "15+"
+        },
+        mission: "To enhance my working capacities, professional skills, and business efficiencies while serving my organization with sheer determination and commitment. I am passionate about learning and implementing cutting-edge tools & techniques to maximize efficiency, overcome challenges, and drive innovation in competitive environments.",
+        professionalSummary: [
+          {
+            id: "full-stack-development",
+            icon: "pi-code",
+            title: "Full Stack Development",
+            description: "9+ years of experience in Analysis, Design and Development of Full stack applications using modern technologies and best practices."
+          },
+          {
+            id: "team-leadership",
+            icon: "pi-users",
+            title: "Team Leadership",
+            description: "Currently working as Senior Team Lead at Nitor Infotech, an Ascendion company, leading development teams and driving project success."
+          },
+          {
+            id: "technical-expertise",
+            icon: "pi-cog",
+            title: "Technical Expertise",
+            description: "Strong skills with Angular 2+, TypeScript, HTML5, CSS3, jQuery, C#, MVC, ASP.Net, Web Services, and Entity Framework."
+          },
+          {
+            id: "problem-solving",
+            icon: "pi-exclamation-triangle",
+            title: "Problem Solving",
+            description: "Extensive experience in debugging, root cause analysis, and defect resolution with strong analytical and conceptual skills."
+          },
+          {
+            id: "database-design",
+            icon: "pi-database",
+            title: "Database Design",
+            description: "Strong analytical skills in database design, heavily involved in designing and developing database schemas and database objects."
+          },
+          {
+            id: "ai-enthusiast",
+            icon: "pi-lightbulb",
+            title: "AI Enthusiast",
+            description: "Worked with AI ML (small language models) on local machine and completed courses on Prompt engineering and context providing for AI tools."
+          }
+        ],
+        certifications: [
+          {
+            id: "prompt-engineering",
+            title: "Prompt Engineering",
+            year: "2023",
+            description: "Completed courses on Prompt engineering and context providing for AI tools.",
+            icon: "pi-verified"
+          },
+          {
+            id: "ai-ml-integration",
+            title: "AI/ML Integration",
+            year: "2022",
+            description: "Worked with AI ML (small language models) on local machine and experimented with different IDEs which support local integration.",
+            icon: "pi-verified"
+          }
+        ]
+      };
+    }
+    
+    // Return as an array to match the local server format
+    return res.status(200).json([aboutData]);
+  } catch (error) {
+    console.error("Error fetching about data:", error);
+    return res.status(500).json({error: "Something went wrong"});
+  }
+});
+
 // Export the API as a Firebase Cloud Function
 exports.api = functions.https.onRequest(app);
