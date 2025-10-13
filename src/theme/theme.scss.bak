@@ -1,0 +1,342 @@
+// Import our custom design system
+@import './design-tokens.scss';
+@import './components.scss';
+@import './shared-patterns.scss';
+
+// Global styles with our design system
+body {
+  background-color: var(--bg-primary);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  color: var(--text-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  font-family: var(--font-body);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// PrimeNG component customizations with our design system
+.p-card {
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-base);
+  border: 1px solid var(--border-color);
+  
+  &:hover {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .p-card-header {
+    background-color: transparent;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem;
+  }
+  
+  .p-card-body {
+    padding: 1.5rem;
+  }
+  
+  .p-card-title {
+    color: var(--text-heading);
+    font-family: var(--font-heading);
+    font-weight: var(--font-semibold);
+    margin-bottom: 0.5rem;
+  }
+  
+  .p-card-subtitle {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    margin-bottom: 1rem;
+  }
+  
+  .p-card-content {
+    color: var(--text-body);
+    line-height: var(--leading-relaxed);
+  }
+}
+
+.p-button {
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: var(--font-medium);
+  transition: var(--transition-all);
+  padding: 0.75rem 1.5rem;
+  
+  &.p-button-primary {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: var(--text-white);
+    
+    &:hover {
+      background-color: var(--accent-blue-dark);
+      border-color: var(--accent-blue-dark);
+      transform: translateY(-1px);
+    }
+  }
+  
+  &.p-button-secondary {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-body);
+    
+    &:hover {
+      background-color: var(--bg-tertiary);
+      transform: translateY(-1px);
+    }
+  }
+  
+  &.p-button-success {
+    background-color: var(--success-green);
+    border-color: var(--success-green);
+    
+    &:hover {
+      background-color: var(--success-green-dark);
+      border-color: var(--success-green-dark);
+    }
+  }
+  
+  &.p-button-danger {
+    background-color: var(--error-red);
+    border-color: var(--error-red);
+    
+    &:hover {
+      background-color: var(--error-red-dark);
+      border-color: var(--error-red-dark);
+    }
+  }
+}
+
+.p-inputtext,
+.p-inputtextarea {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  padding: 0.75rem;
+  transition: var(--transition-all);
+  
+  &:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  }
+  
+  &::placeholder {
+    color: var(--text-muted);
+  }
+}
+
+.p-table {
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-base);
+  
+  .p-table-header {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    
+    th {
+      background-color: var(--bg-secondary);
+      color: var(--text-heading);
+      font-weight: var(--font-semibold);
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+  }
+  
+  .p-table-tbody {
+    tr {
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: var(--bg-secondary);
+      }
+      
+      td {
+        padding: 1rem;
+        color: var(--text-body);
+      }
+    }
+  }
+}
+
+.p-progressbar {
+  border-radius: var(--radius-full);
+  background-color: var(--bg-secondary);
+  
+  .p-progressbar-value {
+    background-color: var(--accent-blue);
+    border-radius: var(--radius-full);
+  }
+}
+
+.p-progressspinner {
+  .p-progressspinner-circle {
+    stroke: var(--accent-blue);
+  }
+}
+
+.p-toast {
+  .p-toast-message {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    
+    &.p-toast-message-success {
+      background-color: var(--success-green);
+      border-color: var(--success-green-dark);
+    }
+    
+    &.p-toast-message-error {
+      background-color: var(--error-red);
+      border-color: var(--error-red-dark);
+    }
+    
+    &.p-toast-message-warn {
+      background-color: var(--warning-yellow);
+      border-color: var(--warning-yellow-dark);
+    }
+    
+    &.p-toast-message-info {
+      background-color: var(--accent-blue);
+      border-color: var(--primary-blue);
+    }
+  }
+}
+
+.p-menubar {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  
+  .p-menubar-root-list {
+    .p-menuitem {
+      .p-menuitem-link {
+        color: var(--text-body);
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-md);
+        transition: var(--transition-all);
+        
+        &:hover {
+          background-color: var(--bg-secondary);
+          color: var(--accent-blue);
+        }
+      }
+    }
+  }
+}
+
+// Add smooth transitions for theme switching
+.p-card,
+.p-button,
+.p-inputtext,
+.p-inputtextarea,
+.p-table,
+.p-menubar {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+// Custom scrollbar with our design system
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-blue);
+  border-radius: var(--radius-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-blue-dark);
+}
+
+// Dark theme support
+.dark-theme {
+  .p-card {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-body);
+    
+    .p-card-title {
+      color: var(--text-heading);
+    }
+    
+    .p-card-subtitle {
+      color: var(--text-secondary);
+    }
+    
+    .p-card-content {
+      color: var(--text-body);
+    }
+  }
+  
+  .p-table {
+    background-color: var(--bg-primary);
+    
+    .p-table-header th {
+      background-color: var(--bg-secondary);
+      color: var(--text-heading);
+    }
+    
+    .p-table-tbody tr {
+      &:hover {
+        background-color: var(--bg-tertiary);
+      }
+      
+      td {
+        color: var(--text-body);
+      }
+    }
+  }
+  
+  .p-menubar {
+    background-color: var(--bg-primary);
+    border-color: var(--border-color);
+    
+    .p-menubar-root-list .p-menuitem .p-menuitem-link {
+      color: var(--text-body);
+      
+      &:hover {
+        background-color: var(--bg-secondary);
+        color: var(--accent-blue-light);
+      }
+    }
+  }
+  
+  .p-inputtext,
+  .p-inputtextarea {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-body);
+    
+    &::placeholder {
+      color: var(--text-muted);
+    }
+    
+    &:focus {
+      border-color: var(--accent-blue-light);
+      box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+    }
+  }
+  
+  .p-button {
+    &.p-button-secondary {
+      background-color: var(--bg-tertiary);
+      border-color: var(--border-color);
+      color: var(--text-body);
+      
+      &:hover {
+        background-color: var(--bg-secondary);
+        border-color: var(--border-medium);
+      }
+    }
+  }
+}
