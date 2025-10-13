@@ -130,6 +130,8 @@ npm run db:clear
 
 ### Deployment
 
+#### Manual Deployment
+
 Deploy to production:
 
 ```bash
@@ -141,6 +143,29 @@ Deploy to staging:
 ```bash
 npm run deploy:staging
 ```
+
+#### Automated Deployment (GitHub Actions)
+
+The project includes automated deployment via GitHub Actions that:
+- Automatically deploys to Firebase Hosting when code is pushed to the main branch
+- Creates preview deployments for pull requests
+- Deploys Firebase Functions for production builds
+
+**Setup GitHub Actions:**
+
+1. Run the setup script to generate required secrets:
+   ```bash
+   ./scripts/setup-github-secrets.sh
+   ```
+
+2. Add the generated secrets to your GitHub repository:
+   - Go to Repository Settings → Secrets and variables → Actions
+   - Add `FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SANKET_C5165` (service account JSON)
+   - Add `FIREBASE_TOKEN` (CI token from the setup script)
+
+3. Push to main branch to trigger automatic deployment
+
+For detailed setup instructions, see [GITHUB_ACTIONS_SETUP.md](./GITHUB_ACTIONS_SETUP.md).
 
 ## Angular Upgrade
 

@@ -21,7 +21,8 @@
     "data:list": "node scripts/data-manager.js list",
     "data:count": "node scripts/data-manager.js count",
     "make-scripts-executable": "chmod +x dev-scripts/*.sh",
-    "setup:theme": "chmod +x dev-scripts/setup-theme.sh && ./dev-scripts/setup-theme.sh"
+    "setup:theme": "chmod +x dev-scripts/setup-theme.sh && ./dev-scripts/setup-theme.sh",
+    "setup:github-secrets": "chmod +x scripts/setup-github-secrets.sh && ./scripts/setup-github-secrets.sh"
   },
   "private": true,
   "dependencies": {
