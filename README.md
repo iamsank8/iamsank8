@@ -26,7 +26,7 @@ This portfolio website is built with:
 
 ### Prerequisites
 
-- Node.js v18 or higher
+- Node.js v20 or higher (required for Firebase CLI v14+)
 - npm
 - Angular CLI
 - Firebase CLI

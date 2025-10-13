@@ -68,7 +68,7 @@ The workflow is configured in `.github/workflows/firebase-deploy.yml` and includ
 
 ### Build Process
 1. Checkout code
-2. Set up Node.js 18
+2. Set up Node.js 20 (required for Firebase CLI v14+)
 3. Install dependencies with `npm ci`
 4. Build Angular app with production configuration
 
@@ -101,7 +101,7 @@ The workflow is configured in `.github/workflows/firebase-deploy.yml` and includ
    - Ensure the service account has the required roles
 
 3. **Build failures**
-   - Check Node.js version compatibility
+   - Check Node.js version compatibility (Node.js 20+ required for Firebase CLI v14+)
    - Verify all dependencies are properly listed in package.json
    - Review build logs for specific error messages
 
