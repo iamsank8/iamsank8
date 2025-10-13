@@ -11,11 +11,11 @@ The GitHub Actions workflow automatically:
 
 ## Required GitHub Secrets
 
-You need to set up the following secrets in your GitHub repository:
+You need to set up the following secret in your GitHub repository:
 
-### 1. FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SANKET_C5165
+### FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SANKET_C5165
 
-This is the Firebase service account key for authentication.
+This is the Firebase service account key for authentication with both Firebase Hosting and Functions.
 
 #### Steps to generate:
 
@@ -32,30 +32,7 @@ This is the Firebase service account key for authentication.
    - Name: `FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SANKET_C5165`
    - Value: Paste the entire JSON content
 
-### 2. FIREBASE_TOKEN
-
-This is the Firebase CLI token for deploying functions.
-
-#### Steps to generate:
-
-1. Install Firebase CLI if not already installed:
-   ```bash
-   npm install -g firebase-tools
-   ```
-
-2. Login to Firebase:
-   ```bash
-   firebase login:ci
-   ```
-
-3. This will open a browser window for authentication
-4. After successful login, it will display a token
-5. Copy this token
-6. In your GitHub repository:
-   - Go to Settings → Secrets and variables → Actions
-   - Click "New repository secret"
-   - Name: `FIREBASE_TOKEN`
-   - Value: Paste the token
+The service account key is used for both Firebase Hosting and Functions deployment, eliminating the need for separate authentication tokens.
 
 ## Workflow Configuration
 

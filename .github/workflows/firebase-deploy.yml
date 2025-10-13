@@ -48,6 +48,9 @@ jobs:
       
       - name: Deploy Firebase Functions
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
         run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SANKET_C5165 }}' > ${{ runner.temp }}/firebase-service-account.json
           npm install -g firebase-tools
-          firebase deploy --only functions --token "${{ secrets.FIREBASE_TOKEN }}"
+          firebase deploy --only functions --project portfolio-sanket-c5165

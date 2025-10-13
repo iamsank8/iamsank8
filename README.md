@@ -158,10 +158,9 @@ The project includes automated deployment via GitHub Actions that:
    ./scripts/setup-github-secrets.sh
    ```
 
-2. Add the generated secrets to your GitHub repository:
+2. Add the service account secret to your GitHub repository:
    - Go to Repository Settings → Secrets and variables → Actions
    - Add `FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SANKET_C5165` (service account JSON)
-   - Add `FIREBASE_TOKEN` (CI token from the setup script)
 
 3. Push to main branch to trigger automatic deployment
 

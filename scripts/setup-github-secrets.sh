@@ -35,23 +35,11 @@ fi
 echo -e "${GREEN}✅ Firebase authentication verified${NC}"
 echo ""
 
-# Generate Firebase token
-echo -e "${BLUE}📝 Generating Firebase CI token...${NC}"
-echo -e "${YELLOW}This will open a browser window for authentication${NC}"
+echo -e "${GREEN}✅ Firebase CLI setup complete${NC}"
 echo ""
-
-FIREBASE_TOKEN=$(firebase login:ci --no-localhost)
-
-if [ $? -eq 0 ]; then
-    echo -e "${GREEN}✅ Firebase token generated successfully${NC}"
-    echo ""
-    echo -e "${BLUE}🔑 Your Firebase Token:${NC}"
-    echo -e "${GREEN}$FIREBASE_TOKEN${NC}"
-    echo ""
-else
-    echo -e "${RED}❌ Failed to generate Firebase token${NC}"
-    exit 1
-fi
+echo -e "${BLUE}ℹ️  Note: GitHub Actions will use service account authentication${NC}"
+echo -e "${BLUE}   No Firebase token is needed for automated deployments${NC}"
+echo ""
 
 # Instructions for service account
 echo -e "${BLUE}📋 Next Steps:${NC}"
@@ -63,16 +51,13 @@ echo "   • Download the JSON file"
 echo "   • Copy the entire JSON content"
 echo ""
 
-echo -e "${YELLOW}2. Add GitHub Repository Secrets:${NC}"
+echo -e "${YELLOW}2. Add GitHub Repository Secret:${NC}"
 echo "   • Go to your GitHub repository"
 echo "   • Navigate to: Settings → Secrets and variables → Actions"
-echo "   • Add these secrets:"
+echo "   • Add this secret:"
 echo ""
 echo -e "   ${GREEN}Secret Name:${NC} FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SANKET_C5165"
 echo -e "   ${GREEN}Secret Value:${NC} [Paste the entire JSON content from step 1]"
-echo ""
-echo -e "   ${GREEN}Secret Name:${NC} FIREBASE_TOKEN"
-echo -e "   ${GREEN}Secret Value:${NC} $FIREBASE_TOKEN"
 echo ""
 
 echo -e "${YELLOW}3. Test the deployment:${NC}"
