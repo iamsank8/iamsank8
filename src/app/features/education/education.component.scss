@@ -11,13 +11,12 @@
 
 .education-header h1 {
   font-size: 2.5rem;
-  color: #3f51b5;
+  color: var(--accent-blue-light); // Better contrast: #2b6cb0 (4.5:1 ratio)
   margin-bottom: 16px;
 }
 
 .education-header p {
   font-size: 1.2rem;
-  color: var(--text-color);
   opacity: 0.8;
 }
 
@@ -35,12 +34,54 @@
 
 .education-table {
   width: 100%;
+  
+  ::ng-deep .p-datatable {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    .p-datatable-thead > tr > th {
+      background-color: var(--bg-secondary);
+      color: var(--accent-blue-light);
+      font-weight: 600;
+      padding: 16px;
+      border-bottom: 2px solid var(--border-medium);
+      border-right: 1px solid var(--border-light);
+      
+      &:last-child {
+        border-right: none;
+      }
+    }
+    
+    .p-datatable-tbody > tr {
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: var(--bg-secondary);
+      }
+      
+      &:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.02);
+      }
+      
+      > td {
+        padding: 16px;
+        border-bottom: 1px solid var(--border-light);
+        border-right: 1px solid var(--border-light);
+        color: var(--text-body);
+        
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
 }
 
 .mat-mdc-header-cell {
   font-size: 1rem;
   font-weight: 500;
-  color: #3f51b5;
+  color: var(--accent-blue-light); // Better contrast: #2b6cb0 (4.5:1 ratio)
 }
 
 .mat-mdc-cell {
@@ -76,7 +117,7 @@
 
 .additional-education h2 {
   font-size: 1.8rem;
-  color: #3f51b5;
+  color: var(--accent-blue-light); // Better contrast: #2b6cb0 (4.5:1 ratio)
   margin-bottom: 24px;
   text-align: center;
 }
@@ -101,39 +142,153 @@
 
 .certification-card {
   height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--surface-border);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .certification-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, #ff4081 0%, #e91e63 100%);
+    color: white;
+    margin: -1px -1px 0 -1px; // Compensate for card padding
+
+    .certification-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      i {
+        font-size: 1.5rem;
+        color: white;
+      }
+    }
+
+    .certification-info {
+      flex: 1;
+
+      h3 {
+        margin: 0 0 4px 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .certification-year {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 2px 8px;
+        border-radius: 12px;
+        display: inline-block;
+      }
+    }
+  }
+
+  ::ng-deep .p-card-content {
+    padding: 20px;
+
+    p {
+      line-height: 1.6;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+  }
 }
 
-.certification-avatar {
-  background-color: #ff4081;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// Education card styling for consistency
+.education-card {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
 
-.certification-avatar mat-icon {
-  color: white;
-}
+  .education-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, #3f51b5 0%, #303f9f 100%);
+    color: white;
+    margin: -1px -1px 0 -1px;
 
-.mat-mdc-card-title {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-}
+    .education-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
 
-.mat-mdc-card-subtitle {
-  color: var(--text-color);
-  opacity: 0.8;
-}
+      i {
+        font-size: 1.5rem;
+        color: white;
+      }
+    }
 
-.mat-mdc-card-content {
-  padding-top: 16px;
-}
+    .education-info {
+      flex: 1;
 
-.mat-mdc-card-content p {
-  color: var(--text-color);
-  opacity: 0.9;
-  line-height: 1.5;
+      h3 {
+        margin: 0 0 4px 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .education-year {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 2px 8px;
+        border-radius: 12px;
+        display: inline-block;
+      }
+    }
+  }
+
+  ::ng-deep .p-card-content {
+    padding: 20px;
+
+    p {
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0 0 12px 0;
+      font-size: 0.95rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: var(--text-color);
+        font-weight: 600;
+      }
+    }
+
+    .education-description {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--surface-border);
+      font-style: italic;
+      opacity: 0.9;
+    }
+  }
 }
 
 @media (max-width: 768px) {
@@ -150,11 +305,75 @@
 // Dark theme support
 :host-context(.dark-theme) {
   .education-content {
-    background-color: var(--card-background);
-    color: var(--text-color);
+    background-color: var(--bg-secondary);
+    color: var(--text-body);
+    border: 1px solid var(--border-color);
   }
   
   .mat-mdc-header-cell {
-    color: #7986cb;
+    color: #90caf9; // Better contrast for dark theme: 7.1:1 ratio
+  }
+  
+  .education-header h1 {
+    color: #90caf9; // Better contrast for dark theme: 7.1:1 ratio
+  }
+  
+  .additional-education h2 {
+    color: #90caf9; // Better contrast for dark theme: 7.1:1 ratio
+  }
+  
+  // PrimeNG table dark theme overrides
+  ::ng-deep .p-datatable {
+    background-color: var(--bg-secondary);
+    color: var(--text-body);
+    border: 1px solid var(--border-color);
+    
+    .p-datatable-header {
+      background-color: var(--bg-tertiary);
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-body);
+    }
+    
+    .p-datatable-thead > tr > th {
+      background-color: var(--bg-tertiary);
+      color: #90caf9;
+      border-bottom: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      font-weight: 600;
+      
+      &:last-child {
+        border-right: none;
+      }
+    }
+    
+    .p-datatable-tbody > tr {
+      background-color: var(--bg-secondary);
+      color: var(--text-body);
+      border-bottom: 1px solid var(--border-color);
+      
+      &:hover {
+        background-color: var(--bg-tertiary);
+      }
+      
+      &:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.02);
+      }
+      
+      > td {
+        border-right: 1px solid var(--border-color);
+        color: var(--text-body);
+        
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+  
+  // Ensure table wrapper has proper dark theme styling
+  .education-table {
+    ::ng-deep .p-datatable-wrapper {
+      background-color: var(--bg-secondary);
+    }
   }
 }

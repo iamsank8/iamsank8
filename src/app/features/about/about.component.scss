@@ -143,16 +143,12 @@
     height: 150px;
   }
   
-  mat-icon {
+  i {
     font-size: 80px;
-    height: 80px;
-    width: 80px;
     color: white;
     
     @media (max-width: 768px) {
       font-size: 60px;
-      height: 60px;
-      width: 60px;
     }
   }
 }
@@ -252,7 +248,7 @@
       text-decoration: none;
     }
     
-    mat-icon {
+    i {
       color: var(--accent-blue);
     }
   }
@@ -377,7 +373,7 @@
     margin-bottom: var(--space-6);
     transition: var(--transition-base);
     
-    mat-icon {
+    i {
       color: var(--accent-blue);
       font-size: 28px;
     }
@@ -443,7 +439,7 @@
   &:hover {
     background: var(--accent-blue-light);
     
-    .item-icon mat-icon {
+    .item-icon i {
       color: var(--accent-blue);
     }
   }
@@ -458,7 +454,7 @@
     justify-content: center;
     flex-shrink: 0;
     
-    mat-icon {
+    i {
       color: var(--text-secondary);
       transition: var(--transition-fast);
     }
@@ -535,28 +531,5 @@
       width: 100%;
       max-width: 280px;
     }
-  }
-}
-
-// Responsive Design
-@media (max-width: 1024px) {
-  .summary-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .profile-card {
-    padding: var(--space-8);
-  }
-  
-  .mission-card,
-  .personal-card,
-  .cta-card {
-    padding: var(--space-8);
-  }
-  
-  .summary-card {
-    padding: var(--space-6);
   }
 }

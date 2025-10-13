@@ -54,3 +54,4 @@ config/firebase/*.json
 data/
 backups/
 logs/
+.dev_pids

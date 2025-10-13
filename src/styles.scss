@@ -292,3 +292,146 @@ a {
   }
 }
 
+// Global PrimeNG MultiSelect styling for appendTo="body" panels
+.p-multiselect-panel {
+  border: 2px solid var(--border-color) !important;
+  border-radius: var(--border-radius-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
+  background: var(--surface-primary) !important;
+  z-index: 1000 !important;
+
+  .p-multiselect-header {
+    padding: var(--spacing-sm) var(--spacing-md) !important;
+    background: var(--bg-secondary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+
+    .p-checkbox {
+      .p-checkbox-box {
+        border: 2px solid var(--border-color) !important;
+        border-radius: var(--border-radius-sm) !important;
+        background: var(--surface-primary) !important;
+
+        &.p-highlight {
+          background: var(--primary-500) !important;
+          border-color: var(--primary-500) !important;
+        }
+
+        .p-checkbox-icon {
+          color: white !important;
+        }
+      }
+    }
+
+    .p-multiselect-close {
+      color: var(--text-muted) !important;
+      background: transparent !important;
+      
+      &:hover {
+        color: var(--text-primary) !important;
+        background: var(--bg-secondary) !important;
+      }
+    }
+  }
+
+  .p-multiselect-items {
+    background: var(--surface-primary) !important;
+
+    .p-multiselect-item {
+      padding: var(--spacing-sm) var(--spacing-md) !important;
+      color: var(--text-primary) !important;
+      background: transparent !important;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+      }
+
+      &.p-highlight {
+        background: var(--primary-500) !important;
+        color: white !important;
+      }
+
+      .p-checkbox {
+        margin-right: var(--spacing-sm);
+
+        .p-checkbox-box {
+          border: 2px solid var(--border-color) !important;
+          border-radius: var(--border-radius-sm) !important;
+          background: var(--surface-primary) !important;
+
+          &.p-highlight {
+            background: var(--primary-500) !important;
+            border-color: var(--primary-500) !important;
+          }
+
+          .p-checkbox-icon {
+            color: white !important;
+          }
+        }
+      }
+    }
+  }
+
+  .p-multiselect-filter-container {
+    padding: var(--spacing-sm) var(--spacing-md) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    background: var(--surface-primary) !important;
+
+    .p-inputtext {
+      width: 100% !important;
+      padding: var(--spacing-sm) !important;
+      border: 1px solid var(--border-color) !important;
+      border-radius: var(--border-radius-md) !important;
+      background: var(--surface-primary) !important;
+      color: var(--text-primary) !important;
+
+      &:focus {
+        outline: none !important;
+        border-color: var(--primary-500) !important;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1) !important;
+      }
+
+      &::placeholder {
+        color: var(--text-muted) !important;
+      }
+    }
+  }
+}
+
+// Global PrimeNG MultiSelect component styling
+.p-multiselect {
+  width: 100% !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: var(--border-radius-lg) !important;
+  background: var(--surface-primary) !important;
+  transition: all 0.3s ease;
+
+  &:not(.p-disabled):hover {
+    border-color: var(--primary-200) !important;
+  }
+
+  &.p-focus {
+    border-color: var(--primary-500) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  }
+
+  .p-multiselect-label {
+    padding: var(--spacing-md) !important;
+    font-size: var(--font-size-base) !important;
+    color: var(--text-primary) !important;
+    background: transparent !important;
+
+    &.p-placeholder {
+      color: var(--text-muted) !important;
+      font-style: italic;
+    }
+  }
+
+  .p-multiselect-trigger {
+    width: 3rem !important;
+    color: var(--text-muted) !important;
+    background: transparent !important;
+  }
+}
+

@@ -1,9 +1,9 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ContactService } from '../../core/services/contact.service';
 import { CommonModule } from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { PrimeNGModule } from '../../core/primeng.module';
+import { ContactService } from '../../core/services/contact.service';
 
 @Component({
   selector: 'app-contact',

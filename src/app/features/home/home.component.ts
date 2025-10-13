@@ -1,5 +1,6 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PrimeNGModule } from '../../core/primeng.module';
 
 @Component({
@@ -7,7 +8,7 @@ import { PrimeNGModule } from '../../core/primeng.module';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [CommonModule, PrimeNGModule],
+  imports: [CommonModule, PrimeNGModule, RouterLink],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent implements OnInit {

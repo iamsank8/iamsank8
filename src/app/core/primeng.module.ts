@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TooltipModule } from 'primeng/tooltip';
@@ -19,6 +20,7 @@ import { TableModule } from 'primeng/table';
     InputTextModule,
     InputTextareaModule,
     DropdownModule,
+    MultiSelectModule,
     
     // Layout Components
     CardModule,

@@ -31,12 +31,14 @@ export class AboutComponent implements OnInit {
   private loadAboutData(): void {
     this.aboutService.getAboutData().subscribe({
       next: (data) => {
-        this.aboutData = data;
-        this.personalInfo = data.personalInfo;
-        this.stats = data.stats;
-        this.mission = data.mission;
-        this.professionalSummary = data.professionalSummary;
-        this.certifications = data.certifications;
+        if (data) {
+          this.aboutData = data;
+          this.personalInfo = data.personalInfo;
+          this.stats = data.stats;
+          this.mission = data.mission;
+          this.professionalSummary = data.professionalSummary;
+          this.certifications = data.certifications;
+        }
         this.loading = false;
       },
       error: (error) => {
