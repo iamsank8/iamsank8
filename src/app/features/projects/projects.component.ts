@@ -27,8 +27,8 @@ export class ProjectsComponent implements OnInit {
   
   // Filter form
   filterForm = new FormGroup({
-    domain: new FormControl(''),
-    technology: new FormControl(''),
+    domain: new FormControl([]),
+    technology: new FormControl([]),
     search: new FormControl('')
   });
 
@@ -72,19 +72,13 @@ export class ProjectsComponent implements OnInit {
     // Load domains
     this.projectsService.getAvailableDomains().subscribe(domains => {
       this.availableDomains = domains;
-      this.domainOptions = [
-        { label: 'All Industries', value: '' },
-        ...domains.map(domain => ({ label: domain, value: domain }))
-      ];
+      this.domainOptions = domains.map(domain => ({ label: domain, value: domain }));
     });
     
     // Load technologies
     this.projectsService.getAvailableTechnologies().subscribe(technologies => {
       this.availableTechnologies = technologies;
-      this.technologyOptions = [
-        { label: 'All Technologies', value: '' },
-        ...technologies.map(tech => ({ label: tech, value: tech }))
-      ];
+      this.technologyOptions = technologies.map(tech => ({ label: tech, value: tech }));
     });
   }
   
@@ -94,8 +88,8 @@ export class ProjectsComponent implements OnInit {
       .pipe(
         debounceTime(300),
         distinctUntilChanged((prev, curr) =>
-          prev.domain === curr.domain &&
-          prev.technology === curr.technology &&
+          JSON.stringify(prev.domain) === JSON.stringify(curr.domain) &&
+          JSON.stringify(prev.technology) === JSON.stringify(curr.technology) &&
           prev.search === curr.search
         )
       )
@@ -105,23 +99,44 @@ export class ProjectsComponent implements OnInit {
   }
   
   applyFilters(): void {
-    const filter: ProjectFilter = {
-      domain: this.filterForm.get('domain')?.value || undefined,
-      technology: this.filterForm.get('technology')?.value || undefined,
-      search: this.filterForm.get('search')?.value || undefined
-    };
+    const domainValues = this.filterForm.get('domain')?.value || [];
+    const technologyValues = this.filterForm.get('technology')?.value || [];
+    const searchValue = this.filterForm.get('search')?.value || '';
     
-    // Only apply filters if at least one is set
-    if (filter.domain || filter.technology || filter.search) {
-      this.loadProjects(filter);
-    } else {
-      this.loadProjects();
-    }
+    // Filter projects locally for multi-select functionality
+    this.filteredProjects = this.projects.filter(project => {
+      // Domain filter - check if project domain matches any selected domains
+      const domainMatch = domainValues.length === 0 ||
+        domainValues.some((selectedDomain: string) => {
+          const projectDomain = this.getPrimaryDomain(project);
+          return projectDomain === selectedDomain;
+        });
+      
+      // Technology filter - check if project has any of the selected technologies
+      const technologyMatch = technologyValues.length === 0 ||
+        technologyValues.some((selectedTech: string) =>
+          project.technologies?.includes(selectedTech)
+        );
+      
+      // Search filter - check if search term matches name, description, or technologies
+      const searchMatch = !searchValue ||
+        project.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        project.description?.toLowerCase().includes(searchValue.toLowerCase()) ||
+        project.technologies?.some(tech =>
+          tech.toLowerCase().includes(searchValue.toLowerCase())
+        );
+      
+      return domainMatch && technologyMatch && searchMatch;
+    });
   }
   
   resetFilters(): void {
-    this.filterForm.reset();
-    this.loadProjects();
+    this.filterForm.reset({
+      domain: [],
+      technology: [],
+      search: ''
+    });
+    this.filteredProjects = [...this.projects];
   }
   
   /**

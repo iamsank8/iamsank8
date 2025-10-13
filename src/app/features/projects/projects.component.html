@@ -83,12 +83,12 @@
         <div class="filter-fields">
           <div class="p-field">
             <label for="domain">Industry Domain</label>
-            <p-dropdown id="domain" formControlName="domain" [options]="domainOptions" placeholder="All Industries" optionLabel="label" optionValue="value"></p-dropdown>
+            <p-multiSelect appendTo="body" id="domain" formControlName="domain" [options]="domainOptions" placeholder="Select Industries" optionLabel="label" optionValue="value" [showToggleAll]="true" [showClear]="true"></p-multiSelect>
           </div>
           
           <div class="p-field">
             <label for="technology">Technology Stack</label>
-            <p-dropdown id="technology" formControlName="technology" [options]="technologyOptions" placeholder="All Technologies" optionLabel="label" optionValue="value"></p-dropdown>
+            <p-multiSelect appendTo="body" id="technology" formControlName="technology" [options]="technologyOptions" placeholder="Select Technologies" optionLabel="label" optionValue="value" [showToggleAll]="true" [showClear]="true"></p-multiSelect>
           </div>
           
           <p-button label="Reset" icon="pi pi-refresh" (onClick)="resetFilters()" class="reset-btn"></p-button>

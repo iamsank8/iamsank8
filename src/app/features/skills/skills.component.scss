@@ -416,11 +416,34 @@
       .professional-skill {
         padding: var(--spacing-xs) var(--spacing-sm);
         background: var(--primary-50);
-        color: var(--primary-700);
         border-radius: var(--border-radius-full);
         font-size: var(--font-size-sm);
         font-weight: var(--font-weight-medium);
         border: 1px solid var(--primary-200);
+      }
+    }
+  }
+}
+
+// Dark theme overrides for professional skills
+.dark-theme .professional-skills {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+
+  .professional-category {
+    .professional-title i {
+      color: var(--accent-blue);
+    }
+
+    .professional-skills-list {
+      .professional-skill {
+        background: var(--accent-blue);
+        color: var(--text-white);
+        border-color: var(--accent-blue);
+        
+        &:hover {
+          background: var(--primary-600);
+          border-color: var(--primary-600);
+        }
       }
     }
   }
@@ -516,6 +539,112 @@
 
     p-progressSpinner {
       margin-bottom: var(--spacing-md);
+    }
+    
+    // Comprehensive dark theme overrides
+    .dark-theme {
+      // Hero section overrides
+      .hero-section {
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      }
+    
+      .chart-center {
+        background: var(--bg-secondary);
+        border-color: var(--border-color);
+    
+        .chart-title {
+          color: var(--accent-blue);
+        }
+    
+        .chart-subtitle {
+          color: var(--text-secondary);
+        }
+      }
+    
+      .ring {
+        &.ring-1 {
+          border-color: var(--primary-200);
+        }
+    
+        &.ring-2 {
+          border-color: var(--accent-200);
+        }
+    
+        &.ring-3 {
+          border-color: var(--success-200);
+        }
+      }
+    
+      // Technical skills overrides
+      .skill-category-card {
+        .category-header {
+          .category-icon {
+            background: var(--bg-tertiary);
+    
+            i {
+              color: var(--accent-blue);
+            }
+          }
+    
+          .category-average {
+            .average-score {
+              color: var(--accent-blue);
+            }
+          }
+        }
+    
+        .skills-list {
+          .skill-item {
+            .skill-header {
+              .skill-level-badge {
+                .level-percentage {
+                  color: var(--accent-blue);
+                }
+              }
+            }
+    
+            .skill-progress {
+              .progress-track {
+                background: var(--bg-tertiary);
+              }
+            }
+    
+            &.expert .skill-level-badge .level-text {
+              color: var(--success-500);
+            }
+    
+            &.advanced .skill-level-badge .level-text {
+              color: var(--accent-blue);
+            }
+    
+            &.intermediate .skill-level-badge .level-text {
+              color: var(--warning-500);
+            }
+          }
+        }
+      }
+    
+      // Skills summary overrides
+      .skills-summary {
+        .summary-card {
+          .summary-header {
+            i {
+              color: var(--accent-blue);
+            }
+          }
+        }
+      }
+    
+      // Loading and error states
+      .loading-state,
+      .error-state {
+        .loading-content,
+        .error-content {
+          i {
+            color: var(--warning-500);
+          }
+        }
+      }
     }
 
     i {
