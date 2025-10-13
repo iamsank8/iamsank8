@@ -21,11 +21,13 @@ export class SkillsComponent implements OnInit {
   skills: Skill[] = [];
   skillCategories: SkillCategory[] = [];
   categories = [
-    { id: 'frontend', name: 'Frontend Technologies' },
-    { id: 'backend', name: 'Backend Technologies' },
-    { id: 'database', name: 'Database Technologies' },
-    { id: 'cloud', name: 'Cloud & DevOps' },
-    { id: 'other', name: 'Other Skills' }
+    { id: 'frontend', name: 'Frontend' },
+    { id: 'backend', name: 'Backend' },
+    { id: 'database', name: 'Database' },
+    { id: 'devops', name: 'DevOps & Cloud' },
+    { id: 'ai', name: 'AI & ML' },
+    { id: 'uiux', name: 'UI/UX' },
+    { id: 'security', name: 'Security' }
   ];
   loading = true;
   error = false;
@@ -73,9 +75,11 @@ export class SkillsComponent implements OnInit {
       case 'frontend': return 'frontend';
       case 'backend': return 'backend';
       case 'database': return 'database';
-      case 'devops & tools': return 'cloud';
-      case 'ai & ml': return 'other';
-      default: return 'other';
+      case 'devops & cloud': return 'devops';
+      case 'ai & ml': return 'ai';
+      case 'ui/ux': return 'uiux';
+      case 'security': return 'security';
+      default: return 'frontend'; // Default to frontend instead of 'other'
     }
   }
 
@@ -87,7 +91,7 @@ export class SkillsComponent implements OnInit {
       { name: 'TypeScript', level: 85, category: 'frontend' },
       { name: 'C#', level: 85, category: 'backend' },
       { name: 'SQL Server', level: 85, category: 'database' },
-      { name: 'Azure', level: 75, category: 'cloud' }
+      { name: 'Azure', level: 75, category: 'devops' }
     ];
   }
 
@@ -109,8 +113,10 @@ export class SkillsComponent implements OnInit {
       'frontend': 'pi-desktop',
       'backend': 'pi-server',
       'database': 'pi-database',
-      'cloud': 'pi-cloud',
-      'other': 'pi-cog'
+      'devops': 'pi-cloud',
+      'ai': 'pi-bolt',
+      'uiux': 'pi-palette',
+      'security': 'pi-shield'
     };
     return icons[categoryId] || 'pi-code';
   }

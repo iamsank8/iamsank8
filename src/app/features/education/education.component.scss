@@ -101,39 +101,154 @@
 
 .certification-card {
   height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--surface-border);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .certification-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, #ff4081 0%, #e91e63 100%);
+    color: white;
+    margin: -1px -1px 0 -1px; // Compensate for card padding
+
+    .certification-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      i {
+        font-size: 1.5rem;
+        color: white;
+      }
+    }
+
+    .certification-info {
+      flex: 1;
+
+      h3 {
+        margin: 0 0 4px 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .certification-year {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 2px 8px;
+        border-radius: 12px;
+        display: inline-block;
+      }
+    }
+  }
+
+  ::ng-deep .p-card-content {
+    padding: 20px;
+
+    p {
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+  }
 }
 
-.certification-avatar {
-  background-color: #ff4081;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// Education card styling for consistency
+.education-card {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
 
-.certification-avatar mat-icon {
-  color: white;
-}
+  .education-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, #3f51b5 0%, #303f9f 100%);
+    color: white;
+    margin: -1px -1px 0 -1px;
 
-.mat-mdc-card-title {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-}
+    .education-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
 
-.mat-mdc-card-subtitle {
-  color: var(--text-color);
-  opacity: 0.8;
-}
+      i {
+        font-size: 1.5rem;
+        color: white;
+      }
+    }
 
-.mat-mdc-card-content {
-  padding-top: 16px;
-}
+    .education-info {
+      flex: 1;
 
-.mat-mdc-card-content p {
-  color: var(--text-color);
-  opacity: 0.9;
-  line-height: 1.5;
+      h3 {
+        margin: 0 0 4px 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .education-year {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 2px 8px;
+        border-radius: 12px;
+        display: inline-block;
+      }
+    }
+  }
+
+  ::ng-deep .p-card-content {
+    padding: 20px;
+
+    p {
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0 0 12px 0;
+      font-size: 0.95rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: var(--text-color);
+        font-weight: 600;
+      }
+    }
+
+    .education-description {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--surface-border);
+      font-style: italic;
+      opacity: 0.9;
+    }
+  }
 }
 
 @media (max-width: 768px) {
