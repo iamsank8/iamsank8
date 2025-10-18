@@ -41,10 +41,8 @@ jobs:
       - name: Build Angular app for GitHub Pages
         run: npm run build -- --configuration=github-pages --base-href="/iamsank8/"
         
-      - name: Copy data files to dist
-        run: |
-          mkdir -p dist/iamsank8/assets
-          cp -r data/* dist/iamsank8/assets/
+      - name: Ensure assets directory exists
+        run: mkdir -p dist/iamsank8/assets
           
       - name: Create 404.html for SPA routing
         run: cp dist/iamsank8/index.html dist/iamsank8/404.html
