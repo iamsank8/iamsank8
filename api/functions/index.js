@@ -17,6 +17,10 @@ const allowedOrigins = [
   "http://localhost:4200",
   "https://portfolio-sanket-c5165.web.app",
   "https://portfolio-sanket-c5165.firebaseapp.com",
+  "https://iamsank8.web.app",
+  "https://iamsank8.firebaseapp.com",
+  "https://sanket.thotange.github.io",
+  "https://iamsank8.github.io"
 ];
 
 const corsOptions = {

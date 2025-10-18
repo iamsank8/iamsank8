@@ -23,6 +23,8 @@ const allowedOrigins = [
   "https://portfolio-sanket-c5165.firebaseapp.com",
   "https://iamsank8.web.app",
   "https://iamsank8.firebaseapp.com",
+  "https://sanket.thotange.github.io",
+  "https://iamsank8.github.io",
 ];
 
 // Function to check if origin is a Firebase preview URL
