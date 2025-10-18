@@ -86,7 +86,11 @@ export class EducationService {
    * Get all education records
    */
   getEducations(): Observable<Education[]> {
-    return this.http.get<Education[]>(`${this.apiUrl}/education`).pipe(
+    // Check if we're using static files (GitHub Pages) or API
+    const isStaticMode = this.apiUrl.includes('/assets');
+    const url = isStaticMode ? `${this.apiUrl}/education.json` : `${this.apiUrl}/education`;
+    
+    return this.http.get<Education[]>(url).pipe(
       catchError(error => {
         console.error('Error fetching education:', error);
         // Return mock data if API fails

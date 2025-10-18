@@ -128,8 +128,15 @@ export class AboutService {
    * Get complete about data
    */
   getAboutData(): Observable<AboutData> {
-    return this.http.get<AboutData>(`${this.apiUrl}/about`).pipe(
-      map((response: any) => response[0] as AboutData),
+    // Check if we're using static files (GitHub Pages) or API
+    const isStaticMode = this.apiUrl.includes('/assets');
+    const url = isStaticMode ? `${this.apiUrl}/about.json` : `${this.apiUrl}/about`;
+    
+    return this.http.get<AboutData>(url).pipe(
+      map((response: any) => {
+        // Handle both array and object responses
+        return Array.isArray(response) ? response[0] as AboutData : response as AboutData;
+      }),
       catchError(error => {
         console.error('Error fetching about data:', error);
         // Return mock data if API fails

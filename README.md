@@ -1,14 +1,29 @@
 # Portfolio Website
 
-A personal portfolio website built with Angular and Firebase, showcasing professional experience, skills, education, and projects.
+A personal portfolio website built with Angular, showcasing professional experience, skills, education, and projects. Now supports both Firebase and GitHub Pages hosting!
 
 ## Project Overview
 
 This portfolio website is built with:
-- **Frontend**: Angular with Angular Material
-- **Backend**: Firebase Cloud Functions and Express
-- **Database**: Firestore
-- **Deployment**: Firebase Hosting
+- **Frontend**: Angular with PrimeNG
+- **Backend**: Firebase Cloud Functions and Express (or static JSON files)
+- **Database**: Firestore (or static JSON files)
+- **Deployment**: Firebase Hosting or GitHub Pages
+
+## Hosting Options
+
+### 🚀 GitHub Pages (New!)
+- ✅ **Free hosting** with automatic HTTPS
+- ✅ **No server maintenance** required
+- ✅ **Fast global CDN** delivery
+- ✅ **Custom domain** support
+- ✅ **Automatic deployment** via GitHub Actions
+
+### 🔥 Firebase Hosting (Original)
+- ✅ **Full backend capabilities** with Cloud Functions
+- ✅ **Real-time database** with Firestore
+- ✅ **Contact form processing** server-side
+- ✅ **Advanced security** features
 
 ## Features
 
@@ -130,41 +145,64 @@ npm run db:clear
 
 ### Deployment
 
-#### Manual Deployment
+Choose your preferred hosting option:
 
-Deploy to production:
+#### 🚀 GitHub Pages (Recommended for Static Sites)
 
+**Automatic Deployment:**
+1. Enable GitHub Pages in your repository settings:
+   - Go to **Settings** → **Pages**
+   - Select **GitHub Actions** as the source
+2. Push to `main` branch - automatic deployment via GitHub Actions!
+3. Your site will be available at: `https://yourusername.github.io/iamsank8/`
+
+**Manual Build:**
 ```bash
-npm run deploy
+# Build for GitHub Pages
+npm run build:github
+
+# Test locally
+npm run deploy:github
 ```
 
-Deploy to staging:
+**Features:**
+- ✅ Free hosting with HTTPS
+- ✅ Custom domain support
+- ✅ Fast global CDN
+- ✅ No server maintenance
+- ✅ Static JSON data serving
 
+#### 🔥 Firebase Hosting (Full Backend Features)
+
+**Manual Deployment:**
 ```bash
+# Deploy to production
+npm run deploy
+
+# Deploy to staging
 npm run deploy:staging
 ```
 
-#### Automated Deployment (GitHub Actions)
-
-The project includes automated deployment via GitHub Actions that:
-- Automatically deploys to Firebase Hosting when code is pushed to the main branch
+**Automated Deployment (GitHub Actions):**
+The project includes Firebase deployment via GitHub Actions:
+- Automatically deploys when code is pushed to main branch
 - Creates preview deployments for pull requests
 - Deploys Firebase Functions for production builds
 
-**Setup GitHub Actions:**
+**Setup:**
+1. Run the setup script: `./scripts/setup-github-secrets.sh`
+2. Add service account secret to GitHub repository
+3. Push to main branch to trigger deployment
 
-1. Run the setup script to generate required secrets:
-   ```bash
-   ./scripts/setup-github-secrets.sh
-   ```
+For detailed Firebase setup, see [GITHUB_ACTIONS_SETUP.md](./GITHUB_ACTIONS_SETUP.md).
 
-2. Add the service account secret to your GitHub repository:
-   - Go to Repository Settings → Secrets and variables → Actions
-   - Add `FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SANKET_C5165` (service account JSON)
+#### 📋 Migration Guide
 
-3. Push to main branch to trigger automatic deployment
+To migrate from Firebase to GitHub Pages or vice versa, see [GITHUB_PAGES_MIGRATION.md](./GITHUB_PAGES_MIGRATION.md) for detailed instructions.
 
-For detailed setup instructions, see [GITHUB_ACTIONS_SETUP.md](./GITHUB_ACTIONS_SETUP.md).
+#### 🔄 Development Workflow
+
+For detailed development workflows, deployment strategies, and best practices, see [DEVELOPMENT_WORKFLOW.md](./DEVELOPMENT_WORKFLOW.md).
 
 ## Angular Upgrade
 

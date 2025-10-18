@@ -149,7 +149,11 @@ export class ProjectsService {
    */
   private getAllProjects(): Observable<Project[]> {
     if (!this.projectsCache$) {
-      this.projectsCache$ = this.http.get<Project[]>(`${this.apiUrl}/projects`).pipe(
+      // Check if we're using static files (GitHub Pages) or API
+      const isStaticMode = this.apiUrl.includes('/assets');
+      const url = isStaticMode ? `${this.apiUrl}/projects.json` : `${this.apiUrl}/projects`;
+      
+      this.projectsCache$ = this.http.get<Project[]>(url).pipe(
         tap(projects => this.projectsSubject.next(projects)),
         catchError(error => {
           console.error('Error fetching projects:', error);

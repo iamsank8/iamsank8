@@ -125,7 +125,11 @@ export class ExperienceService {
    * Get all work experiences
    */
   getExperiences(): Observable<WorkExperience[]> {
-    return this.http.get<WorkExperience[]>(`${this.apiUrl}/experience`).pipe(
+    // Check if we're using static files (GitHub Pages) or API
+    const isStaticMode = this.apiUrl.includes('/assets');
+    const url = isStaticMode ? `${this.apiUrl}/experience.json` : `${this.apiUrl}/experience`;
+    
+    return this.http.get<WorkExperience[]>(url).pipe(
       catchError(error => {
         console.error('Error fetching experiences:', error);
         // Return mock data if API fails
@@ -138,14 +142,28 @@ export class ExperienceService {
    * Get experience by ID
    */
   getExperienceById(id: string): Observable<WorkExperience | undefined> {
-    return this.http.get<WorkExperience>(`${this.apiUrl}/experience/${id}`).pipe(
-      catchError(error => {
-        console.error('Error fetching experience:', error);
-        // Return mock data if API fails
-        const experience = this.mockExperiences.find(exp => exp.id === id);
-        return of(experience);
-      })
-    );
+    // For static mode, get all experiences and filter by ID
+    const isStaticMode = this.apiUrl.includes('/assets');
+    
+    if (isStaticMode) {
+      return this.getExperiences().pipe(
+        map(experiences => experiences.find(exp => exp.id === id)),
+        catchError(error => {
+          console.error('Error fetching experience:', error);
+          const experience = this.mockExperiences.find(exp => exp.id === id);
+          return of(experience);
+        })
+      );
+    } else {
+      return this.http.get<WorkExperience>(`${this.apiUrl}/experience/${id}`).pipe(
+        catchError(error => {
+          console.error('Error fetching experience:', error);
+          // Return mock data if API fails
+          const experience = this.mockExperiences.find(exp => exp.id === id);
+          return of(experience);
+        })
+      );
+    }
   }
 
   /**
