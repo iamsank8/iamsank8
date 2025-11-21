@@ -10,11 +10,10 @@ export interface ContactFormData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContactService {
 
-  constructor() { }
 
   /**
    * Simulates sending contact form data to a backend service
@@ -22,10 +21,8 @@ export class ContactService {
    */
   sendContactForm(formData: ContactFormData): Observable<boolean> {
     console.log('Contact form data:', formData);
-    
+
     // Simulate API call with delay
-    return of(true).pipe(
-      delay(1000)
-    );
+    return of(true).pipe(delay(1000));
   }
 }

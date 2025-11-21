@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -80,7 +80,7 @@ export class EducationService {
     }
   ];
 
-  constructor(private http: HttpClient) { }
+  private readonly http = inject(HttpClient);
 
   /**
    * Get all education records
@@ -89,7 +89,7 @@ export class EducationService {
     // Check if we're using static files (GitHub Pages) or API
     const isStaticMode = this.apiUrl.includes('/assets');
     const url = isStaticMode ? `${this.apiUrl}/education.json` : `${this.apiUrl}/education`;
-    
+
     return this.http.get<Education[]>(url).pipe(
       catchError(error => {
         console.error('Error fetching education:', error);

@@ -1,26 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
 import { filter } from 'rxjs/operators';
 
 declare global {
   interface Window {
-    dataLayer: any[];
-    gtag: (...args: any[]) => void;
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
   }
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AnalyticsService {
+  private readonly router = inject(Router);
   private initialized = false;
 
-  constructor(private router: Router) {
+  constructor() {
     // Initialize data layer
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function() {
-      window.dataLayer.push(arguments);
+    window.gtag = function (...args: unknown[]) {
+      window.dataLayer.push(args);
     };
   }
 
@@ -47,11 +47,11 @@ export class AnalyticsService {
     });
 
     // Track route changes
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      this.trackPageView(event.urlAfterRedirects);
-    });
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        this.trackPageView((event as NavigationEnd).urlAfterRedirects);
+      });
   }
 
   /**
@@ -71,7 +71,7 @@ export class AnalyticsService {
   /**
    * Track custom event
    */
-  trackEvent(eventName: string, eventParams: Record<string, any> = {}): void {
+  trackEvent(eventName: string, eventParams: Record<string, unknown> = {}): void {
     if (!this.initialized) {
       return;
     }
@@ -82,7 +82,7 @@ export class AnalyticsService {
   /**
    * Set user properties
    */
-  setUserProperties(properties: Record<string, any>): void {
+  setUserProperties(properties: Record<string, unknown>): void {
     if (!this.initialized) {
       return;
     }

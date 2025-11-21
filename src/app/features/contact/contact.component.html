@@ -4,11 +4,10 @@
   <section class="hero-section">
     <div class="hero-content flex grid-nogutter align-items-center">
       <div class="hero-text col-12 md:col-6">
-        <h1 class="hero-title">
-          Let's <span class="gradient-text">Connect</span>
-        </h1>
+        <h1 class="hero-title">Let's <span class="gradient-text">Connect</span></h1>
         <p class="hero-subtitle">
-          Ready to collaborate on your next project? I'm always excited to discuss new opportunities, innovative ideas, and potential partnerships.
+          Ready to collaborate on your next project? I'm always excited to discuss new
+          opportunities, innovative ideas, and potential partnerships.
         </p>
         <div class="hero-stats flex flex-column gap-3 mt-4">
           <div class="stat-item flex align-items-center gap-2 p-3 border-round-md shadow-1">
@@ -38,16 +37,16 @@
             <i class="pi pi-users"></i>
           </div>
           <div class="floating-icons">
-            <div class="floating-icon" style="--delay: 0s; --x: 60px; --y: -40px;">
+            <div class="floating-icon" style="--delay: 0s; --x: 60px; --y: -40px">
               <i class="pi pi-envelope"></i>
             </div>
-            <div class="floating-icon" style="--delay: 1s; --x: -50px; --y: -60px;">
+            <div class="floating-icon" style="--delay: 1s; --x: -50px; --y: -60px">
               <i class="pi pi-phone"></i>
             </div>
-            <div class="floating-icon" style="--delay: 2s; --x: 70px; --y: 50px;">
+            <div class="floating-icon" style="--delay: 2s; --x: 70px; --y: 50px">
               <i class="pi pi-map-marker"></i>
             </div>
-            <div class="floating-icon" style="--delay: 3s; --x: -60px; --y: 40px;">
+            <div class="floating-icon" style="--delay: 3s; --x: -60px; --y: 40px">
               <i class="pi pi-comments"></i>
             </div>
           </div>
@@ -67,13 +66,18 @@
 
       <div class="grid">
         <div class="method-card primary-method col-12 md:col-6 lg:col-3">
-          <div class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3">
+          <div
+            class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3"
+          >
             <i class="pi pi-envelope"></i>
           </div>
           <div class="method-content">
             <h3>Email</h3>
             <p class="mb-3">Best for detailed discussions and project inquiries</p>
-            <a href="mailto:sanketat@gmail.com" class="method-link inline-flex align-items-center gap-1">
+            <a
+              href="mailto:sanketat@gmail.com"
+              class="method-link inline-flex align-items-center gap-1"
+            >
               sanketat&#64;gmail.com
               <i class="pi pi-external-link"></i>
             </a>
@@ -84,13 +88,19 @@
         </div>
 
         <div class="method-card col-12 md:col-6 lg:col-3">
-          <div class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3">
+          <div
+            class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3"
+          >
             <i class="pi pi-briefcase"></i>
           </div>
           <div class="method-content">
             <h3>LinkedIn</h3>
             <p class="mb-3">Professional networking and career opportunities</p>
-            <a href="https://www.linkedin.com/in/sanket-thotange/" target="_blank" class="method-link inline-flex align-items-center gap-1">
+            <a
+              href="https://www.linkedin.com/in/sanket-thotange/"
+              target="_blank"
+              class="method-link inline-flex align-items-center gap-1"
+            >
               Connect on LinkedIn
               <i class="pi pi-external-link"></i>
             </a>
@@ -98,13 +108,19 @@
         </div>
 
         <div class="method-card col-12 md:col-6 lg:col-3">
-          <div class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3">
+          <div
+            class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3"
+          >
             <i class="pi pi-code"></i>
           </div>
           <div class="method-content">
             <h3>GitHub</h3>
             <p class="mb-3">Collaborate on open source projects and code reviews</p>
-            <a href="https://github.com/iamsank8" target="_blank" class="method-link inline-flex align-items-center gap-1">
+            <a
+              href="https://github.com/iamsank8"
+              target="_blank"
+              class="method-link inline-flex align-items-center gap-1"
+            >
               View GitHub Profile
               <i class="pi pi-external-link"></i>
             </a>
@@ -112,7 +128,9 @@
         </div>
 
         <div class="method-card col-12 md:col-6 lg:col-3">
-          <div class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3">
+          <div
+            class="method-icon flex align-items-center justify-content-center w-4rem h-4rem border-round-md mb-3"
+          >
             <i class="pi pi-map-marker"></i>
           </div>
           <div class="method-content">
@@ -141,7 +159,12 @@
               <label for="name">Full Name</label>
               <span class="p-input-icon-right">
                 <i class="pi pi-user"></i>
-                <input pInputText id="name" formControlName="name" placeholder="Enter your full name" />
+                <input
+                  pInputText
+                  id="name"
+                  formControlName="name"
+                  placeholder="Enter your full name"
+                />
               </span>
               <small class="p-error" *ngIf="submitted && f['name'].errors">
                 Name is required
@@ -152,7 +175,12 @@
               <label for="email">Email Address</label>
               <span class="p-input-icon-right">
                 <i class="pi pi-envelope"></i>
-                <input pInputText id="email" formControlName="email" placeholder="Enter your email address" />
+                <input
+                  pInputText
+                  id="email"
+                  formControlName="email"
+                  placeholder="Enter your email address"
+                />
               </span>
               <small class="p-error" *ngIf="submitted && f['email'].errors?.['required']">
                 Email is required
@@ -167,7 +195,12 @@
             <label for="subject">Subject</label>
             <span class="p-input-icon-right">
               <i class="pi pi-tag"></i>
-              <input pInputText id="subject" formControlName="subject" placeholder="What's this about?" />
+              <input
+                pInputText
+                id="subject"
+                formControlName="subject"
+                placeholder="What's this about?"
+              />
             </span>
             <small class="p-error" *ngIf="submitted && f['subject'].errors">
               Subject is required
@@ -176,8 +209,13 @@
 
           <div class="form-field col-12">
             <label for="message">Message</label>
-            <textarea pInputTextarea id="message" formControlName="message" rows="6"
-                      placeholder="Tell me about your project, timeline, and any specific requirements..."></textarea>
+            <textarea
+              pInputTextarea
+              id="message"
+              formControlName="message"
+              rows="6"
+              placeholder="Tell me about your project, timeline, and any specific requirements..."
+            ></textarea>
             <small class="p-error" *ngIf="submitted && f['message'].errors?.['required']">
               Message is required
             </small>
@@ -187,7 +225,12 @@
           </div>
 
           <div class="form-actions flex flex-column align-items-center gap-3 mt-4">
-            <p-button type="submit" [disabled]="loading" class="submit-btn flex align-items-center gap-2 px-4 py-3" [loading]="loading">
+            <p-button
+              type="submit"
+              [disabled]="loading"
+              class="submit-btn flex align-items-center gap-2 px-4 py-3"
+              [loading]="loading"
+            >
               <i class="pi pi-send" *ngIf="!loading"></i>
               <span *ngIf="!loading">Send Message</span>
               <span *ngIf="loading">Sending...</span>
@@ -251,7 +294,10 @@
       <div class="cta-container">
         <div class="cta-content">
           <h2>Ready to Start Your Project?</h2>
-          <p>Let's discuss how I can help bring your ideas to life with modern web technologies and best practices.</p>
+          <p>
+            Let's discuss how I can help bring your ideas to life with modern web technologies and
+            best practices.
+          </p>
           <div class="cta-actions">
             <a href="mailto:sanketat@gmail.com" class="cta-btn">
               <p-button>
@@ -259,7 +305,11 @@
                 <span>Start a Conversation</span>
               </p-button>
             </a>
-            <a href="https://www.linkedin.com/in/sanket-thotange/" target="_blank" class="cta-btn-secondary">
+            <a
+              href="https://www.linkedin.com/in/sanket-thotange/"
+              target="_blank"
+              class="cta-btn-secondary"
+            >
               <p-button severity="secondary">
                 <i class="pi pi-briefcase"></i>
                 View LinkedIn Profile

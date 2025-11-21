@@ -24,7 +24,14 @@
     "data:count": "node scripts/data-manager.js count",
     "make-scripts-executable": "chmod +x dev-scripts/*.sh",
     "setup:theme": "chmod +x dev-scripts/setup-theme.sh && ./dev-scripts/setup-theme.sh",
-    "setup:github-secrets": "chmod +x scripts/setup-github-secrets.sh && ./scripts/setup-github-secrets.sh"
+    "setup:github-secrets": "chmod +x scripts/setup-github-secrets.sh && ./scripts/setup-github-secrets.sh",
+    "lint": "ng lint",
+    "test:coverage": "ng test --watch=false --code-coverage --browsers=ChromeHeadless",
+    "e2e": "cypress open",
+    "e2e:headless": "cypress run",
+    "format": "prettier --write \"src/**/*.{ts,html,scss,css,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,html,scss,css,json}\"",
+    "quality:report": "node scripts/generate-quality-report.js"
   },
   "private": true,
   "dependencies": {
@@ -48,10 +55,23 @@
     "@angular-devkit/build-webpack": "^0.2003.3",
     "@angular/cli": "^17.3.17",
     "@angular/compiler-cli": "^17.3.12",
+    "@types/jasmine": "^5.1.13",
     "@types/node": "^12.11.1",
+    "angular-eslint": "20.6.0",
+    "cypress": "^15.7.0",
     "dotenv": "^17.2.2",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "firebase-admin": "^13.5.0",
+    "jasmine-core": "^5.12.1",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "karma-jasmine": "^5.1.0",
+    "prettier": "^3.6.2",
     "typescript": "~5.4.5",
+    "typescript-eslint": "8.46.3",
     "webpack": "^5.101.3"
   }
 }

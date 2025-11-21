@@ -10,7 +10,7 @@
   <!-- Error State -->
   <div *ngIf="error && !loading" class="error-container">
     <div class="error-content">
-      <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: var(--error);"></i>
+      <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: var(--error)"></i>
       <p>Failed to load about data. Please try again later.</p>
     </div>
   </div>
@@ -42,12 +42,12 @@
               <div class="avatar-decoration"></div>
             </div>
           </div>
-          
+
           <div class="profile-info">
             <h2 class="profile-name">{{ personalInfo.fullName }}</h2>
             <h3 class="profile-title">{{ personalInfo.title }}</h3>
             <p class="profile-tagline">{{ personalInfo.tagline }}</p>
-            
+
             <div class="profile-stats" *ngIf="stats">
               <div class="stat-item">
                 <span class="stat-number">{{ stats.yearsExperience }}</span>
@@ -62,7 +62,7 @@
                 <span class="stat-label">Technologies</span>
               </div>
             </div>
-            
+
             <div class="contact-info">
               <a class="contact-item" [href]="'mailto:' + personalInfo.email">
                 <i class="pi pi-envelope"></i>
@@ -94,7 +94,7 @@
           <h3 class="section-title">Professional Summary</h3>
           <p class="section-subtitle">Key highlights of my professional journey</p>
         </div>
-        
+
         <div class="summary-grid">
           <div class="summary-card" *ngFor="let item of professionalSummary">
             <div class="card-icon">
@@ -115,7 +115,7 @@
             <i class="pi pi-user section-icon"></i>
             <h3 class="section-title">Personal Information</h3>
           </div>
-          
+
           <div class="personal-grid">
             <div class="personal-item">
               <div class="item-icon">
@@ -126,7 +126,7 @@
                 <span class="item-value">{{ personalInfo.fullName }}</span>
               </div>
             </div>
-            
+
             <div class="personal-item">
               <div class="item-icon">
                 <i class="pi pi-flag"></i>
@@ -136,7 +136,7 @@
                 <span class="item-value">{{ personalInfo.nationality }}</span>
               </div>
             </div>
-            
+
             <div class="personal-item">
               <div class="item-icon">
                 <i class="pi pi-globe"></i>
@@ -146,7 +146,7 @@
                 <span class="item-value">{{ personalInfo.languages.join(', ') }}</span>
               </div>
             </div>
-            
+
             <div class="personal-item">
               <div class="item-icon">
                 <i class="pi pi-chart-line"></i>
@@ -167,8 +167,8 @@
         <div class="cta-card">
           <h3 class="cta-title">Let's Work Together</h3>
           <p class="cta-description">
-            Ready to bring your ideas to life? Let's discuss how we can collaborate
-            to create something amazing together.
+            Ready to bring your ideas to life? Let's discuss how we can collaborate to create
+            something amazing together.
           </p>
           <div class="cta-actions">
             <a class="btn btn-primary" routerLink="/contact">

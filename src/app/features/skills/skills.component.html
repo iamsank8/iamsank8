@@ -3,11 +3,10 @@
   <section class="hero-section">
     <div class="hero-content">
       <div class="hero-text">
-        <h1 class="hero-title">
-          Technical <span class="gradient-text">Expertise</span>
-        </h1>
+        <h1 class="hero-title">Technical <span class="gradient-text">Expertise</span></h1>
         <p class="hero-subtitle">
-          A comprehensive overview of my technical skills, proficiency levels, and professional capabilities
+          A comprehensive overview of my technical skills, proficiency levels, and professional
+          capabilities
         </p>
         <div class="hero-stats">
           <div class="stat-item">
@@ -43,7 +42,7 @@
   <!-- Loading State -->
   <div *ngIf="loading" class="loading-state">
     <div class="loading-content">
-      <p-progressSpinner [style]="{'width': '40px', 'height': '40px'}"></p-progressSpinner>
+      <p-progressSpinner [style]="{ width: '40px', height: '40px' }"></p-progressSpinner>
       <p>Loading technical skills...</p>
     </div>
   </div>
@@ -63,20 +62,26 @@
     <section class="technical-skills">
       <div class="section-header">
         <h2 class="section-title">Technical Proficiency</h2>
-        <p class="section-subtitle">Detailed breakdown of technical skills across different domains</p>
+        <p class="section-subtitle">
+          Detailed breakdown of technical skills across different domains
+        </p>
       </div>
 
       <div class="skills-grid">
-        <div *ngFor="let category of categories; trackBy: trackByCategory"
-             class="skill-category-card"
-             [attr.data-category]="category.id">
+        <div
+          *ngFor="let category of categories; trackBy: trackByCategory"
+          class="skill-category-card"
+          [attr.data-category]="category.id"
+        >
           <div class="category-header">
             <div class="category-icon">
               <i class="pi {{ getCategoryIcon(category.id) }}"></i>
             </div>
             <div class="category-info">
               <h3 class="category-title">{{ category.name }}</h3>
-              <span class="category-count">{{ getSkillsByCategory(category.id).length }} skills</span>
+              <span class="category-count"
+                >{{ getSkillsByCategory(category.id).length }} skills</span
+              >
             </div>
             <div class="category-average">
               <span class="average-score">{{ getCategoryAverage(category.id) }}%</span>
@@ -85,12 +90,13 @@
           </div>
 
           <div class="skills-list">
-            <div *ngFor="let skill of getSkillsByCategory(category.id); trackBy: trackBySkill"
-                 class="skill-item"
-                 [class.expert]="skill.level >= 85"
-                 [class.advanced]="skill.level >= 70 && skill.level < 85"
-                 [class.intermediate]="skill.level >= 50 && skill.level < 70">
-              
+            <div
+              *ngFor="let skill of getSkillsByCategory(category.id); trackBy: trackBySkill"
+              class="skill-item"
+              [class.expert]="skill.level >= 85"
+              [class.advanced]="skill.level >= 70 && skill.level < 85"
+              [class.intermediate]="skill.level >= 50 && skill.level < 70"
+            >
               <div class="skill-header">
                 <span class="skill-name">{{ skill.name }}</span>
                 <div class="skill-level-badge" [attr.data-level]="getSkillLevelText(skill.level)">
@@ -101,10 +107,11 @@
 
               <div class="skill-progress">
                 <div class="progress-track">
-                  <div class="progress-fill"
-                       [style.width.%]="skill.level"
-                       [attr.data-level]="getSkillLevelText(skill.level)">
-                  </div>
+                  <div
+                    class="progress-fill"
+                    [style.width.%]="skill.level"
+                    [attr.data-level]="getSkillLevelText(skill.level)"
+                  ></div>
                 </div>
               </div>
             </div>
@@ -117,7 +124,9 @@
     <section class="professional-skills">
       <div class="section-header">
         <h2 class="section-title">Professional Capabilities</h2>
-        <p class="section-subtitle">Soft skills and professional competencies that drive project success</p>
+        <p class="section-subtitle">
+          Soft skills and professional competencies that drive project success
+        </p>
       </div>
 
       <div class="professional-grid">

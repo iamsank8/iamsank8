@@ -10,13 +10,8 @@ import { CoreModule } from '../core/core.module';
  */
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    CoreModule
-  ],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, CoreModule],
   exports: [],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class FeaturesModule { }
+export class FeaturesModule {}

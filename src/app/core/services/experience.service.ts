@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -119,7 +119,7 @@ export class ExperienceService {
     }
   ];
 
-  constructor(private http: HttpClient) { }
+  private readonly http = inject(HttpClient);
 
   /**
    * Get all work experiences sorted by date (most recent first)
@@ -128,7 +128,7 @@ export class ExperienceService {
     // Check if we're using static files (GitHub Pages) or API
     const isStaticMode = this.apiUrl.includes('/assets');
     const url = isStaticMode ? `${this.apiUrl}/experience.json` : `${this.apiUrl}/experience`;
-    
+
     return this.http.get<WorkExperience[]>(url).pipe(
       map(experiences => this.sortExperiencesByDate(experiences)),
       catchError(error => {
@@ -145,7 +145,7 @@ export class ExperienceService {
   getExperienceById(id: string): Observable<WorkExperience | undefined> {
     // For static mode, get all experiences and filter by ID
     const isStaticMode = this.apiUrl.includes('/assets');
-    
+
     if (isStaticMode) {
       return this.getExperiences().pipe(
         map(experiences => experiences.find(exp => exp.id === id)),
@@ -217,7 +217,7 @@ export class ExperienceService {
     return this.getExperiences().pipe(
       map(experiences => {
         const skillCount = new Map<string, number>();
-        
+
         experiences.forEach(exp => {
           exp.skillsGained.forEach(skill => {
             skillCount.set(skill, (skillCount.get(skill) || 0) + 1);
@@ -231,7 +231,7 @@ export class ExperienceService {
       }),
       catchError(() => {
         const skillCount = new Map<string, number>();
-        
+
         this.mockExperiences.forEach(exp => {
           exp.skillsGained.forEach(skill => {
             skillCount.set(skill, (skillCount.get(skill) || 0) + 1);
@@ -242,7 +242,7 @@ export class ExperienceService {
           .sort((a, b) => b[1] - a[1])
           .slice(0, 8)
           .map(entry => entry[0]);
-        
+
         return of(topSkills);
       })
     );
@@ -256,7 +256,7 @@ export class ExperienceService {
     return experiences.sort((a, b) => {
       const dateA = this.parseStartDate(a.period);
       const dateB = this.parseStartDate(b.period);
-      
+
       // Sort in descending order (most recent first)
       return dateB.getTime() - dateA.getTime();
     });
@@ -270,12 +270,12 @@ export class ExperienceService {
     try {
       // Extract the start date part (before the dash)
       const startDateStr = period.split(' - ')[0].trim();
-      
+
       // Handle different date formats
       const monthYearMatch = startDateStr.match(/^(\w+)\s+(\d{4})$/);
       if (monthYearMatch) {
         const [, monthStr, yearStr] = monthYearMatch;
-        const monthMap: { [key: string]: number } = {
+        const monthMap: Record<string, number> = {
           'january': 0, 'jan': 0,
           'february': 1, 'feb': 1,
           'march': 2, 'mar': 2,
@@ -289,25 +289,25 @@ export class ExperienceService {
           'november': 10, 'nov': 10,
           'december': 11, 'dec': 11
         };
-        
+
         const month = monthMap[monthStr.toLowerCase()];
         const year = parseInt(yearStr, 10);
-        
+
         if (month !== undefined && !isNaN(year)) {
           return new Date(year, month, 1);
         }
       }
-      
+
       // Fallback: try to parse as a regular date
       const fallbackDate = new Date(startDateStr);
       if (!isNaN(fallbackDate.getTime())) {
         return fallbackDate;
       }
-      
+
       // If all parsing fails, return a very old date to put it at the end
       console.warn(`Could not parse date: ${startDateStr}`);
       return new Date(1900, 0, 1);
-      
+
     } catch (error) {
       console.error(`Error parsing date from period: ${period}`, error);
       return new Date(1900, 0, 1);

@@ -1,10 +1,10 @@
 .theme-toggle-button {
   transition: transform 0.3s ease;
-  
+
   &:hover {
     transform: rotate(30deg);
   }
-  
+
   mat-icon {
     transition: all 0.3s ease;
   }

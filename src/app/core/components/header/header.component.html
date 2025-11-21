@@ -12,7 +12,7 @@
     <nav class="desktop-nav">
       <ul class="nav-list">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <span class="nav-text">Home</span>
           </a>
         </li>
@@ -42,6 +42,11 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" routerLink="/code-quality" routerLinkActive="active">
+            <span class="nav-text">Quality</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" routerLink="/contact" routerLinkActive="active">
             <span class="nav-text">Contact</span>
           </a>
@@ -52,7 +57,8 @@
     <!-- Header Actions -->
     <div class="header-actions">
       <app-theme-toggle class="theme-toggle"></app-theme-toggle>
-      <button class="mobile-menu-toggle" [class.active]="isMobileMenuOpen" (click)="toggleMobileMenu()" aria-label="Toggle mobile menu">
+      <button class="mobile-menu-toggle" [class.active]="isMobileMenuOpen" (click)="toggleMobileMenu()"
+        aria-label="Toggle mobile menu">
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
@@ -62,7 +68,8 @@
 
   <!-- Mobile Navigation -->
   <nav class="mobile-nav" [class.open]="isMobileMenuOpen">
-    <div class="mobile-nav-overlay" (click)="closeMobileMenu()"></div>
+    <div class="mobile-nav-overlay" (click)="closeMobileMenu()" (keydown.enter)="closeMobileMenu()"
+      (keydown.escape)="closeMobileMenu()" tabindex="0" role="button" aria-label="Close mobile menu"></div>
     <div class="mobile-nav-content">
       <div class="mobile-nav-header">
         <span class="mobile-brand">Sanket Thotange</span>
@@ -72,7 +79,8 @@
       </div>
       <ul class="mobile-nav-list">
         <li class="mobile-nav-item">
-          <a class="mobile-nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMobileMenu()">
+          <a class="mobile-nav-link" routerLink="/" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">
             <i class="pi pi-home nav-icon"></i>
             <span>Home</span>
           </a>
@@ -105,6 +113,12 @@
           <a class="mobile-nav-link" routerLink="/projects" routerLinkActive="active" (click)="closeMobileMenu()">
             <i class="pi pi-folder nav-icon"></i>
             <span>Projects</span>
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a class="mobile-nav-link" routerLink="/code-quality" routerLinkActive="active" (click)="closeMobileMenu()">
+            <i class="pi pi-shield nav-icon"></i>
+            <span>Code Quality</span>
           </a>
         </li>
         <li class="mobile-nav-item">

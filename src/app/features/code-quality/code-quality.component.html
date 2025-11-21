@@ -1,0 +1,317 @@
+<div class="code-quality-page">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-content">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+      <p>Loading quality metrics...</p>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-container">
+    <div class="error-content">
+      <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: var(--error)"></i>
+      <p>Failed to load quality report. Please run: <code>npm run quality:report</code></p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!loading && !error && report">
+    <!-- Hero Section -->
+    <section class="quality-hero">
+      <div class="hero-background">
+        <div class="hero-gradient"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="page-title">Code Quality & Engineering</h1>
+          <p class="page-subtitle">Metrics, practices, and tools that power this portfolio</p>
+          <p class="last-updated">Last updated: {{ report.generatedAt | date: 'medium' }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metrics Overview -->
+    <section class="metrics-section">
+      <div class="container">
+        <div class="metrics-grid">
+          <!-- Unit Tests Card -->
+          <div class="metric-card">
+            <div class="card-header">
+              <i class="pi pi-check-square card-icon"></i>
+              <h3>Unit Tests</h3>
+            </div>
+            <div class="card-body">
+              <div
+                class="status-badge"
+                [style.background-color]="getStatusColor(report.unitTests.status)"
+              >
+                <i class="pi" [ngClass]="getStatusIcon(report.unitTests.status)"></i>
+                <span>{{ report.unitTests.status | uppercase }}</span>
+              </div>
+              <div class="metric-stats">
+                <div class="stat">
+                  <span class="stat-value">{{ report.unitTests.passed }}</span>
+                  <span class="stat-label">Passed</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">{{ report.unitTests.failed }}</span>
+                  <span class="stat-label">Failed</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">{{ report.unitTests.totalTests }}</span>
+                  <span class="stat-label">Total</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coverage Card -->
+          <div class="metric-card">
+            <div class="card-header">
+              <i class="pi pi-chart-line card-icon"></i>
+              <h3>Test Coverage</h3>
+            </div>
+            <div class="card-body">
+              <div class="coverage-grid">
+                <div class="coverage-item">
+                  <div class="coverage-label">Lines</div>
+                  <div class="coverage-bar">
+                    <div
+                      class="coverage-fill"
+                      [style.width.%]="report.unitTests.coverage.lines"
+                      [style.background-color]="getCoverageColor(report.unitTests.coverage.lines)"
+                    ></div>
+                  </div>
+                  <div
+                    class="coverage-value"
+                    [style.color]="getCoverageColor(report.unitTests.coverage.lines)"
+                  >
+                    {{ report.unitTests.coverage.lines }}%
+                  </div>
+                </div>
+                <div class="coverage-item">
+                  <div class="coverage-label">Statements</div>
+                  <div class="coverage-bar">
+                    <div
+                      class="coverage-fill"
+                      [style.width.%]="report.unitTests.coverage.statements"
+                      [style.background-color]="
+                        getCoverageColor(report.unitTests.coverage.statements)
+                      "
+                    ></div>
+                  </div>
+                  <div
+                    class="coverage-value"
+                    [style.color]="getCoverageColor(report.unitTests.coverage.statements)"
+                  >
+                    {{ report.unitTests.coverage.statements }}%
+                  </div>
+                </div>
+                <div class="coverage-item">
+                  <div class="coverage-label">Branches</div>
+                  <div class="coverage-bar">
+                    <div
+                      class="coverage-fill"
+                      [style.width.%]="report.unitTests.coverage.branches"
+                      [style.background-color]="
+                        getCoverageColor(report.unitTests.coverage.branches)
+                      "
+                    ></div>
+                  </div>
+                  <div
+                    class="coverage-value"
+                    [style.color]="getCoverageColor(report.unitTests.coverage.branches)"
+                  >
+                    {{ report.unitTests.coverage.branches }}%
+                  </div>
+                </div>
+                <div class="coverage-item">
+                  <div class="coverage-label">Functions</div>
+                  <div class="coverage-bar">
+                    <div
+                      class="coverage-fill"
+                      [style.width.%]="report.unitTests.coverage.functions"
+                      [style.background-color]="
+                        getCoverageColor(report.unitTests.coverage.functions)
+                      "
+                    ></div>
+                  </div>
+                  <div
+                    class="coverage-value"
+                    [style.color]="getCoverageColor(report.unitTests.coverage.functions)"
+                  >
+                    {{ report.unitTests.coverage.functions }}%
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Linting Card -->
+          <div class="metric-card">
+            <div class="card-header">
+              <i class="pi pi-code card-icon"></i>
+              <h3>Code Linting</h3>
+            </div>
+            <div class="card-body">
+              <div
+                class="status-badge"
+                [style.background-color]="getStatusColor(report.linting.status)"
+              >
+                <i class="pi" [ngClass]="getStatusIcon(report.linting.status)"></i>
+                <span>{{ report.linting.status | uppercase }}</span>
+              </div>
+              <div class="metric-stats">
+                <div class="stat">
+                  <span class="stat-value">{{ report.linting.errors }}</span>
+                  <span class="stat-label">Errors</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">{{ report.linting.warnings }}</span>
+                  <span class="stat-label">Warnings</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- E2E Tests Card -->
+          <div class="metric-card">
+            <div class="card-header">
+              <i class="pi pi-desktop card-icon"></i>
+              <h3>E2E Tests</h3>
+            </div>
+            <div class="card-body">
+              <div
+                class="status-badge"
+                [style.background-color]="getStatusColor(report.e2eTests.status)"
+              >
+                <i class="pi" [ngClass]="getStatusIcon(report.e2eTests.status)"></i>
+                <span>{{ report.e2eTests.status | uppercase }}</span>
+              </div>
+              <div class="metric-stats">
+                <div class="stat">
+                  <span class="stat-value">{{ report.e2eTests.passed }}</span>
+                  <span class="stat-label">Passed</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">{{ report.e2eTests.failed }}</span>
+                  <span class="stat-label">Failed</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">{{ report.e2eTests.totalTests }}</span>
+                  <span class="stat-label">Total</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Engineering Tools & Practices</h2>
+          <p class="section-subtitle">Technologies and frameworks used to ensure code quality</p>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-category">
+            <div class="category-header">
+              <i class="pi pi-check-circle"></i>
+              <h3>Unit Testing</h3>
+            </div>
+            <div class="tool-list">
+              <span class="tool-badge" *ngFor="let tool of report.tools.unitTesting">{{
+                tool
+              }}</span>
+            </div>
+          </div>
+
+          <div class="tool-category">
+            <div class="category-header">
+              <i class="pi pi-desktop"></i>
+              <h3>E2E Testing</h3>
+            </div>
+            <div class="tool-list">
+              <span class="tool-badge" *ngFor="let tool of report.tools.e2eTesting">{{
+                tool
+              }}</span>
+            </div>
+          </div>
+
+          <div class="tool-category">
+            <div class="category-header">
+              <i class="pi pi-code"></i>
+              <h3>Code Linting</h3>
+            </div>
+            <div class="tool-list">
+              <span class="tool-badge" *ngFor="let tool of report.tools.linting">{{ tool }}</span>
+            </div>
+          </div>
+
+          <div class="tool-category">
+            <div class="category-header">
+              <i class="pi pi-palette"></i>
+              <h3>Code Formatting</h3>
+            </div>
+            <div class="tool-list">
+              <span class="tool-badge" *ngFor="let tool of report.tools.formatting">{{
+                tool
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="practices-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Development Best Practices</h2>
+        </div>
+
+        <div class="practices-grid">
+          <div class="practice-card">
+            <i class="pi pi-shield practice-icon"></i>
+            <h3>Type Safety</h3>
+            <p>Strict TypeScript configuration with comprehensive type checking</p>
+          </div>
+
+          <div class="practice-card">
+            <i class="pi pi-sync practice-icon"></i>
+            <h3>Continuous Integration</h3>
+            <p>Automated testing and deployment through GitHub Actions</p>
+          </div>
+
+          <div class="practice-card">
+            <i class="pi pi-book practice-icon"></i>
+            <h3>Code Documentation</h3>
+            <p>Well-documented code with clear comments and README files</p>
+          </div>
+
+          <div class="practice-card">
+            <i class="pi pi-sitemap practice-icon"></i>
+            <h3>Modular Architecture</h3>
+            <p>Component-based architecture with clear separation of concerns</p>
+          </div>
+
+          <div class="practice-card">
+            <i class="pi pi-mobile practice-icon"></i>
+            <h3>Responsive Design</h3>
+            <p>Mobile-first approach with comprehensive device testing</p>
+          </div>
+
+          <div class="practice-card">
+            <i class="pi pi-bolt practice-icon"></i>
+            <h3>Performance</h3>
+            <p>Optimized builds with lazy loading and efficient rendering</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

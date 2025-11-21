@@ -3,11 +3,10 @@
   <section class="hero-section">
     <div class="hero-content">
       <div class="hero-text">
-        <h1 class="hero-title">
-          Technical <span class="gradient-text">Projects</span>
-        </h1>
+        <h1 class="hero-title">Technical <span class="gradient-text">Projects</span></h1>
         <p class="hero-subtitle">
-          Comprehensive showcase of professional projects, technical solutions, and innovative implementations across diverse industries
+          Comprehensive showcase of professional projects, technical solutions, and innovative
+          implementations across diverse industries
         </p>
         <div class="hero-stats">
           <div class="stat-item">
@@ -27,8 +26,11 @@
       <div class="hero-visual">
         <div class="projects-showcase">
           <div class="showcase-grid">
-            <div class="showcase-item" *ngFor="let i of [1,2,3,4,5,6]; let idx = index"
-                 [style.animation-delay.ms]="idx * 200">
+            <div
+              class="showcase-item"
+              *ngFor="let i of [1, 2, 3, 4, 5, 6]; let idx = index"
+              [style.animation-delay.ms]="idx * 200"
+            >
               <div class="item-icon">
                 <i class="pi {{ getShowcaseIcon(idx) }}"></i>
               </div>
@@ -46,7 +48,7 @@
   <!-- Loading State -->
   <div *ngIf="loading" class="loading-state">
     <div class="loading-content">
-      <p-progressSpinner [style]="{'width': '40px', 'height': '40px'}"></p-progressSpinner>
+      <p-progressSpinner [style]="{ width: '40px', height: '40px' }"></p-progressSpinner>
       <p>Loading project portfolio...</p>
     </div>
   </div>
@@ -68,30 +70,61 @@
         <h2>Explore Projects</h2>
         <p>Filter and search through my professional project portfolio</p>
       </div>
-      
+
       <form [formGroup]="filterForm" class="filter-controls">
         <div class="search-field">
           <div class="p-field search-input">
             <label for="search">Search Projects</label>
             <span class="p-input-icon-right">
               <i class="pi pi-search"></i>
-              <input id="search" type="text" pInputText formControlName="search" placeholder="Search by name, description, or technology">
+              <input
+                id="search"
+                type="text"
+                pInputText
+                formControlName="search"
+                placeholder="Search by name, description, or technology"
+              />
             </span>
           </div>
         </div>
-        
+
         <div class="filter-fields">
           <div class="p-field">
             <label for="domain">Industry Domain</label>
-            <p-multiSelect appendTo="body" id="domain" formControlName="domain" [options]="domainOptions" placeholder="Select Industries" optionLabel="label" optionValue="value" [showToggleAll]="true" [showClear]="true"></p-multiSelect>
+            <p-multiSelect
+              appendTo="body"
+              id="domain"
+              formControlName="domain"
+              [options]="domainOptions"
+              placeholder="Select Industries"
+              optionLabel="label"
+              optionValue="value"
+              [showToggleAll]="true"
+              [showClear]="true"
+            ></p-multiSelect>
           </div>
-          
+
           <div class="p-field">
             <label for="technology">Technology Stack</label>
-            <p-multiSelect appendTo="body" id="technology" formControlName="technology" [options]="technologyOptions" placeholder="Select Technologies" optionLabel="label" optionValue="value" [showToggleAll]="true" [showClear]="true"></p-multiSelect>
+            <p-multiSelect
+              appendTo="body"
+              id="technology"
+              formControlName="technology"
+              [options]="technologyOptions"
+              placeholder="Select Technologies"
+              optionLabel="label"
+              optionValue="value"
+              [showToggleAll]="true"
+              [showClear]="true"
+            ></p-multiSelect>
           </div>
-          
-          <p-button label="Reset" icon="pi pi-refresh" (onClick)="resetFilters()" class="reset-btn"></p-button>
+
+          <p-button
+            label="Reset"
+            icon="pi pi-refresh"
+            (onClick)="resetFilters()"
+            class="reset-btn"
+          ></p-button>
         </div>
       </form>
     </section>
@@ -100,7 +133,9 @@
     <section class="projects-showcase">
       <div class="section-header" *ngIf="filteredProjects.length > 0">
         <h2 class="section-title">Professional Projects</h2>
-        <p class="section-subtitle">{{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }} found</p>
+        <p class="section-subtitle">
+          {{ filteredProjects.length }} project{{ filteredProjects.length !== 1 ? 's' : '' }} found
+        </p>
       </div>
 
       <!-- No Results -->
@@ -109,16 +144,21 @@
           <i class="pi pi-search-minus"></i>
           <h3>No projects found</h3>
           <p>Try adjusting your search criteria or clearing the filters</p>
-          <p-button label="Clear All Filters" icon="pi pi-refresh" (onClick)="resetFilters()"></p-button>
+          <p-button
+            label="Clear All Filters"
+            icon="pi pi-refresh"
+            (onClick)="resetFilters()"
+          ></p-button>
         </div>
       </div>
 
       <!-- Projects Grid -->
       <div class="projects-grid" *ngIf="filteredProjects.length > 0">
-        <div *ngFor="let project of filteredProjects; trackBy: trackByProject"
-             class="project-card"
-             [attr.data-domain]="getDomainSlug(getPrimaryDomain(project))">
-          
+        <div
+          *ngFor="let project of filteredProjects; trackBy: trackByProject"
+          class="project-card"
+          [attr.data-domain]="getDomainSlug(getPrimaryDomain(project))"
+        >
           <div class="card-header">
             <div class="project-icon-wrapper">
               <div class="project-icon-bg">
@@ -133,7 +173,7 @@
 
           <div class="card-content">
             <h3 class="project-title">{{ project.name }}</h3>
-            
+
             <div class="project-domain">
               <i class="pi pi-building"></i>
               <span>{{ project.domain || project.domains }}</span>
@@ -141,28 +181,39 @@
 
             <p class="project-description">{{ project.description }}</p>
 
-            <div class="project-highlights" *ngIf="project.responsibilities && project.responsibilities.length > 0">
+            <div
+              class="project-highlights"
+              *ngIf="project.responsibilities && project.responsibilities.length > 0"
+            >
               <h4 class="highlights-title">
                 <i class="pi pi-star"></i>
                 Key Achievements
               </h4>
               <ul class="highlights-list">
-                <li *ngFor="let highlight of getProjectHighlights(project.responsibilities)" class="highlight-item">
+                <li
+                  *ngFor="let highlight of getProjectHighlights(project.responsibilities)"
+                  class="highlight-item"
+                >
                   <i class="pi pi-check-circle highlight-icon"></i>
                   <span>{{ highlight }}</span>
                 </li>
               </ul>
             </div>
 
-            <div class="project-technologies" *ngIf="project.technologies && project.technologies.length > 0">
+            <div
+              class="project-technologies"
+              *ngIf="project.technologies && project.technologies.length > 0"
+            >
               <h4 class="tech-title">
                 <i class="pi pi-code"></i>
                 Technology Stack
               </h4>
               <div class="tech-stack">
-                <span *ngFor="let tech of project.technologies"
-                      class="tech-tag"
-                      [attr.data-type]="getTechType(tech)">
+                <span
+                  *ngFor="let tech of project.technologies"
+                  class="tech-tag"
+                  [attr.data-type]="getTechType(tech)"
+                >
                   {{ tech }}
                 </span>
               </div>
@@ -200,10 +251,14 @@
               <span class="status-badge active">Active</span>
             </div>
           </div>
-          
+
           <div class="personal-content">
-            <p>A modern, responsive portfolio website built with Angular and Material Design. Features include dynamic content loading, responsive design, and comprehensive project showcase.</p>
-            
+            <p>
+              A modern, responsive portfolio website built with Angular and Material Design.
+              Features include dynamic content loading, responsive design, and comprehensive project
+              showcase.
+            </p>
+
             <div class="personal-tech">
               <span class="tech-tag" data-type="frontend">Angular</span>
               <span class="tech-tag" data-type="frontend">TypeScript</span>
@@ -211,10 +266,20 @@
               <span class="tech-tag" data-type="cloud">Firebase</span>
             </div>
           </div>
-          
+
           <div class="personal-actions">
-            <p-button label="View Source" icon="pi pi-code" styleClass="p-button-outlined action-btn" (onClick)="openUrl('https://github.com/iamsank8')"></p-button>
-            <p-button label="Live Demo" icon="pi pi-external-link" styleClass="p-button-outlined action-btn" (onClick)="openUrl(getCurrentOrigin())"></p-button>
+            <p-button
+              label="View Source"
+              icon="pi pi-code"
+              styleClass="p-button-outlined action-btn"
+              (onClick)="openUrl('https://github.com/iamsank8')"
+            ></p-button>
+            <p-button
+              label="Live Demo"
+              icon="pi pi-external-link"
+              styleClass="p-button-outlined action-btn"
+              (onClick)="openUrl(getCurrentOrigin())"
+            ></p-button>
           </div>
         </div>
 
@@ -231,10 +296,13 @@
               <span class="status-badge experimental">Experimental</span>
             </div>
           </div>
-          
+
           <div class="personal-content">
-            <p>Research and development projects exploring AI/ML integration in web applications. Includes local language model implementations and IDE productivity enhancements.</p>
-            
+            <p>
+              Research and development projects exploring AI/ML integration in web applications.
+              Includes local language model implementations and IDE productivity enhancements.
+            </p>
+
             <div class="personal-tech">
               <span class="tech-tag" data-type="ai">Machine Learning</span>
               <span class="tech-tag" data-type="ai">Local LLMs</span>
@@ -242,10 +310,20 @@
               <span class="tech-tag" data-type="backend">Python</span>
             </div>
           </div>
-          
+
           <div class="personal-actions">
-            <p-button label="View Source" icon="pi pi-code" styleClass="p-button-outlined action-btn" (onClick)="openUrl('https://github.com/iamsank8')"></p-button>
-            <p-button label="Research Phase" icon="pi pi-search" [disabled]="true" styleClass="p-button-outlined action-btn"></p-button>
+            <p-button
+              label="View Source"
+              icon="pi pi-code"
+              styleClass="p-button-outlined action-btn"
+              (onClick)="openUrl('https://github.com/iamsank8')"
+            ></p-button>
+            <p-button
+              label="Research Phase"
+              icon="pi pi-search"
+              [disabled]="true"
+              styleClass="p-button-outlined action-btn"
+            ></p-button>
           </div>
         </div>
       </div>
@@ -258,7 +336,7 @@
           <h2>Project Portfolio Overview</h2>
           <i class="pi pi-chart-bar"></i>
         </div>
-        
+
         <div class="summary-grid">
           <div class="summary-card">
             <h3>Industries Served</h3>

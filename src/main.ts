@@ -25,6 +25,6 @@ bootstrapApplication(AppComponent, {
     SecurityService,
     ThemeService,
     AnalyticsService,
-    importProvidersFrom(CoreModule, FeaturesModule)
-  ]
-}).catch(err => console.error(err));
+    importProvidersFrom(CoreModule, FeaturesModule),
+  ],
+}).catch((err) => console.error(err));

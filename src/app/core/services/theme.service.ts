@@ -1,11 +1,11 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 /**
  * Service for managing application theme (dark/light)
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   private renderer: Renderer2;
@@ -17,7 +17,8 @@ export class ThemeService {
    */
   public isDarkTheme$: Observable<boolean> = this.isDarkThemeSubject.asObservable();
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor() {
+    const rendererFactory = inject(RendererFactory2);
     this.renderer = rendererFactory.createRenderer(null, null);
     this.initializeTheme();
   }
@@ -28,7 +29,7 @@ export class ThemeService {
   private initializeTheme(): void {
     // Check for saved theme preference
     const savedTheme = localStorage.getItem(this.THEME_KEY);
-    
+
     if (savedTheme) {
       // Use saved preference
       this.setTheme(savedTheme === 'dark');
@@ -36,7 +37,7 @@ export class ThemeService {
       // Check system preference
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       this.setTheme(prefersDark);
-      
+
       // Listen for system theme changes
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
         if (!localStorage.getItem(this.THEME_KEY)) {
@@ -52,7 +53,7 @@ export class ThemeService {
   public toggleTheme(): void {
     const newThemeValue = !this.isDarkThemeSubject.value;
     this.setTheme(newThemeValue);
-    
+
     // Save preference
     localStorage.setItem(this.THEME_KEY, newThemeValue ? 'dark' : 'light');
   }
@@ -63,7 +64,7 @@ export class ThemeService {
    */
   public setTheme(isDark: boolean): void {
     this.isDarkThemeSubject.next(isDark);
-    
+
     if (isDark) {
       this.renderer.addClass(document.body, 'dark-theme');
     } else {

@@ -21,20 +21,20 @@ import { TableModule } from 'primeng/table';
     InputTextareaModule,
     DropdownModule,
     MultiSelectModule,
-    
+
     // Layout Components
     CardModule,
-    
+
     // Data Display Components
     TableModule,
     TimelineModule,
-    
+
     // Feedback Components
     ProgressSpinnerModule,
     ToastModule,
-    
+
     // Overlay Components
-    TooltipModule
-  ]
+    TooltipModule,
+  ],
 })
 export class PrimeNGModule {}

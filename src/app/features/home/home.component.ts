@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PrimeNGModule } from '../../core/primeng.module';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +10,23 @@ import { PrimeNGModule } from '../../core/primeng.module';
   styleUrls: ['./home.component.scss'],
   standalone: true,
   imports: [CommonModule, PrimeNGModule, RouterLink],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  private readonly seoService = inject(SeoService);
 
   ngOnInit(): void {
+    this.seoService.generateTags({
+      title: 'Home',
+      description:
+        'Welcome to the portfolio of Sanket Thotange, a Senior Team Lead and Full Stack Developer.',
+      keywords: [
+        'Sanket Thotange',
+        'Portfolio',
+        'Full Stack Developer',
+        'Angular',
+        '.NET',
+        'Azure',
+      ],
+    });
   }
-
 }

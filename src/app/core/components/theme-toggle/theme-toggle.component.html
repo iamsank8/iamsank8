@@ -1,10 +1,5 @@
-<p-button
-  [text]="true"
-  [rounded]="true"
-  aria-label="Toggle theme"
-  class="theme-toggle-button"
-  (click)="toggleTheme()"
+<p-button [text]="true" [rounded]="true" aria-label="Toggle theme" class="theme-toggle-button" (click)="toggleTheme()"
   [pTooltip]="(isDarkTheme$ | async) ? 'Switch to light theme' : 'Switch to dark theme'">
-  <i class="pi pi-moon" *ngIf="!(isDarkTheme$ | async)"></i>
+  <i class="pi pi-moon" *ngIf="(isDarkTheme$ | async) === false"></i>
   <i class="pi pi-sun" *ngIf="isDarkTheme$ | async"></i>
 </p-button>

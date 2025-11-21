@@ -20,12 +20,21 @@ export const routes: Routes = [
   { path: 'experience', component: ExperienceComponent },
   { path: 'education', component: EducationComponent },
   { path: 'projects', component: ProjectsComponent },
+  {
+    path: 'blog',
+    loadComponent: () => import('./features/blog/blog.component').then((m) => m.BlogComponent),
+  },
+  {
+    path: 'code-quality',
+    loadComponent: () =>
+      import('./features/code-quality/code-quality.component').then((m) => m.CodeQualityComponent),
+  },
   { path: 'contact', component: ContactComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

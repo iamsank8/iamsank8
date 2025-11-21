@@ -12,14 +12,8 @@ import { FeaturesModule } from './features/features.module';
  */
 @NgModule({
   declarations: [],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    CoreModule,
-    FeaturesModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, BrowserAnimationsModule, CoreModule, FeaturesModule, AppRoutingModule],
   providers: [],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

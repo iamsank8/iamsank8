@@ -15,7 +15,7 @@
   <!-- Error State -->
   <div *ngIf="error && !loading" class="error-container">
     <div class="error-content">
-      <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: var(--error);"></i>
+      <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: var(--error)"></i>
       <p>Failed to load education data. Please try again later.</p>
     </div>
   </div>
@@ -62,7 +62,9 @@
           <p><strong>Institution:</strong> {{ education.institution }}</p>
           <p><strong>Board:</strong> {{ education.board }}</p>
           <p><strong>Percentage:</strong> {{ education.percentage }}%</p>
-          <p *ngIf="education.description" class="education-description">{{ education.description }}</p>
+          <p *ngIf="education.description" class="education-description">
+            {{ education.description }}
+          </p>
         </ng-template>
       </p-card>
     </div>

@@ -34,7 +34,7 @@
     flex-direction: column;
     gap: var(--spacing-xl);
     text-align: center;
-    
+
     > :last-child {
       flex: 1;
     }
@@ -69,7 +69,7 @@
   @include mobile-only {
     flex-direction: column;
     gap: var(--spacing-lg);
-    
+
     > * {
       flex: 1;
     }
@@ -333,15 +333,15 @@
               border-radius: var(--border-radius-full);
               transition: width 1s ease-out;
 
-              &[data-level="Expert"] {
+              &[data-level='Expert'] {
                 background: linear-gradient(90deg, var(--success-500), var(--success-600));
               }
 
-              &[data-level="Advanced"] {
+              &[data-level='Advanced'] {
                 background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
               }
 
-              &[data-level="Intermediate"] {
+              &[data-level='Intermediate'] {
                 background: linear-gradient(90deg, var(--warning-500), var(--warning-600));
               }
             }
@@ -439,7 +439,7 @@
         background: var(--accent-blue);
         color: var(--text-white);
         border-color: var(--accent-blue);
-        
+
         &:hover {
           background: var(--primary-600);
           border-color: var(--primary-600);
@@ -540,59 +540,59 @@
     p-progressSpinner {
       margin-bottom: var(--spacing-md);
     }
-    
+
     // Comprehensive dark theme overrides
     .dark-theme {
       // Hero section overrides
       .hero-section {
         background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
       }
-    
+
       .chart-center {
         background: var(--bg-secondary);
         border-color: var(--border-color);
-    
+
         .chart-title {
           color: var(--accent-blue);
         }
-    
+
         .chart-subtitle {
           color: var(--text-secondary);
         }
       }
-    
+
       .ring {
         &.ring-1 {
           border-color: var(--primary-200);
         }
-    
+
         &.ring-2 {
           border-color: var(--accent-200);
         }
-    
+
         &.ring-3 {
           border-color: var(--success-200);
         }
       }
-    
+
       // Technical skills overrides
       .skill-category-card {
         .category-header {
           .category-icon {
             background: var(--bg-tertiary);
-    
+
             i {
               color: var(--accent-blue);
             }
           }
-    
+
           .category-average {
             .average-score {
               color: var(--accent-blue);
             }
           }
         }
-    
+
         .skills-list {
           .skill-item {
             .skill-header {
@@ -602,28 +602,28 @@
                 }
               }
             }
-    
+
             .skill-progress {
               .progress-track {
                 background: var(--bg-tertiary);
               }
             }
-    
+
             &.expert .skill-level-badge .level-text {
               color: var(--success-500);
             }
-    
+
             &.advanced .skill-level-badge .level-text {
               color: var(--accent-blue);
             }
-    
+
             &.intermediate .skill-level-badge .level-text {
               color: var(--warning-500);
             }
           }
         }
       }
-    
+
       // Skills summary overrides
       .skills-summary {
         .summary-card {
@@ -634,7 +634,7 @@
           }
         }
       }
-    
+
       // Loading and error states
       .loading-state,
       .error-state {

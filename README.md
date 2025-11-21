@@ -221,8 +221,6 @@ The upgrade process follows Angular's recommended upgrade path and includes:
 - Converting to standalone components (optional)
 - Implementing new features like signals and control flow (optional)
 
-For detailed information about the upgrade process, potential issues, and troubleshooting, see the [Angular Upgrade Guide](./angular-upgrade-guide.md).
-
 ## Project Structure
 
 - **src/app/core**: Core components, services, and modules
@@ -235,29 +233,6 @@ For detailed information about the upgrade process, potential issues, and troubl
 ## Development Scripts
 
 See the [dev-scripts README](./dev-scripts/README.md) for detailed information about the available development scripts.
-
-## Upgrade Plans
-
-### Portfolio Upgrade Plan
-See the [Portfolio Upgrade Plan](./portfolio-upgrade-plan.md) for detailed information about the overall planned upgrades and improvements.
-
-### Angular Upgrade
-See the [Angular Upgrade Guide](./angular-upgrade-guide.md) for detailed information about upgrading from Angular 13 to Angular 17.
-
-### UI Modernization
-See the [UI Modernization Plan](./ui-modernization-plan.md) for detailed information about modernizing the UI with the latest Angular Material components.
-
-### Blog Implementation
-See the [Blog Implementation Plan](./blog-implementation-plan.md) for detailed information about adding a blog section to the portfolio website.
-
-### Project Filtering
-See the [Project Filtering Plan](./project-filtering-plan.md) for detailed information about implementing filtering functionality for the projects section.
-
-### Mobile Responsiveness
-See the [Mobile Responsiveness Plan](./mobile-responsiveness-plan.md) for detailed information about enhancing the mobile experience of the portfolio website.
-
-### Admin Authentication
-See the [Admin Authentication Plan](./admin-authentication-plan.md) for detailed information about implementing secure authentication for admin access.
 
 ## License
 

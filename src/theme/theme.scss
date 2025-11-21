@@ -14,7 +14,7 @@
   // Primary colors
   --primary-color: var(--accent-blue);
   --primary-color-text: var(--text-white);
-  
+
   // Surface colors
   --surface-0: var(--bg-primary);
   --surface-50: var(--bg-secondary);
@@ -27,14 +27,14 @@
   --surface-700: #374151;
   --surface-800: #1f2937;
   --surface-900: #111827;
-  
+
   // Text colors
   --text-color: var(--text-primary);
   --text-color-secondary: var(--text-secondary);
-  
+
   // Border colors
   --surface-border: var(--border-light);
-  
+
   // Focus and hover states
   --focus-ring: 0 0 0 0.2rem rgba(59, 130, 246, 0.2);
   --maskbg: rgba(0, 0, 0, 0.4);
@@ -53,14 +53,14 @@
   --surface-700: #f7fafc;
   --surface-800: #ffffff;
   --surface-900: #ffffff;
-  
+
   --text-color: var(--text-primary);
   --text-color-secondary: var(--text-secondary);
   --surface-border: var(--border-color);
-  
+
   --primary-color: var(--accent-blue);
   --primary-color-text: var(--text-white);
-  
+
   --focus-ring: 0 0 0 0.2rem rgba(59, 130, 246, 0.3);
   --maskbg: rgba(0, 0, 0, 0.6);
 }
@@ -73,11 +73,11 @@
   font-weight: var(--font-medium);
   border-radius: var(--radius-md);
   transition: var(--transition-all);
-  
+
   &.p-button-primary {
     background: var(--accent-blue);
     border-color: var(--accent-blue);
-    
+
     &:hover {
       background: var(--accent-blue-dark);
       border-color: var(--accent-blue-dark);
@@ -85,12 +85,12 @@
       box-shadow: var(--shadow-md);
     }
   }
-  
+
   &.p-button-secondary {
     background: transparent;
     color: var(--text-primary);
     border: 2px solid var(--text-primary);
-    
+
     &:hover {
       background: var(--text-primary);
       color: var(--text-white);
@@ -105,22 +105,22 @@
   box-shadow: var(--shadow-base);
   border: 1px solid var(--border-light);
   transition: var(--transition-all);
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
   }
-  
+
   .p-card-header {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-light);
     padding: var(--space-6);
   }
-  
+
   .p-card-body {
     padding: var(--space-6);
   }
-  
+
   .p-card-footer {
     background: var(--bg-secondary);
     border-top: 1px solid var(--border-light);
@@ -137,7 +137,7 @@
   border-radius: var(--radius-md);
   border: 2px solid var(--border-light);
   transition: var(--transition-fast);
-  
+
   &:focus {
     border-color: var(--accent-blue);
     box-shadow: 0 0 0 3px rgba(59, 130, 206, 0.1);
@@ -148,7 +148,7 @@
 .p-panel {
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-light);
-  
+
   .p-panel-header {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-light);
@@ -162,10 +162,10 @@
     background: var(--bg-secondary);
     border: 1px solid var(--border-light);
   }
-  
+
   .p-datatable-tbody > tr {
     transition: var(--transition-fast);
-    
+
     &:hover {
       background: var(--bg-secondary);
     }
@@ -177,10 +177,10 @@
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-lg);
-  
+
   .p-menuitem-link {
     transition: var(--transition-fast);
-    
+
     &:hover {
       background: var(--bg-secondary);
     }
@@ -191,7 +191,7 @@
 .p-dialog {
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-2xl);
-  
+
   .p-dialog-header {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-light);
@@ -204,22 +204,22 @@
   .p-toast-message {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
-    
+
     &.p-toast-message-success {
       background: var(--success-green);
       border-color: var(--success-green-dark);
     }
-    
+
     &.p-toast-message-error {
       background: var(--error-red);
       border-color: var(--error-red-dark);
     }
-    
+
     &.p-toast-message-warn {
       background: var(--warning-orange);
       border-color: var(--warning-orange-dark);
     }
-    
+
     &.p-toast-message-info {
       background: var(--accent-blue);
       border-color: var(--accent-blue-dark);
@@ -231,7 +231,7 @@
 .p-progressbar {
   border-radius: var(--radius-full);
   background: var(--bg-tertiary);
-  
+
   .p-progressbar-value {
     background: linear-gradient(90deg, var(--accent-blue), var(--success-green));
     border-radius: var(--radius-full);
@@ -244,7 +244,7 @@
   color: var(--text-primary);
   border-radius: var(--radius-full);
   font-weight: var(--font-medium);
-  
+
   &.p-chip-primary {
     background: var(--accent-blue);
     color: var(--text-white);
@@ -258,11 +258,11 @@
     width: 95vw !important;
     margin: 0 auto;
   }
-  
+
   .p-datatable {
     font-size: var(--text-sm);
   }
-  
+
   .p-button {
     padding: var(--space-2) var(--space-4);
     font-size: var(--text-sm);

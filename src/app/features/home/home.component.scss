@@ -36,10 +36,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg,
-      var(--bg-primary) 0%,
-      var(--accent-blue-light) 50%,
-      var(--bg-primary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--bg-primary) 0%,
+    var(--accent-blue-light) 50%,
+    var(--bg-primary) 100%
+  );
   opacity: 0.05;
 }
 
@@ -49,9 +51,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: radial-gradient(circle at 25% 25%,
-      var(--accent-blue) 1px,
-      transparent 1px);
+  background-image: radial-gradient(circle at 25% 25%, var(--accent-blue) 1px, transparent 1px);
   background-size: 50px 50px;
   opacity: 0.03;
   animation: patternMove 20s linear infinite;
@@ -189,7 +189,8 @@
   }
 }
 
-.hero-actions {}
+.hero-actions {
+}
 
 // Hero Visual Section
 .hero-visual {
@@ -231,7 +232,8 @@
   border-bottom: 1px solid var(--border-light);
 }
 
-.window-controls {}
+.window-controls {
+}
 
 .control {
   width: 12px;
@@ -343,7 +345,6 @@
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px) rotate(0deg);
@@ -371,7 +372,6 @@
 }
 
 @keyframes bounce {
-
   0%,
   20%,
   50%,
@@ -436,7 +436,8 @@
   }
 }
 
-.tech-grid {}
+.tech-grid {
+}
 
 .tech-card {
   background: var(--bg-primary);
@@ -553,7 +554,8 @@
   transition: var(--transition-base);
 }
 
-.project-tech {}
+.project-tech {
+}
 
 .tech-tag {
   background: var(--accent-blue);
@@ -582,7 +584,8 @@
   }
 }
 
-.project-actions {}
+.project-actions {
+}
 
 .section-footer {
   text-align: center;

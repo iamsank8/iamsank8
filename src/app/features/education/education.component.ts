@@ -1,7 +1,8 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimeNGModule } from '../../core/primeng.module';
 import { EducationService, Education, Certification } from '../../core/services/education.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-education',
@@ -9,9 +10,11 @@ import { EducationService, Education, Certification } from '../../core/services/
   styleUrls: ['./education.component.scss'],
   standalone: true,
   imports: [CommonModule, PrimeNGModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EducationComponent implements OnInit {
+  private readonly educationService = inject(EducationService);
+  private readonly seoService = inject(SeoService);
+
   educations: Education[] = [];
   certifications: Certification[] = [];
   loading = true;
@@ -19,9 +22,12 @@ export class EducationComponent implements OnInit {
 
   displayedColumns: string[] = ['degree', 'year', 'institution', 'board', 'percentage'];
 
-  constructor(private educationService: EducationService) { }
-
   ngOnInit(): void {
+    this.seoService.generateTags({
+      title: 'Education',
+      description: 'Educational background and certifications of Sanket Thotange.',
+      keywords: ['Education', 'Degree', 'Certifications', 'University'],
+    });
     this.loadEducationData();
     this.loadCertifications();
   }
@@ -36,7 +42,7 @@ export class EducationComponent implements OnInit {
         console.error('Error loading education data:', error);
         this.error = true;
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -47,7 +53,7 @@ export class EducationComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading certifications:', error);
-      }
+      },
     });
   }
 }

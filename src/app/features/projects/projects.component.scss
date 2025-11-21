@@ -146,11 +146,13 @@
 }
 
 // Loading and Error States
-.loading-state, .error-state {
+.loading-state,
+.error-state {
   padding: var(--spacing-xl);
   text-align: center;
 
-  .loading-content, .error-content {
+  .loading-content,
+  .error-content {
     max-width: 400px;
     margin: 0 auto;
 
@@ -190,7 +192,7 @@
   .filter-header {
     text-align: center;
     margin-bottom: var(--spacing-xl);
-    
+
     h2 {
       font-size: var(--font-size-3xl);
       font-weight: var(--font-weight-bold);
@@ -439,7 +441,7 @@
               .p-multiselect-close {
                 color: var(--text-muted) !important;
                 background: transparent !important;
-                
+
                 &:hover {
                   color: var(--text-primary) !important;
                   background: var(--bg-secondary) !important;
@@ -618,7 +620,7 @@
     @media (min-width: 769px) and (max-width: 1024px) {
       .filter-fields {
         grid-template-columns: 1fr 1fr;
-        
+
         ::ng-deep .reset-btn {
           grid-column: 1 / -1;
           justify-self: center;
@@ -677,7 +679,7 @@
     @include mobile-only {
       flex-direction: column;
       gap: var(--spacing-md);
-      
+
       > * {
         flex: 1;
       }
@@ -853,27 +855,27 @@
           border-color: var(--border-light);
 
           // Technology type specific styling
-          &[data-type="frontend"] {
+          &[data-type='frontend'] {
             background: var(--primary-50);
             border-color: var(--primary-200);
           }
 
-          &[data-type="backend"] {
+          &[data-type='backend'] {
             background: var(--success-50);
             border-color: var(--success-200);
           }
 
-          &[data-type="cloud"] {
+          &[data-type='cloud'] {
             background: var(--warning-50);
             border-color: var(--warning-200);
           }
 
-          &[data-type="database"] {
+          &[data-type='database'] {
             background: var(--purple-50);
             border-color: var(--purple-200);
           }
 
-          &[data-type="ai"] {
+          &[data-type='ai'] {
             background: var(--accent-50);
             border-color: var(--accent-200);
           }
@@ -1015,7 +1017,7 @@
     @include mobile-only {
       flex-direction: column;
       gap: var(--spacing-md);
-      
+
       > * {
         flex: 1;
       }
@@ -1124,22 +1126,22 @@
           font-weight: var(--font-weight-medium);
           border: 1px solid transparent;
 
-          &[data-type="frontend"] {
+          &[data-type='frontend'] {
             background: var(--primary-50);
             border-color: var(--primary-200);
           }
 
-          &[data-type="backend"] {
+          &[data-type='backend'] {
             background: var(--success-50);
             border-color: var(--success-200);
           }
 
-          &[data-type="cloud"] {
+          &[data-type='cloud'] {
             background: var(--warning-50);
             border-color: var(--warning-200);
           }
 
-          &[data-type="ai"] {
+          &[data-type='ai'] {
             background: var(--accent-50);
             border-color: var(--accent-200);
           }
@@ -1312,8 +1314,10 @@
 }
 
 // Fix icon styling for PrimeNG icons
-.loading-state, .error-state {
-  .loading-content, .error-content {
+.loading-state,
+.error-state {
+  .loading-content,
+  .error-content {
     i {
       font-size: 3rem;
       color: var(--warning-500);

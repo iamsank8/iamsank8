@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -122,7 +122,7 @@ export class AboutService {
     ]
   };
 
-  constructor(private http: HttpClient) { }
+  private readonly http = inject(HttpClient);
 
   /**
    * Get complete about data
@@ -131,11 +131,11 @@ export class AboutService {
     // Check if we're using static files (GitHub Pages) or API
     const isStaticMode = this.apiUrl.includes('/assets');
     const url = isStaticMode ? `${this.apiUrl}/about.json` : `${this.apiUrl}/about`;
-    
+
     return this.http.get<AboutData>(url).pipe(
-      map((response: any) => {
+      map((response: unknown) => {
         // Handle both array and object responses
-        return Array.isArray(response) ? response[0] as AboutData : response as AboutData;
+        return Array.isArray(response) ? (response[0] as AboutData) : (response as AboutData);
       }),
       catchError(error => {
         console.error('Error fetching about data:', error);

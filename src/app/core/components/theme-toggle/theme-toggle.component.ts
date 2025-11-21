@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -9,17 +9,13 @@ import { PrimeNGModule } from '../../primeng.module';
   templateUrl: './theme-toggle.component.html',
   styleUrls: ['./theme-toggle.component.scss'],
   standalone: true,
-  imports: [CommonModule, PrimeNGModule]
+  imports: [CommonModule, PrimeNGModule],
 })
-export class ThemeToggleComponent implements OnInit {
-  isDarkTheme$: Observable<boolean>;
+export class ThemeToggleComponent {
+  private readonly themeService = inject(ThemeService);
+  isDarkTheme$: Observable<boolean> = this.themeService.isDarkTheme$;
 
-  constructor(private themeService: ThemeService) {
-    this.isDarkTheme$ = this.themeService.isDarkTheme$;
-  }
 
-  ngOnInit(): void {
-  }
 
   /**
    * Toggle between light and dark theme

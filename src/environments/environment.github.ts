@@ -8,6 +8,6 @@ export const environment = {
     authDomain: 'portfolio-sanket-c5165.firebaseapp.com',
     storageBucket: 'portfolio-sanket-c5165.appspot.com',
     messagingSenderId: 'your-sender-id',
-    appId: 'your-app-id'
-  }
+    appId: 'your-app-id',
+  },
 };

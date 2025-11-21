@@ -1,8 +1,16 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PrimeNGModule } from '../../core/primeng.module';
-import { AboutService, AboutData, PersonalInfo, Stats, ProfessionalSummaryItem, Certification } from '../../core/services/about.service';
+import {
+  AboutService,
+  AboutData,
+  PersonalInfo,
+  Stats,
+  ProfessionalSummaryItem,
+  Certification,
+} from '../../core/services/about.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-about',
@@ -10,21 +18,27 @@ import { AboutService, AboutData, PersonalInfo, Stats, ProfessionalSummaryItem, 
   styleUrls: ['./about.component.scss'],
   standalone: true,
   imports: [CommonModule, PrimeNGModule, RouterModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AboutComponent implements OnInit {
+  private readonly aboutService = inject(AboutService);
+  private readonly seoService = inject(SeoService);
+
   aboutData: AboutData | null = null;
   personalInfo: PersonalInfo | null = null;
   stats: Stats | null = null;
-  mission: string = '';
+  mission = '';
   professionalSummary: ProfessionalSummaryItem[] = [];
   certifications: Certification[] = [];
   loading = true;
   error = false;
 
-  constructor(private aboutService: AboutService) { }
-
   ngOnInit(): void {
+    this.seoService.generateTags({
+      title: 'About Me',
+      description:
+        'Learn more about Sanket Thotange, a passionate Full Stack Developer with over 9 years of experience.',
+      keywords: ['About', 'Biography', 'Experience', 'Certifications'],
+    });
     this.loadAboutData();
   }
 
@@ -45,7 +59,7 @@ export class AboutComponent implements OnInit {
         console.error('Error loading about data:', error);
         this.error = true;
         this.loading = false;
-      }
+      },
     });
   }
 }

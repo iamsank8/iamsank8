@@ -1,0 +1,27 @@
+.blog-container {
+  min-height: 80vh;
+  padding-top: var(--space-24); // Account for fixed header
+}
+
+.empty-state {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-color);
+
+  i {
+    color: var(--primary-color);
+  }
+
+  .p-button {
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: var(--primary-600);
+    }
+  }
+}
