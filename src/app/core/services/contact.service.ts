@@ -13,8 +13,6 @@ export interface ContactFormData {
   providedIn: 'root',
 })
 export class ContactService {
-
-
   /**
    * Simulates sending contact form data to a backend service
    * In a real application, this would make an HTTP request to a backend API

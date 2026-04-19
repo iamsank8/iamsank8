@@ -24,7 +24,7 @@ export interface Certification {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EducationService {
   private apiUrl = environment.apiUrl;
@@ -39,7 +39,8 @@ export class EducationService {
       board: 'SGBAU',
       percentage: '64.12',
       type: 'degree',
-      description: 'Bachelor of Engineering in Computer Science with focus on software development, algorithms, and system design.'
+      description:
+        'Bachelor of Engineering in Computer Science with focus on software development, algorithms, and system design.',
     },
     {
       id: 'hsc',
@@ -49,7 +50,8 @@ export class EducationService {
       board: 'MH',
       percentage: '62.17',
       type: 'higher-secondary',
-      description: 'Higher Secondary Certificate with Science stream focusing on Mathematics, Physics, and Chemistry.'
+      description:
+        'Higher Secondary Certificate with Science stream focusing on Mathematics, Physics, and Chemistry.',
     },
     {
       id: 'ssc',
@@ -59,8 +61,8 @@ export class EducationService {
       board: 'MH',
       percentage: '84.85',
       type: 'secondary',
-      description: 'Secondary School Certificate with excellent academic performance.'
-    }
+      description: 'Secondary School Certificate with excellent academic performance.',
+    },
   ];
 
   private mockCertifications: Certification[] = [
@@ -69,15 +71,16 @@ export class EducationService {
       title: 'Prompt Engineering',
       year: '2023',
       description: 'Completed courses on Prompt engineering and context providing for AI tools.',
-      icon: 'pi-verified'
+      icon: 'pi-verified',
     },
     {
       id: 'ai-ml-integration',
       title: 'AI/ML Integration',
       year: '2022',
-      description: 'Worked with AI ML (small language models) on local machine and experimented with different IDEs which support local integration.',
-      icon: 'pi-verified'
-    }
+      description:
+        'Worked with AI ML (small language models) on local machine and experimented with different IDEs which support local integration.',
+      icon: 'pi-verified',
+    },
   ];
 
   private readonly http = inject(HttpClient);
@@ -91,7 +94,7 @@ export class EducationService {
     const url = isStaticMode ? `${this.apiUrl}/education.json` : `${this.apiUrl}/education`;
 
     return this.http.get<Education[]>(url).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.error('Error fetching education:', error);
         // Return mock data if API fails
         return of(this.mockEducations);
@@ -104,10 +107,10 @@ export class EducationService {
    */
   getEducationById(id: string): Observable<Education | undefined> {
     return this.getEducations().pipe(
-      map(educations => educations.find(edu => edu.id === id)),
-      catchError(error => {
+      map((educations) => educations.find((edu) => edu.id === id)),
+      catchError((error) => {
         console.error('Error fetching education by ID:', error);
-        const education = this.mockEducations.find(edu => edu.id === id);
+        const education = this.mockEducations.find((edu) => edu.id === id);
         return of(education);
       })
     );
@@ -126,10 +129,10 @@ export class EducationService {
    */
   getEducationByType(type: string): Observable<Education[]> {
     return this.getEducations().pipe(
-      map(educations => educations.filter(edu => edu.type === type)),
-      catchError(error => {
+      map((educations) => educations.filter((edu) => edu.type === type)),
+      catchError((error) => {
         console.error('Error fetching education by type:', error);
-        const filteredEducations = this.mockEducations.filter(edu => edu.type === type);
+        const filteredEducations = this.mockEducations.filter((edu) => edu.type === type);
         return of(filteredEducations);
       })
     );
@@ -140,13 +143,14 @@ export class EducationService {
    */
   getHighestQualification(): Observable<Education | undefined> {
     return this.getEducations().pipe(
-      map(educations => {
+      map((educations) => {
         // Assuming the first education record is the highest qualification
-        return educations.find(edu => edu.type === 'degree') || educations[0];
+        return educations.find((edu) => edu.type === 'degree') || educations[0];
       }),
-      catchError(error => {
+      catchError((error) => {
         console.error('Error fetching highest qualification:', error);
-        const highest = this.mockEducations.find(edu => edu.type === 'degree') || this.mockEducations[0];
+        const highest =
+          this.mockEducations.find((edu) => edu.type === 'degree') || this.mockEducations[0];
         return of(highest);
       })
     );

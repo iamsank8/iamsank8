@@ -15,8 +15,6 @@ export class ThemeToggleComponent {
   private readonly themeService = inject(ThemeService);
   isDarkTheme$: Observable<boolean> = this.themeService.isDarkTheme$;
 
-
-
   /**
    * Toggle between light and dark theme
    */

@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2025-11-21T08:51:54.917Z",
+  "generatedAt": "2026-04-19T10:48:29.593Z",
   "unitTests": {
-    "status": "failing",
+    "status": "passing",
     "coverage": {
       "statements": 0,
       "branches": 0,
       "functions": 0,
       "lines": 0
     },
-    "totalTests": 0,
-    "passed": 0,
+    "totalTests": 51,
+    "passed": 51,
     "failed": 0
   },
   "linting": {
     "status": "failing",
-    "errors": 7,
+    "errors": 2,
     "warnings": 0
   },
   "e2eTests": {

@@ -30,5 +30,8 @@
   "engines": {
     "node": "18"
   },
+  "overrides": {
+    "fast-xml-parser": "^4.5.4"
+  },
   "private": true
 }

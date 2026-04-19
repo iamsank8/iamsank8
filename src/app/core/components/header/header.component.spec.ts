@@ -7,17 +7,16 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 import { CommonModule } from '@angular/common';
 
 describe('HeaderComponent', () => {
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [CommonModule, RouterTestingModule, PrimeNGModule, ThemeToggleComponent],
-            declarations: [HeaderComponent],
-            providers: [ThemeService],
-        }).compileComponents();
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CommonModule, RouterTestingModule, PrimeNGModule, ThemeToggleComponent, HeaderComponent],
+      providers: [ThemeService],
+    }).compileComponents();
+  });
 
-    it('should create the header', () => {
-        const fixture = TestBed.createComponent(HeaderComponent);
-        const component = fixture.componentInstance;
-        expect(component).toBeTruthy();
-    });
+  it('should create the header', () => {
+    const fixture = TestBed.createComponent(HeaderComponent);
+    const component = fixture.componentInstance;
+    expect(component).toBeTruthy();
+  });
 });
