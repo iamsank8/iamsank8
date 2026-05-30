@@ -13,52 +13,16 @@ export class SecurityService {
    */
   initializeSecurity(): void {
     this.setupContentSecurityPolicy();
-    this.setupSecurityHeaders();
   }
 
   /**
    * Set up Content Security Policy
    */
   private setupContentSecurityPolicy(): void {
-    // Add CSP meta tag
+    // Add CSP meta tag (using httpEquiv for browser recognition)
     this.meta.addTag({
-      name: 'Content-Security-Policy',
+      httpEquiv: 'Content-Security-Policy',
       content: this.buildCSPPolicy(),
-    });
-  }
-
-  /**
-   * Set up additional security headers
-   */
-  private setupSecurityHeaders(): void {
-    // X-Content-Type-Options
-    this.meta.addTag({
-      name: 'X-Content-Type-Options',
-      content: 'nosniff',
-    });
-
-    // X-Frame-Options
-    this.meta.addTag({
-      name: 'X-Frame-Options',
-      content: 'DENY',
-    });
-
-    // X-XSS-Protection
-    this.meta.addTag({
-      name: 'X-XSS-Protection',
-      content: '1; mode=block',
-    });
-
-    // Referrer-Policy
-    this.meta.addTag({
-      name: 'Referrer-Policy',
-      content: 'strict-origin-when-cross-origin',
-    });
-
-    // Permissions-Policy
-    this.meta.addTag({
-      name: 'Permissions-Policy',
-      content: 'camera=(), microphone=(), geolocation=()',
     });
   }
 
@@ -68,12 +32,16 @@ export class SecurityService {
   private buildCSPPolicy(): string {
     const apiUrl = environment.apiUrl;
 
+    const scriptSrc = environment.production
+      ? "script-src 'self' https://apis.google.com https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://tagmanager.google.com"
+      : "script-src 'self' 'unsafe-eval' https://apis.google.com https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://tagmanager.google.com";
+
     const policies = [
       // Default policy for all content types
       "default-src 'self'",
 
       // Script sources
-      "script-src 'self' https://apis.google.com https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://tagmanager.google.com",
+      scriptSrc,
 
       // Style sources - unsafe-inline needed for PrimeNG
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tagmanager.google.com",

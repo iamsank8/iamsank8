@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AnalyticsService } from './analytics.service';
-import { environment } from '../../../environments/environment';
-
 describe('AnalyticsService', () => {
   let service: AnalyticsService;
   let httpMock: HttpTestingController;

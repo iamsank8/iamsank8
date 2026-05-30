@@ -10,13 +10,21 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
 import { FeaturesModule } from './features/features.module';
 import { HeaderComponent } from './core/components/header/header.component';
+import { CookieConsentComponent } from './core/components/cookie-consent/cookie-consent.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, CoreModule, FeaturesModule, HeaderComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    CoreModule,
+    FeaturesModule,
+    HeaderComponent,
+    CookieConsentComponent,
+  ],
 })
 export class AppComponent implements OnInit, OnDestroy {
   private readonly securityService = inject(SecurityService);
@@ -32,9 +40,12 @@ export class AppComponent implements OnInit, OnDestroy {
     // Initialize security features
     this.securityService.initializeSecurity();
 
-    // Initialize analytics in production mode
+    // Initialize analytics in production mode if consent is already granted
     if (environment.production) {
-      this.analyticsService.initializeAnalytics(environment.analyticsId);
+      const consent = localStorage.getItem('cookie-consent');
+      if (consent === 'granted') {
+        this.analyticsService.initializeAnalytics(environment.analyticsId);
+      }
     }
 
     // Set page title and meta tags

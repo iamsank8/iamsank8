@@ -1,0 +1,48 @@
+<!-- Cookie Consent Banner -->
+<div
+  *ngIf="showBanner"
+  class="cookie-consent-banner"
+  role="region"
+  aria-label="Cookie consent banner"
+>
+  <div class="cookie-content-wrapper">
+    <div class="cookie-header">
+      <i class="pi pi-cookie cookie-title-icon" aria-hidden="true"></i>
+      <h3>We value your privacy</h3>
+    </div>
+    <p class="cookie-description">
+      We use cookies to analyze our website traffic and enhance your browsing experience. By
+      clicking <strong>"Accept All"</strong>, you consent to our use of cookies. You can decline optional
+      cookies or change your settings at any time using the floating cookie icon.
+    </p>
+    <div class="cookie-actions">
+      <button
+        pButton
+        type="button"
+        class="p-button-outlined p-button-secondary p-button-sm cookie-btn-decline"
+        (click)="decline()"
+      >
+        Decline
+      </button>
+      <button
+        pButton
+        type="button"
+        class="p-button-sm cookie-btn-accept"
+        (click)="acceptAll()"
+      >
+        Accept All
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Cookie Toggle Badge -->
+<button
+  *ngIf="showBadge"
+  class="cookie-badge"
+  (click)="openBanner()"
+  aria-label="Manage cookie settings"
+  title="Manage cookie settings"
+>
+  <i class="pi pi-cookie" aria-hidden="true"></i>
+</button>

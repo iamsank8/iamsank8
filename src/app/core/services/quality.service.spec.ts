@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { QualityService } from './quality.service';
 import { QualityReport } from '../models/quality-report.model';
-import { environment } from '../../../environments/environment';
 
 describe('QualityService', () => {
   let service: QualityService;

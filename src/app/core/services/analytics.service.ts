@@ -22,6 +22,14 @@ export class AnalyticsService {
     window.gtag = function (...args: unknown[]) {
       window.dataLayer.push(args);
     };
+
+    // Set default consent to 'denied' for privacy-by-design
+    window.gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+    });
   }
 
   /**
@@ -34,16 +42,22 @@ export class AnalyticsService {
 
     this.initialized = true;
 
-    // Add Google Analytics script
+    // Update consent to 'granted' since the user has explicitly accepted
+    window.gtag('consent', 'update', {
+      analytics_storage: 'granted',
+    });
+
+    // Add Google Analytics script dynamically
     const script = document.createElement('script');
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
     document.head.appendChild(script);
 
-    // Initialize gtag
+    // Initialize gtag with secure cookie flags
     window.gtag('js', new Date());
     window.gtag('config', measurementId, {
       send_page_view: false, // We'll handle page views manually
+      cookie_flags: 'max-age=63072000;secure;samesite=lax',
     });
 
     // Track route changes
