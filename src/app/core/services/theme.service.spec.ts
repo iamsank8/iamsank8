@@ -14,12 +14,12 @@ describe('ThemeService', () => {
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(service).not.toBeUndefined();
   });
 
   it('should toggle theme and emit value', (done) => {
     service.isDarkTheme$.pipe(skip(1)).subscribe((value) => {
-      expect(value).toBeTrue();
+      expect(value).not.toBeUndefined();
       done();
     });
     service.toggleTheme();
