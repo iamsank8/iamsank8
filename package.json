@@ -31,7 +31,8 @@
     "e2e:headless": "cypress run",
     "format": "prettier --write \"src/**/*.{ts,html,scss,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,html,scss,css,json}\"",
-    "quality:report": "node scripts/generate-quality-report.js"
+    "quality:report": "node scripts/generate-quality-report.js",
+    "upgrade-angular": "./scripts/upgrade-angular.sh"
   },
   "private": true,
   "dependencies": {
@@ -51,9 +52,9 @@
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^21.2.18",
+    "@angular-devkit/build-angular": "^17.3.0",
     "@angular-devkit/build-webpack": "^0.2003.3",
-    "@angular/cli": "^22.0.5",
+    "@angular/cli": "^17.3.0",
     "@angular/compiler-cli": "^17.3.12",
     "@types/jasmine": "^5.1.13",
     "@types/node": "^12.11.1",
