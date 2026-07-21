@@ -54,7 +54,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.0",
     "@angular-devkit/build-webpack": "^0.2003.3",
-    "@angular/cli": "^17.3.0",
+    "@angular/cli": "^22.0.7",
     "@angular/compiler-cli": "^17.3.12",
     "@types/jasmine": "^5.1.13",
     "@types/node": "^12.11.1",
